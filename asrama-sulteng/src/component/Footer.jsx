@@ -6,7 +6,7 @@ const Footer = () => {
     <div>
       <div className="bg-abuAbu px-14 py-10">
         <h1 className=" font-semibold">Asrama Tora-Tora</h1>
-        <div className="flex gap-4 md:gap-0">
+        <div className="md:flex gap-4 md:gap-0 flex-none">
           <div className="md:w-1/2">
             <div className="flex gap-2 mt-3">
               <MapPinIcon className="h-5 w-5" />
