@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo-asrama.png";
 import {
   Navbar,
@@ -6,10 +6,17 @@ import {
   Typography,
   Button,
   IconButton,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
 } from "@material-tailwind/react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const [isHover, setIsHover] = useState(false);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -26,20 +33,42 @@ const NavigationBar = () => {
         color="black"
         className="flex items-center gap-x-2 p-2 font-medium hover:bg-orange-50 hover:text-orangeAsrama rounded-full"
       >
-        <a href="#" className="flex items-center">
+        <Link to={"/"} className="flex items-center">
           Beranda
-        </a>
+        </Link>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="black"
-        className="flex items-center gap-x-2 p-2 font-medium hover:bg-orange-50 hover:text-orangeAsrama rounded-full"
-      >
-        <a href="#" className="flex items-center">
-          Profil Asrama
-        </a>
-      </Typography>
+      <Menu allowHover>
+        <MenuHandler>
+          <Typography
+            as="li"
+            variant="small"
+            color="black"
+            className="flex items-center gap-x-2 p-2 font-medium hover:bg-orange-50 hover:text-orangeAsrama rounded-full"
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+          >
+            <a href="#" className="flex items-center">
+              Profil Asrama
+            </a>
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`h-3.5 w-3.5 transition-transform transform ${
+                isHover ? "rotate-180" : ""
+              }`}
+            />
+          </Typography>
+        </MenuHandler>
+        <MenuList>
+          <MenuItem>
+            <Link to={"/visimisi"} className="flex items-center">
+              Visi Misi
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <a href="">Struktur Organiasi</a>
+          </MenuItem>
+        </MenuList>
+      </Menu>
       <Typography
         as="li"
         variant="small"
@@ -76,7 +105,7 @@ const NavigationBar = () => {
   return (
     <div>
       <Navbar
-        className="mx-auto px-4 py-2 lg:px-8 lg:py-4 rounded-none"
+        className="mx-auto px-4 py-2 lg:px-8 lg:py-4 rounded-none bg-white fixed z-10 top-0"
         fullWidth
       >
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
@@ -108,7 +137,7 @@ const NavigationBar = () => {
               className="hidden lg:inline-block"
               color="deep-orange"
             >
-              <span>Sign in</span>
+              <span>Login</span>
             </Button>
           </div>
           <IconButton
