@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeView from "./view/HomeView";
 import VisimisiView from "./view/VisimisiView";
 import StrukturOrganisasiView from "./view/StrukturOrganisasiView";
+import InformasiBiayaView from "./view/InformasiBiayaView";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             path="/strukturorganisasi"
             element={<StrukturOrganisasiView />}
           />
+          <Route path="/informasibiaya" element={<InformasiBiayaView />} />
         </Routes>
       </Router>
     </div>
