@@ -1,27 +1,13 @@
 import React from "react";
 import NavigationBar from "../component/NavigationBar";
-import { Button } from "@material-tailwind/react";
 import Footer from "../component/Footer";
+import Banner from "../component/Banner";
 
 const VisimisiView = () => {
   return (
     <div>
       <NavigationBar />
-      {/* banner */}
-      <div className="md:h-64 h-52 relative flex items-center justify-center mt-20">
-        <img
-          src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt=""
-          className="w-full object-cover md:h-64 md:w-full lg:w-full lg:h-full h-52"
-        />
-
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-center">
-          <div className="md:h-24 h-16 bg-black bg-opacity-50 md:w-96 w-72 text-white text-center uppercase font-bold md:text-3xl text-xl flex items-center justify-center">
-            visi misi
-          </div>
-        </div>
-      </div>
-      {/* banner */}
+      <Banner text={"Visi Misi"} />
       {/* visi */}
       <div className="bg-abuAbu my-10 md:flex md:py-20 py-8 text-justify">
         <div className="w-full md:w-2/5 flex flex-col items-center justify-center mb-3 md:mb-0">

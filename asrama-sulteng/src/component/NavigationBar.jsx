@@ -65,7 +65,9 @@ const NavigationBar = () => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <a href="">Struktur Organiasi</a>
+            <Link to={"/strukturorganisasi"} className="flex items-center">
+              Struktur Organisasi
+            </Link>
           </MenuItem>
         </MenuList>
       </Menu>
