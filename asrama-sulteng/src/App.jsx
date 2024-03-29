@@ -4,6 +4,8 @@ import VisimisiView from "./view/VisimisiView";
 import StrukturOrganisasiView from "./view/StrukturOrganisasiView";
 import InformasiBiayaView from "./view/InformasiBiayaView";
 import KontakView from "./view/KontakView";
+import RegisterView from "./view/RegisterView";
+import LoginView from "./view/LoginView";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           />
           <Route path="/informasibiaya" element={<InformasiBiayaView />} />
           <Route path="/kontak" element={<KontakView />} />
+          <Route path="/register" element={<RegisterView />} />
+          <Route path="/login" element={<LoginView />} />
         </Routes>
       </Router>
     </div>
