@@ -6,6 +6,7 @@ import InformasiBiayaView from "./view/InformasiBiayaView";
 import KontakView from "./view/KontakView";
 import RegisterView from "./view/RegisterView";
 import LoginView from "./view/LoginView";
+import DashboardView from "./view/DashboardView";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/kontak" element={<KontakView />} />
           <Route path="/register" element={<RegisterView />} />
           <Route path="/login" element={<LoginView />} />
+          <Route path="/dashboard" element={<DashboardView />} />
         </Routes>
       </Router>
     </div>

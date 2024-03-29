@@ -133,14 +133,16 @@ const NavigationBar = () => {
 
           <div className="hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block"
-              color="deep-orange"
-            >
-              <span>Login</span>
-            </Button>
+            <Link to={"/login"}>
+              <Button
+                variant="gradient"
+                size="sm"
+                className="hidden lg:inline-block"
+                color="deep-orange"
+              >
+                <span>Login</span>
+              </Button>
+            </Link>
           </div>
           <IconButton
             variant="text"

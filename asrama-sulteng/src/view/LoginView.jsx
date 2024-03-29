@@ -50,7 +50,7 @@ const LoginView = () => {
             <Typography color="gray" className="mt-4 text-center font-normal">
               Belum punya akun?{" "}
               <a href="/register" className="font-medium text-orangeAsrama2">
-                Register
+                Login
               </a>
             </Typography>
           </form>
