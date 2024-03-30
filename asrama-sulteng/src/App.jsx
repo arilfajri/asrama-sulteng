@@ -7,6 +7,7 @@ import KontakView from "./view/KontakView";
 import RegisterView from "./view/RegisterView";
 import LoginView from "./view/LoginView";
 import DashboardView from "./view/DashboardView";
+import VerifikasiView from "./view/VerifikasiView";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/register" element={<RegisterView />} />
           <Route path="/login" element={<LoginView />} />
           <Route path="/dashboard" element={<DashboardView />} />
+
+          <Route path="/verifikasi" element={<VerifikasiView />} />
         </Routes>
       </Router>
     </div>

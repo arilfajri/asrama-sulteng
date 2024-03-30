@@ -21,6 +21,7 @@ import {
   NewspaperIcon,
 } from "@heroicons/react/24/solid";
 import logo from "../assets/logo-asrama.png";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -36,18 +37,22 @@ const Sidebar = () => {
           </Typography>
         </div>
         <List className="text-black">
-          <ListItem>
-            <ListItemPrefix>
-              <PresentationChartBarIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Dashboard
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <ClipboardDocumentCheckIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Verifikasi
-          </ListItem>
+          <Link to={"/dashboard"}>
+            <ListItem>
+              <ListItemPrefix>
+                <PresentationChartBarIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Dashboard
+            </ListItem>
+          </Link>
+          <Link to={"/verifikasi"}>
+            <ListItem>
+              <ListItemPrefix>
+                <ClipboardDocumentCheckIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Verifikasi
+            </ListItem>
+          </Link>
           <ListItem>
             <ListItemPrefix>
               <CircleStackIcon className="h-5 w-5" />

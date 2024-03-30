@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import Sidebar from "../component/Sidebar";
-import {
-  ChevronDownIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/solid";
+import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { Button, Card, Typography } from "@material-tailwind/react";
+import NavigationBarAdmin from "../component/NavigationBarAdmin";
 
 const DashboardView = () => {
-  const [isHover, setIsHover] = useState(false);
   const TABLE_HEAD = ["Name", "Job", "Employed", ""];
 
   const TABLE_ROWS = [
@@ -43,22 +39,7 @@ const DashboardView = () => {
     <div className="flex">
       <Sidebar />
       <div className="w-full">
-        <div className="bg-abuAbu shadow">
-          <div
-            className="cursor-pointer hover:text-blue-800 flex justify-end items-center gap-1 py-5 px-12"
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-          >
-            <UserCircleIcon className="h-6 w-6" />
-            <Typography>Aril Fajri Tolani</Typography>
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`h-3.5 w-3.5 transition-transform transform ${
-                isHover ? "rotate-180" : ""
-              }`}
-            />
-          </div>
-        </div>
+        <NavigationBarAdmin />
         <div className="flex items-center justify-between p-5">
           <Typography className=" text-xl">Dashboard</Typography>
           <Button
