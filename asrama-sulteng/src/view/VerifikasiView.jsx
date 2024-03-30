@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { EyeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 
 const TABLE_HEAD = [
   "No",
@@ -181,10 +182,12 @@ const VerifikasiView = () => {
                           </Typography>
                         </td>
                         <td className={classes}>
-                          <EyeIcon
-                            color="blue"
-                            className="h-5 w-5 cursor-pointer"
-                          />
+                          <Link to={"/verifikasidetail"}>
+                            <EyeIcon
+                              color="blue"
+                              className="h-5 w-5 cursor-pointer"
+                            />
+                          </Link>
                         </td>
                       </tr>
                     );
