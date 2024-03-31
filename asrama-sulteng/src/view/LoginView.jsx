@@ -45,12 +45,12 @@ const LoginView = () => {
             </div>
 
             <Button className="mt-6" fullWidth color="deep-orange">
-              Register
+              Login
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
               Belum punya akun?{" "}
               <a href="/register" className="font-medium text-orangeAsrama2">
-                Login
+                Register
               </a>
             </Typography>
           </form>
