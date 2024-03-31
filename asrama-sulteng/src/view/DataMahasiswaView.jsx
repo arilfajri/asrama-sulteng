@@ -84,7 +84,9 @@ const DataMahasiswaView = () => {
           </Typography>
         </div>
         <div className="px-5 flex gap-5">
-          <Button color="green">Tambah Data</Button>
+          <Link to={"/datamahasiswa/tambah"}>
+            <Button color="green">Tambah Data</Button>
+          </Link>
           <Button color="green">Unduh Data</Button>
         </div>
         <div className="p-5">
@@ -193,7 +195,7 @@ const DataMahasiswaView = () => {
                         </td>
                         <td className={classes}>
                           <div className="flex gap-2 justify-center">
-                            <Link to={"/verifikasi/detail"}>
+                            <Link to={"/datamahasiswa/detail"}>
                               <Tooltip content="Detail">
                                 <EyeIcon
                                   color="blue"
@@ -201,12 +203,14 @@ const DataMahasiswaView = () => {
                                 />
                               </Tooltip>
                             </Link>
-                            <Tooltip content="Ubah">
-                              <PencilSquareIcon
-                                color="green"
-                                className="h-5 w-5 cursor-pointer"
-                              />
-                            </Tooltip>
+                            <Link to={"/datamahasiswa/ubah"}>
+                              <Tooltip content="Ubah">
+                                <PencilSquareIcon
+                                  color="green"
+                                  className="h-5 w-5 cursor-pointer"
+                                />
+                              </Tooltip>
+                            </Link>
                             <Tooltip content="Hapus">
                               <TrashIcon
                                 color="red"

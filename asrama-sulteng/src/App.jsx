@@ -10,6 +10,9 @@ import DashboardView from "./view/DashboardView";
 import VerifikasiView from "./view/VerifikasiView";
 import VerifikasiDetailView from "./view/VerifikasiDetailView";
 import DataMahasiswaView from "./view/DataMahasiswaView";
+import DetailMahasiswaView from "./view/DetailMahasiswaView";
+import UbahDataMahasiswaView from "./view/UbahDataMahasiswaView";
+import TambahDataMahasiswaView from "./view/TambahDataMahasiswaView";
 
 function App() {
   return (
@@ -30,6 +33,18 @@ function App() {
           <Route path="/verifikasi" element={<VerifikasiView />} />
           <Route path="/verifikasi/detail" element={<VerifikasiDetailView />} />
           <Route path="/datamahasiswa" element={<DataMahasiswaView />} />
+          <Route
+            path="/datamahasiswa/detail"
+            element={<DetailMahasiswaView />}
+          />
+          <Route
+            path="/datamahasiswa/ubah"
+            element={<UbahDataMahasiswaView />}
+          />
+          <Route
+            path="/datamahasiswa/tambah"
+            element={<TambahDataMahasiswaView />}
+          />
         </Routes>
       </Router>
     </div>

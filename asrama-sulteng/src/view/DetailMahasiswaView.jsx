@@ -2,15 +2,16 @@ import React from "react";
 import Sidebar from "../component/Sidebar";
 import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import { Button, Input, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
-const VerifikasiDetailView = () => {
+const DetailMahasiswaView = () => {
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-full">
         <NavigationBarAdmin />
         <div className="p-5">
-          <Typography className="text-xl">Verifikasi Calon Penghuni</Typography>
+          <Typography className="text-xl">Data Penghuni Asrama</Typography>
         </div>
         <div className="p-5">
           <div className="flex flex-col gap-5">
@@ -109,12 +110,13 @@ const VerifikasiDetailView = () => {
           </div>
         </div>
         <div className="p-5 flex gap-3">
-          <Button color="red">Tolak</Button>
-          <Button color="green">terima</Button>
+          <Link to={"/datamahasiswa"}>
+            <Button className="bg-blue-900">Kembali</Button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default VerifikasiDetailView;
+export default DetailMahasiswaView;

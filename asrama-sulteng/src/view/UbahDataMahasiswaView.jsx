@@ -2,15 +2,16 @@ import React from "react";
 import Sidebar from "../component/Sidebar";
 import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import { Button, Input, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
-const VerifikasiDetailView = () => {
+const UbahDataMahasiswaView = () => {
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-full">
         <NavigationBarAdmin />
         <div className="p-5">
-          <Typography className="text-xl">Verifikasi Calon Penghuni</Typography>
+          <Typography className="text-xl">Data Penghuni Asrama</Typography>
         </div>
         <div className="p-5">
           <div className="flex flex-col gap-5">
@@ -88,33 +89,26 @@ const VerifikasiDetailView = () => {
             </div>
             <div className="flex items-center">
               <Typography className="w-96">KTP</Typography>
-              <Input className="w-full" value={"File KTP"} label="KTP" />
+              <Input className="w-full" label="KTP" type="file" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Kartu Keluarga</Typography>
-              <Input
-                className="w-full"
-                value={"File Kartu Keluarga"}
-                label="KK"
-              />
+              <Input className="w-full" type="file" label="KK" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Surat Ket.Aktif Kuliah</Typography>
-              <Input
-                className="w-full"
-                value={"File Suat Ket.Aktif Kuliah"}
-                label="Ket.Aktif Kuliah"
-              />
+              <Input className="w-full" type="file" label="Ket.Aktif Kuliah" />
             </div>
           </div>
         </div>
         <div className="p-5 flex gap-3">
-          <Button color="red">Tolak</Button>
-          <Button color="green">terima</Button>
+          <Link to={"/datamahasiswa"}>
+            <Button className="bg-blue-900">Ubah Data</Button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default VerifikasiDetailView;
+export default UbahDataMahasiswaView;
