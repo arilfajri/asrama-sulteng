@@ -38,7 +38,7 @@ const Sidebar = () => {
         </div>
         <List className="text-black">
           <Link to={"/dashboard"}>
-            <ListItem>
+            <ListItem className="hover:bg-blue-900 hover:text-white">
               <ListItemPrefix>
                 <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -46,26 +46,28 @@ const Sidebar = () => {
             </ListItem>
           </Link>
           <Link to={"/verifikasi"}>
-            <ListItem>
+            <ListItem className="hover:bg-blue-900 hover:text-white">
               <ListItemPrefix>
                 <ClipboardDocumentCheckIcon className="h-5 w-5" />
               </ListItemPrefix>
               Verifikasi
             </ListItem>
           </Link>
-          <ListItem>
-            <ListItemPrefix>
-              <CircleStackIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Data Mahasiswa
-          </ListItem>
-          <ListItem>
+          <Link to={"/datamahasiswa"}>
+            <ListItem className="hover:bg-blue-900 hover:text-white">
+              <ListItemPrefix>
+                <CircleStackIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Data Mahasiswa
+            </ListItem>
+          </Link>
+          <ListItem className="hover:bg-blue-900 hover:text-white">
             <ListItemPrefix>
               <BanknotesIcon className="h-5 w-5" />
             </ListItemPrefix>
             Uang Kas
           </ListItem>
-          <ListItem>
+          <ListItem className="hover:bg-blue-900 hover:text-white">
             <ListItemPrefix>
               <NewspaperIcon className="h-5 w-5" />
             </ListItemPrefix>

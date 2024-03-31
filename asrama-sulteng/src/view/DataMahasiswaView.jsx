@@ -12,62 +12,67 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import { EyeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import {
+  EyeIcon,
+  MagnifyingGlassIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
-const TABLE_HEAD = [
-  "No",
-  "Nama",
-  "Email",
-  "Universitas",
-  "Kamar Yang Di Booking",
-  "Status",
-  "Aksi",
-];
+const DataMahasiswaView = () => {
+  const TABLE_HEAD = [
+    "No",
+    "Nama",
+    "Email",
+    "Universitas",
+    "Kamar",
+    "No.Hp",
+    "Aksi",
+  ];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    nama: "John Michael",
-    email: "example@gmail.com",
-    universitas: "Universitas Pasundan",
-    kamar: "A",
-    status: "Diterima",
-  },
-  {
-    no: "1",
-    nama: "Alexa Liras",
-    email: "example@gmail.com",
-    universitas: "Unikom",
-    kamar: "A1",
-    status: "Diterima",
-  },
-  {
-    no: "2",
-    nama: "Laurent Perrier",
-    email: "example@gmail.com",
-    universitas: "Universitas Telkom",
-    kamar: "A2",
-    status: "Diterima",
-  },
-  {
-    no: "3",
-    nama: "Michael Levi",
-    email: "example@gmail.com",
-    universitas: "Universitas Pendidikan Indonesia",
-    kamar: "A3",
-    status: "Diterima",
-  },
-  {
-    no: "4",
-    name: "Richard Gran",
-    universitas: "Manager",
-    kamar: "A4",
-    status: "Diterima",
-  },
-];
-
-const VerifikasiView = () => {
+  const TABLE_ROWS = [
+    {
+      no: "1",
+      nama: "John Michael",
+      email: "example@gmail.com",
+      universitas: "Universitas Pasundan",
+      kamar: "A",
+      hp: "082188216081",
+    },
+    {
+      no: "1",
+      nama: "Alexa Liras",
+      email: "example@gmail.com",
+      universitas: "Unikom",
+      kamar: "A1",
+      hp: "082188216081",
+    },
+    {
+      no: "2",
+      nama: "Laurent Perrier",
+      email: "example@gmail.com",
+      universitas: "Universitas Telkom",
+      kamar: "A2",
+      hp: "082188216081",
+    },
+    {
+      no: "3",
+      nama: "Michael Levi",
+      email: "example@gmail.com",
+      universitas: "Universitas Pendidikan Indonesia",
+      kamar: "A3",
+      hp: "082188216081",
+    },
+    {
+      no: "4",
+      nama: "Areel",
+      email: "example@gmail.com",
+      universitas: "Universitas Padjajaran",
+      kamar: "A3",
+      hp: "082188216081",
+    },
+  ];
   return (
     <div className="flex">
       <Sidebar />
@@ -75,8 +80,12 @@ const VerifikasiView = () => {
         <NavigationBarAdmin />
         <div className="p-5">
           <Typography className=" text-xl">
-            Verifikasi Calon Penghuni
+            Mahasiswa Penghuni Asrama
           </Typography>
+        </div>
+        <div className="px-5 flex gap-5">
+          <Button color="green">Tambah Data</Button>
+          <Button color="green">Unduh Data</Button>
         </div>
         <div className="p-5">
           <div className="flex gap-3 justify-between">
@@ -120,7 +129,7 @@ const VerifikasiView = () => {
               </thead>
               <tbody>
                 {TABLE_ROWS.map(
-                  ({ no, nama, email, universitas, kamar, status }, index) => {
+                  ({ no, nama, email, universitas, kamar, hp }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "p-4"
@@ -179,18 +188,32 @@ const VerifikasiView = () => {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {status}
+                            {hp}
                           </Typography>
                         </td>
                         <td className={classes}>
-                          <Link to={"/verifikasi/detail"}>
-                            <Tooltip content="Detail">
-                              <EyeIcon
-                                color="blue"
+                          <div className="flex gap-2 justify-center">
+                            <Link to={"/verifikasi/detail"}>
+                              <Tooltip content="Detail">
+                                <EyeIcon
+                                  color="blue"
+                                  className="h-5 w-5 cursor-pointer"
+                                />
+                              </Tooltip>
+                            </Link>
+                            <Tooltip content="Ubah">
+                              <PencilSquareIcon
+                                color="green"
                                 className="h-5 w-5 cursor-pointer"
                               />
                             </Tooltip>
-                          </Link>
+                            <Tooltip content="Hapus">
+                              <TrashIcon
+                                color="red"
+                                className="h-5 w-5 cursor-pointer"
+                              />
+                            </Tooltip>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -245,4 +268,4 @@ const VerifikasiView = () => {
   );
 };
 
-export default VerifikasiView;
+export default DataMahasiswaView;
