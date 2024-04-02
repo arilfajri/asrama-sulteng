@@ -1,32 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Typography,
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Chip,
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
   ClipboardDocumentCheckIcon,
   CircleStackIcon,
   BanknotesIcon,
   NewspaperIcon,
 } from "@heroicons/react/24/solid";
 import logo from "../assets/logo-asrama.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const [activeItems, setActiveItems] = useState({
+    "/dashboard": false,
+    "/verifikasi": false,
+    "/datamahasiswa": false,
+    "/keuangan": false,
+    "/informasi": false,
+  });
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+    setActiveItems((prevState) => ({
+      ...prevState,
+      [path]: true,
+    }));
+  }, [location.pathname]);
+
   return (
     <div>
-      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-full">
+      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-[calc(100vh)]">
         <div className="mb-2 p-4 flex flex-col justify-center items-center">
           <img src={logo} alt="" className="w-16" />
           <Typography variant="h6" className=" text-blue-800 mt-6">
@@ -38,7 +48,13 @@ const Sidebar = () => {
         </div>
         <List className="text-black">
           <Link to={"/dashboard"}>
-            <ListItem className="hover:bg-blue-900 hover:text-white">
+            <ListItem
+              className={`${
+                activeItems["/dashboard"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
               <ListItemPrefix>
                 <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -46,7 +62,13 @@ const Sidebar = () => {
             </ListItem>
           </Link>
           <Link to={"/verifikasi"}>
-            <ListItem className="hover:bg-blue-900 hover:text-white">
+            <ListItem
+              className={`${
+                activeItems["/verifikasi"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
               <ListItemPrefix>
                 <ClipboardDocumentCheckIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -54,25 +76,47 @@ const Sidebar = () => {
             </ListItem>
           </Link>
           <Link to={"/datamahasiswa"}>
-            <ListItem className="hover:bg-blue-900 hover:text-white">
+            <ListItem
+              className={`${
+                activeItems["/datamahasiswa"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
               <ListItemPrefix>
                 <CircleStackIcon className="h-5 w-5" />
               </ListItemPrefix>
               Data Mahasiswa
             </ListItem>
           </Link>
-          <ListItem className="hover:bg-blue-900 hover:text-white">
-            <ListItemPrefix>
-              <BanknotesIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Uang Kas
-          </ListItem>
-          <ListItem className="hover:bg-blue-900 hover:text-white">
-            <ListItemPrefix>
-              <NewspaperIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Informasi
-          </ListItem>
+          <Link to={"/keuangan"}>
+            <ListItem
+              className={`${
+                activeItems["/keuangan"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
+              <ListItemPrefix>
+                <BanknotesIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Uang Kas
+            </ListItem>
+          </Link>
+          <Link to={"/informasi"}>
+            <ListItem
+              className={`${
+                activeItems["/informasi"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
+              <ListItemPrefix>
+                <NewspaperIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Informasi
+            </ListItem>
+          </Link>
         </List>
       </Card>
     </div>

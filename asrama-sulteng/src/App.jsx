@@ -13,6 +13,10 @@ import DataMahasiswaView from "./view/DataMahasiswaView";
 import DetailMahasiswaView from "./view/DetailMahasiswaView";
 import UbahDataMahasiswaView from "./view/UbahDataMahasiswaView";
 import TambahDataMahasiswaView from "./view/TambahDataMahasiswaView";
+import KeuanganView from "./view/KeuanganView";
+import TambahKeuanganView from "./view/TambahKeuanganView";
+import UbahKeuanganView from "./view/UbahKeuanganView";
+import UnduhDataKeuanganView from "./view/UnduhDataKeuanganView";
 
 function App() {
   return (
@@ -45,6 +49,10 @@ function App() {
             path="/datamahasiswa/tambah"
             element={<TambahDataMahasiswaView />}
           />
+          <Route path="/keuangan" element={<KeuanganView />} />
+          <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
+          <Route path="/keuangan/ubah" element={<UbahKeuanganView />} />
+          <Route path="/keuangan/unduh" element={<UnduhDataKeuanganView />} />
         </Routes>
       </Router>
     </div>
