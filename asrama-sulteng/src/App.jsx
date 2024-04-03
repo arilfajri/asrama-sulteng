@@ -17,6 +17,7 @@ import KeuanganView from "./view/KeuanganView";
 import TambahKeuanganView from "./view/TambahKeuanganView";
 import UbahKeuanganView from "./view/UbahKeuanganView";
 import UnduhDataKeuanganView from "./view/UnduhDataKeuanganView";
+import InformasiView from "./view/InformasiView";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
           <Route path="/keuangan/ubah" element={<UbahKeuanganView />} />
           <Route path="/keuangan/unduh" element={<UnduhDataKeuanganView />} />
+          <Route path="/informasi" element={<InformasiView />} />
         </Routes>
       </Router>
     </div>

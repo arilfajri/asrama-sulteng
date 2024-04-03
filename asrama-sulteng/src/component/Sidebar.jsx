@@ -36,7 +36,7 @@ const Sidebar = () => {
 
   return (
     <div>
-      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-[calc(100vh)]">
+      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-full">
         <div className="mb-2 p-4 flex flex-col justify-center items-center">
           <img src={logo} alt="" className="w-16" />
           <Typography variant="h6" className=" text-blue-800 mt-6">
