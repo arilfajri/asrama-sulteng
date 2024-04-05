@@ -40,7 +40,9 @@ const SidebarCalonPenghuni = () => {
           <Link to={"/kamar"}>
             <ListItem
               className={`${
-                activeItems["/kamar"]
+                activeItems["/kamar"] ||
+                activeItems["/kamar/detail"] ||
+                activeItems["/kamar/detail/daftar"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}
@@ -51,10 +53,10 @@ const SidebarCalonPenghuni = () => {
               Kamar Tersedia
             </ListItem>
           </Link>
-          <Link to={"/verifikasi"}>
+          <Link to={"/status"}>
             <ListItem
               className={`${
-                activeItems["/verifikasi"] || activeItems["/verifikasi/detail"]
+                activeItems["/status"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}

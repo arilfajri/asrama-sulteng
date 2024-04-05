@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const KamarTersediaView = () => {
   return (
@@ -34,7 +35,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
           <Card className="mt-6">
@@ -51,7 +54,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
           <Card className="mt-6">
@@ -68,7 +73,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
           <Card className="mt-6">
@@ -85,7 +92,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
           <Card className="mt-6">
@@ -102,7 +111,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
           <Card className="mt-6">
@@ -119,7 +130,9 @@ const KamarTersediaView = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button className=" bg-blue-900">Pilih Kamar</Button>
+              <Link to="/kamar/detail">
+                <Button className=" bg-blue-900">Pilih Kamar</Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>

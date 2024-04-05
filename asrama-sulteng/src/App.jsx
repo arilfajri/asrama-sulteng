@@ -19,6 +19,9 @@ import UbahKeuanganView from "./view/UbahKeuanganView";
 import UnduhDataKeuanganView from "./view/UnduhDataKeuanganView";
 import InformasiView from "./view/InformasiView";
 import KamarTersediaView from "./view/KamarTersediaView";
+import DetailKamarView from "./view/DetailKamarView";
+import BookingKamarView from "./view/BookingKamarView";
+import StatusView from "./view/StatusView";
 
 function App() {
   return (
@@ -57,6 +60,9 @@ function App() {
           <Route path="/keuangan/unduh" element={<UnduhDataKeuanganView />} />
           <Route path="/informasi" element={<InformasiView />} />
           <Route path="/kamar" element={<KamarTersediaView />} />
+          <Route path="/kamar/detail" element={<DetailKamarView />} />
+          <Route path="/kamar/detail/daftar" element={<BookingKamarView />} />
+          <Route path="/status" element={<StatusView />} />
         </Routes>
       </Router>
     </div>
