@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Sidebar from "../component/Sidebar";
-import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { FunnelIcon } from "@heroicons/react/24/solid";
+import TopBar from "../component/TopBar";
 
 const UnduhDataKeuanganView = () => {
   const [showTable, setShowTable] = useState(false);
@@ -17,7 +17,7 @@ const UnduhDataKeuanganView = () => {
     <div className="flex">
       <Sidebar />
       <div className="w-full">
-        <NavigationBarAdmin />
+        <TopBar />
         <div className="p-5">
           <Typography className="text-xl">Laporan Keuangan Asrama</Typography>
         </div>

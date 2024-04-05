@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "../component/Sidebar";
-import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import {
   Button,
   Card,
@@ -19,6 +18,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import TopBar from "../component/TopBar";
 
 const KeuanganView = () => {
   const TABLE_HEAD = [
@@ -72,7 +72,7 @@ const KeuanganView = () => {
       <div className="flex">
         <Sidebar />
         <div className="w-full">
-          <NavigationBarAdmin />
+          <TopBar />
           <div className="p-5">
             <Typography className=" text-xl">Uang Kas Asrama</Typography>
           </div>

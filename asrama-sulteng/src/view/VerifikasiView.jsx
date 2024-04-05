@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "../component/Sidebar";
-import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import {
   Button,
   Card,
@@ -14,6 +13,7 @@ import {
 } from "@material-tailwind/react";
 import { EyeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import TopBar from "../component/TopBar";
 
 const TABLE_HEAD = [
   "No",
@@ -72,7 +72,7 @@ const VerifikasiView = () => {
     <div className="flex">
       <Sidebar />
       <div className="w-full">
-        <NavigationBarAdmin />
+        <TopBar />
         <div className="p-5">
           <Typography className=" text-xl">
             Verifikasi Calon Penghuni

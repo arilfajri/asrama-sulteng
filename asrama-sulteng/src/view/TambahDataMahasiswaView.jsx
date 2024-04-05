@@ -1,15 +1,15 @@
 import React from "react";
 import Sidebar from "../component/Sidebar";
-import NavigationBarAdmin from "../component/NavigationBarAdmin";
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import TopBar from "../component/TopBar";
 
 const TambahDataMahasiswaView = () => {
   return (
     <div className="flex">
       <Sidebar />
       <div className="w-full">
-        <NavigationBarAdmin />
+        <TopBar />
         <div className="p-5">
           <Typography className="text-xl">Data Penghuni Asrama</Typography>
         </div>

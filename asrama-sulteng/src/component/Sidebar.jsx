@@ -64,7 +64,7 @@ const Sidebar = () => {
           <Link to={"/verifikasi"}>
             <ListItem
               className={`${
-                activeItems["/verifikasi"]
+                activeItems["/verifikasi"] || activeItems["/verifikasi/detail"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}
@@ -78,7 +78,10 @@ const Sidebar = () => {
           <Link to={"/datamahasiswa"}>
             <ListItem
               className={`${
-                activeItems["/datamahasiswa"]
+                activeItems["/datamahasiswa"] ||
+                activeItems["/datamahasiswa/tambah"] ||
+                activeItems["/datamahasiswa/detail"] ||
+                activeItems["/datamahasiswa/ubah"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}
@@ -92,7 +95,10 @@ const Sidebar = () => {
           <Link to={"/keuangan"}>
             <ListItem
               className={`${
-                activeItems["/keuangan"]
+                activeItems["/keuangan"] ||
+                activeItems["/keuangan/tambah"] ||
+                activeItems["/keuangan/ubah"] ||
+                activeItems["/keuangan/unduh"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}

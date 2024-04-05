@@ -3,7 +3,7 @@ import Sidebar from "../component/Sidebar";
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { Button, Card, Typography } from "@material-tailwind/react";
-import NavigationBarAdmin from "../component/NavigationBarAdmin";
+import TopBar from "../component/TopBar";
 
 const DashboardView = () => {
   const TABLE_HEAD = ["Name", "Job", "Employed", ""];
@@ -39,7 +39,7 @@ const DashboardView = () => {
     <div className="flex">
       <Sidebar />
       <div className="w-full">
-        <NavigationBarAdmin />
+        <TopBar />
         <div className="flex items-center justify-between p-5">
           <Typography className=" text-xl">Dashboard</Typography>
           <Button
@@ -49,7 +49,7 @@ const DashboardView = () => {
             Lihat Detail
           </Button>
         </div>
-        <div className="flex justify-between p-5">
+        <div className=" grid grid-cols-3 gap-4 p-5">
           <div className="bg-red-500 text-white flex px-12 py-10 gap-5 justify-center items-center rounded-lg">
             <BanknotesIcon className="h-16 w-16" />
             <div>
