@@ -14,9 +14,10 @@ import {
   NewspaperIcon,
 } from "@heroicons/react/24/solid";
 import logo from "../assets/logo-asrama.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const Sidebar = () => {
+  const params = useParams();
   const [activeItems, setActiveItems] = useState({
     "/dashboard": false,
     "/verifikasi": false,
@@ -64,7 +65,8 @@ const Sidebar = () => {
           <Link to={"/verifikasi"}>
             <ListItem
               className={`${
-                activeItems["/verifikasi"] || activeItems["/verifikasi/detail"]
+                activeItems["/verifikasi"] ||
+                activeItems[`/verifikasi/detail/${params.id}`]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}
@@ -80,8 +82,8 @@ const Sidebar = () => {
               className={`${
                 activeItems["/datamahasiswa"] ||
                 activeItems["/datamahasiswa/tambah"] ||
-                activeItems["/datamahasiswa/detail"] ||
-                activeItems["/datamahasiswa/ubah"]
+                activeItems[`/datamahasiswa/detail/${params.id}`] ||
+                activeItems[`/datamahasiswa/ubah/${params.id}`]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}
@@ -97,7 +99,7 @@ const Sidebar = () => {
               className={`${
                 activeItems["/keuangan"] ||
                 activeItems["/keuangan/tambah"] ||
-                activeItems["/keuangan/ubah"] ||
+                activeItems[`/keuangan/ubah/${params.id}`] ||
                 activeItems["/keuangan/unduh"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"

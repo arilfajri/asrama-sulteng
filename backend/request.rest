@@ -1,0 +1,50 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "name": "Azikra3",
+  "email": "azikra3@gmail.com",
+  "password": "123456",
+  "confPassword": "123456",
+  "role": "user"
+}
+
+###
+GET http://localhost:5000/users
+Content-Type: application/json
+
+###
+PATCH  http://localhost:5000/users/8
+Content-Type: application/json
+
+{
+  "name": "Azikra Update",
+  "email": "azikra@gmail.com",
+  "password": "123456",
+  "confPassword": "123456",
+  "role": "user"
+}
+
+###
+POST   http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "azikra@gmail.com",
+  "password": "123456"
+}
+
+###
+POST   http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "ariel@gmail.com",
+  "password": "123456"
+}
+
+###
+GET http://localhost:5000/me
+
+###
+DELETE  http://localhost:5000/logout

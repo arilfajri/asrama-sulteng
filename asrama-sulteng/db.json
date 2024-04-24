@@ -1,0 +1,304 @@
+{
+  "mahasiswa": [
+    {
+      "id": 1,
+      "nama": "Andi",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Jakarta",
+      "tanggal_lahir": "1998-05-15",
+      "email": "andi@example.com",
+      "no_hp": "081234567890",
+      "alamat_asal": "Jakarta",
+      "universitas": "Universitas X",
+      "jurusan": "Teknik Informatika",
+      "angkatan": 2020,
+      "kamar": {
+        "nomor_kamar": "A-101",
+        "fasilitas": ["AC", "Kamar Mandi Dalam"]
+      },
+      "ktp": "1234567890123456",
+      "kartu_keluarga": "12345-12345",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 2,
+      "nama": "Budi",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Surabaya",
+      "tanggal_lahir": "1999-07-20",
+      "email": "budi@example.com",
+      "no_hp": "087654321098",
+      "alamat_asal": "Surabaya",
+      "universitas": "Universitas Y",
+      "jurusan": "Manajemen",
+      "angkatan": 2019,
+      "kamar": {
+        "nomor_kamar": "B-201",
+        "fasilitas": ["AC", "TV"]
+      },
+      "ktp": "9876543210987654",
+      "kartu_keluarga": "54321-54321",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 3,
+      "nama": "Citra",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Bandung",
+      "tanggal_lahir": "2000-10-25",
+      "email": "citra@example.com",
+      "no_hp": "081112223344",
+      "alamat_asal": "Bandung",
+      "universitas": "Universitas Z",
+      "jurusan": "Psikologi",
+      "angkatan": 2021,
+      "kamar": {
+        "nomor_kamar": "C-301",
+        "fasilitas": ["Kipas Angin", "Kamar Mandi Bersama"]
+      },
+      "ktp": "0987654321098765",
+      "kartu_keluarga": "67890-67890",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 4,
+      "nama": "Diana",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Yogyakarta",
+      "tanggal_lahir": "1997-08-12",
+      "email": "diana@example.com",
+      "no_hp": "081234567891",
+      "alamat_asal": "Yogyakarta",
+      "universitas": "Universitas X",
+      "jurusan": "Ilmu Komunikasi",
+      "angkatan": 2018,
+      "kamar": {
+        "nomor_kamar": "D-401",
+        "fasilitas": ["AC", "Kamar Mandi Dalam"]
+      },
+      "ktp": "1357924680246813",
+      "kartu_keluarga": "13579-13579",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 5,
+      "nama": "Eka",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Surakarta",
+      "tanggal_lahir": "2001-03-18",
+      "email": "eka@example.com",
+      "no_hp": "082345678912",
+      "alamat_asal": "Surakarta",
+      "universitas": "Universitas Y",
+      "jurusan": "Akuntansi",
+      "angkatan": 2020,
+      "kamar": {
+        "nomor_kamar": "E-501",
+        "fasilitas": ["AC", "TV", "Kamar Mandi Dalam"]
+      },
+      "ktp": "2468013579135792",
+      "kartu_keluarga": "24680-24680",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 6,
+      "nama": "Fani",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Semarang",
+      "tanggal_lahir": "1999-11-30",
+      "email": "fani@example.com",
+      "no_hp": "083456789123",
+      "alamat_asal": "Semarang",
+      "universitas": "Universitas Z",
+      "jurusan": "Pendidikan Bahasa Inggris",
+      "angkatan": 2019,
+      "kamar": {
+        "nomor_kamar": "F-601",
+        "fasilitas": ["AC", "Kipas Angin", "Kamar Mandi Bersama"]
+      },
+      "ktp": "3690246813579024",
+      "kartu_keluarga": "36902-36902",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 7,
+      "nama": "Gita",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Denpasar",
+      "tanggal_lahir": "2000-02-10",
+      "email": "gita@example.com",
+      "no_hp": "084567891234",
+      "alamat_asal": "Denpasar",
+      "universitas": "Universitas X",
+      "jurusan": "Hukum",
+      "angkatan": 2021,
+      "kamar": {
+        "nomor_kamar": "G-701",
+        "fasilitas": ["AC", "Kipas Angin", "TV", "Kamar Mandi Dalam"]
+      },
+      "ktp": "4813579024680135",
+      "kartu_keluarga": "48135-48135",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 8,
+      "nama": "Hendra",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Medan",
+      "tanggal_lahir": "1998-12-05",
+      "email": "hendra@example.com",
+      "no_hp": "085678912345",
+      "alamat_asal": "Medan",
+      "universitas": "Universitas Y",
+      "jurusan": "Ekonomi",
+      "angkatan": 2020,
+      "kamar": {
+        "nomor_kamar": "H-801",
+        "fasilitas": ["AC", "TV", "Kamar Mandi Dalam"]
+      },
+      "ktp": "9024681357902468",
+      "kartu_keluarga": "90246-90246",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 9,
+      "nama": "Indra",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Padang",
+      "tanggal_lahir": "1997-09-20",
+      "email": "indra@example.com",
+      "no_hp": "086789123456",
+      "alamat_asal": "Padang",
+      "universitas": "Universitas Z",
+      "jurusan": "Filsafat",
+      "angkatan": 2018,
+      "kamar": {
+        "nomor_kamar": "I-901",
+        "fasilitas": ["AC", "Kamar Mandi Bersama"]
+      },
+      "ktp": "0246813579024681",
+      "kartu_keluarga": "02468-02468",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 10,
+      "nama": "Joko",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Surabaya",
+      "tanggal_lahir": "1998-03-25",
+      "email": "joko@example.com",
+      "no_hp": "087891234567",
+      "alamat_asal": "Surabaya",
+      "universitas": "Universitas X",
+      "jurusan": "Arsitektur",
+      "angkatan": 2019,
+      "kamar": {
+        "nomor_kamar": "J-1001",
+        "fasilitas": ["AC", "Kipas Angin", "Kamar Mandi Bersama"]
+      },
+      "ktp": "3579024680135790",
+      "kartu_keluarga": "35790-35790",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 11,
+      "nama": "Kartika",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Bandung",
+      "tanggal_lahir": "1999-11-10",
+      "email": "kartika@example.com",
+      "no_hp": "088123456789",
+      "alamat_asal": "Bandung",
+      "universitas": "Universitas Y",
+      "jurusan": "Farmasi",
+      "angkatan": 2020,
+      "kamar": {
+        "nomor_kamar": "K-1101",
+        "fasilitas": ["AC", "TV", "Kamar Mandi Dalam"]
+      },
+      "ktp": "5790246813579024",
+      "kartu_keluarga": "57902-57902",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 12,
+      "nama": "Lina",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Surakarta",
+      "tanggal_lahir": "2000-06-20",
+      "email": "lina@example.com",
+      "no_hp": "089234567890",
+      "alamat_asal": "Surakarta",
+      "universitas": "Universitas Z",
+      "jurusan": "Teknik Industri",
+      "angkatan": 2021,
+      "kamar": {
+        "nomor_kamar": "L-1201",
+        "fasilitas": ["AC", "Kipas Angin", "TV", "Kamar Mandi Bersama"]
+      },
+      "ktp": "6801357902468135",
+      "kartu_keluarga": "68013-68013",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 13,
+      "nama": "Mega",
+      "jenis_kelamin": "Perempuan",
+      "tempat_lahir": "Semarang",
+      "tanggal_lahir": "1998-09-15",
+      "email": "mega@example.com",
+      "no_hp": "081234567890",
+      "alamat_asal": "Semarang",
+      "universitas": "Universitas X",
+      "jurusan": "Psikologi",
+      "angkatan": 2019,
+      "kamar": {
+        "nomor_kamar": "M-1301",
+        "fasilitas": ["AC", "Kamar Mandi Dalam"]
+      },
+      "ktp": "7913579024680135",
+      "kartu_keluarga": "79135-79135",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 14,
+      "nama": "Nanda",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Yogyakarta",
+      "tanggal_lahir": "2001-12-10",
+      "email": "nanda@example.com",
+      "no_hp": "082345678901",
+      "alamat_asal": "Yogyakarta",
+      "universitas": "Universitas Y",
+      "jurusan": "Ilmu Politik",
+      "angkatan": 2021,
+      "kamar": {
+        "nomor_kamar": "N-1401",
+        "fasilitas": ["AC", "TV", "Kamar Mandi Dalam"]
+      },
+      "ktp": "9024680135790246",
+      "kartu_keluarga": "90246-90246",
+      "surat_ket_aktif_kuliah": "Aktif"
+    },
+    {
+      "id": 15,
+      "nama": "Oscar",
+      "jenis_kelamin": "Laki-laki",
+      "tempat_lahir": "Medan",
+      "tanggal_lahir": "1999-01-05",
+      "email": "oscar@example.com",
+      "no_hp": "083456789012",
+      "alamat_asal": "Medan",
+      "universitas": "Universitas Z",
+      "jurusan": "Kedokteran",
+      "angkatan": 2020,
+      "kamar": {
+        "nomor_kamar": "O-1501",
+        "fasilitas": ["AC", "Kamar Mandi Bersama"]
+      },
+      "ktp": "0135790246801357",
+      "kartu_keluarga": "01357-01357",
+      "surat_ket_aktif_kuliah": "Aktif"
+    }
+  ]
+}

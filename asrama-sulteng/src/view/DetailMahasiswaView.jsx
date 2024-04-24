@@ -1,10 +1,13 @@
 import React from "react";
 import Sidebar from "../component/Sidebar";
 import { Button, Input, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import TopBar from "../component/TopBar";
 
 const DetailMahasiswaView = () => {
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
   return (
     <div className="flex">
       <Sidebar />
@@ -17,17 +20,13 @@ const DetailMahasiswaView = () => {
           <div className="flex flex-col gap-5">
             <div className="flex items-center">
               <Typography className="w-96">Nama</Typography>
-              <Input
-                className="w-full"
-                value={"Aril Fajri Tolani"}
-                label="Nama"
-              />
+              <Input className="w-full" value={data?.nama} label="Nama" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Jenis Kelamin</Typography>
               <Input
                 className="w-full"
-                value={"Laki - Laki"}
+                value={data?.jenis_kelamin}
                 label="Jenis Kelamin"
               />
             </div>
@@ -35,7 +34,7 @@ const DetailMahasiswaView = () => {
               <Typography className="w-96">Tempat Lahir</Typography>
               <Input
                 className="w-full"
-                value={"Banggai"}
+                value={data?.tempat_lahir}
                 label="Tempat Lahir"
               />
             </div>
@@ -43,59 +42,63 @@ const DetailMahasiswaView = () => {
               <Typography className="w-96">Tanggal Lahir</Typography>
               <Input
                 className="w-full"
-                value={"21/07/2002"}
+                value={data?.tanggal_lahir}
                 label="Tanggal Lahir"
               />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Email</Typography>
-              <Input
-                className="w-full"
-                value={"arielmunchen60@gmail.com"}
-                label="Email"
-              />
+              <Input className="w-full" value={data?.email} label="Email" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">No. Hp</Typography>
-              <Input className="w-full" value={"082188216081"} label="No.Hp" />
+              <Input className="w-full" value={data?.no_hp} label="No.Hp" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Alamat Asal</Typography>
-              <Input className="w-full" value={"Banggai Laut"} label="Alamat" />
+              <Input
+                className="w-full"
+                value={data?.alamat_asal}
+                label="Alamat"
+              />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Universitas</Typography>
               <Input
                 className="w-full"
-                value={"Universitas Pasundan"}
+                value={data?.universitas}
                 label="Kampus"
               />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Jurusan</Typography>
-              <Input
-                className="w-full"
-                value={"Teknik Informatika"}
-                label="Jurusan"
-              />
+              <Input className="w-full" value={data?.jurusan} label="Jurusan" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Angkatan</Typography>
-              <Input className="w-full" value={"2020"} label="Angkatan" />
+              <Input
+                className="w-full"
+                value={data?.angkatan}
+                label="Angkatan"
+              />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Kamar Yang Di Booking</Typography>
-              <Input className="w-full" value={"A1"} label="Kamar" />
+              <Input
+                className="w-full"
+                value={data?.kamar?.nomor_kamar}
+                label="Kamar"
+              />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">KTP</Typography>
-              <Input className="w-full" value={"File KTP"} label="KTP" />
+              <Input className="w-full" value={data?.ktp} label="KTP" />
             </div>
             <div className="flex items-center">
               <Typography className="w-96">Kartu Keluarga</Typography>
               <Input
                 className="w-full"
-                value={"File Kartu Keluarga"}
+                value={data?.kartu_keluarga}
                 label="KK"
               />
             </div>
@@ -103,7 +106,7 @@ const DetailMahasiswaView = () => {
               <Typography className="w-96">Surat Ket.Aktif Kuliah</Typography>
               <Input
                 className="w-full"
-                value={"File Suat Ket.Aktif Kuliah"}
+                value={data?.surat_ket_aktif_kuliah}
                 label="Ket.Aktif Kuliah"
               />
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import {
   Button,
@@ -19,8 +19,29 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
+import { useDispatch } from "react-redux";
+import { useMahasiswaSelector } from "../config/redux/getMahasiswa/getDataMahasiswaSelector";
+import { get_mahasiswa } from "../config/redux/getMahasiswa/getDataMahasiswaThunk";
 
 const DataMahasiswaView = () => {
+  const dispatch = useDispatch();
+  const mahasiswas = useMahasiswaSelector();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5); // Ubah jumlah item per halaman sesuai kebutuhan Anda
+
+  useEffect(() => {
+    dispatch(get_mahasiswa());
+  }, []);
+
+  // Hitung indeks item pertama dan terakhir untuk halaman saat ini
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = mahasiswas.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Mengubah halaman
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const isLast = (index) => index === mahasiswas.length - 1;
+
   const TABLE_HEAD = [
     "No",
     "Nama",
@@ -31,48 +52,6 @@ const DataMahasiswaView = () => {
     "Aksi",
   ];
 
-  const TABLE_ROWS = [
-    {
-      no: "1",
-      nama: "John Michael",
-      email: "example@gmail.com",
-      universitas: "Universitas Pasundan",
-      kamar: "A",
-      hp: "082188216081",
-    },
-    {
-      no: "1",
-      nama: "Alexa Liras",
-      email: "example@gmail.com",
-      universitas: "Unikom",
-      kamar: "A1",
-      hp: "082188216081",
-    },
-    {
-      no: "2",
-      nama: "Laurent Perrier",
-      email: "example@gmail.com",
-      universitas: "Universitas Telkom",
-      kamar: "A2",
-      hp: "082188216081",
-    },
-    {
-      no: "3",
-      nama: "Michael Levi",
-      email: "example@gmail.com",
-      universitas: "Universitas Pendidikan Indonesia",
-      kamar: "A3",
-      hp: "082188216081",
-    },
-    {
-      no: "4",
-      nama: "Areel",
-      email: "example@gmail.com",
-      universitas: "Universitas Padjajaran",
-      kamar: "A3",
-      hp: "082188216081",
-    },
-  ];
   return (
     <div className="flex">
       <Sidebar />
@@ -93,10 +72,15 @@ const DataMahasiswaView = () => {
           <div className="flex gap-3 justify-between">
             <div className="w-3 flex gap-3 items-center">
               <Typography>Show</Typography>
-              <Select label="Select Version">
-                <Option>10</Option>
-                <Option>30</Option>
-                <Option>50</Option>
+              <Select
+                label="Select Version"
+                value="5"
+                onChange={(val) => setItemsPerPage(val)}
+              >
+                <Option value="5">5</Option>
+                <Option value="10">10</Option>
+                <Option value="30">30</Option>
+                <Option value="50">50</Option>
               </Select>
               <Typography>Entries</Typography>
             </div>
@@ -130,99 +114,135 @@ const DataMahasiswaView = () => {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ no, nama, email, universitas, kamar, hp }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
-
-                    return (
-                      <tr key={no}>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {no}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {nama}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {email}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {universitas}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal text-center"
-                          >
-                            {kamar}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {hp}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <div className="flex gap-2 justify-center">
-                            <Link to={"/datamahasiswa/detail"}>
-                              <Tooltip content="Detail">
-                                <EyeIcon
-                                  color="blue"
-                                  className="h-5 w-5 cursor-pointer"
-                                />
-                              </Tooltip>
-                            </Link>
-                            <Link to={"/datamahasiswa/ubah"}>
-                              <Tooltip content="Ubah">
-                                <PencilSquareIcon
-                                  color="green"
-                                  className="h-5 w-5 cursor-pointer"
-                                />
-                              </Tooltip>
-                            </Link>
-                            <Tooltip content="Hapus">
-                              <TrashIcon
-                                color="red"
-                                className="h-5 w-5 cursor-pointer"
-                              />
-                            </Tooltip>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
+                {currentItems.map((mahasiswa, index) => (
+                  <tr key={index}>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.id}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.nama}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.email}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.universitas}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal text-center"
+                      >
+                        {mahasiswa.kamar.nomor_kamar}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.no_hp}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <div className="flex gap-2 justify-center">
+                        <Link
+                          to={`/datamahasiswa/detail/${mahasiswa.id}`}
+                          state={mahasiswa}
+                        >
+                          <Tooltip content="Detail">
+                            <EyeIcon
+                              color="blue"
+                              className="h-5 w-5 cursor-pointer"
+                            />
+                          </Tooltip>
+                        </Link>
+                        <Link to={"/datamahasiswa/ubah"}>
+                          <Tooltip content="Ubah">
+                            <PencilSquareIcon
+                              color="green"
+                              className="h-5 w-5 cursor-pointer"
+                            />
+                          </Tooltip>
+                        </Link>
+                        <Tooltip content="Hapus">
+                          <TrashIcon
+                            color="red"
+                            className="h-5 w-5 cursor-pointer"
+                          />
+                        </Tooltip>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
@@ -231,36 +251,41 @@ const DataMahasiswaView = () => {
                 color="blue-gray"
                 className="font-normal"
               >
-                Page 1 of 10
+                Page {currentPage} of{" "}
+                {Math.ceil(mahasiswas.length / itemsPerPage)}
               </Typography>
               <div className="flex gap-2">
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
                   Previous
                 </Button>
                 <div className="flex items-center gap-2">
-                  <IconButton variant="outlined" size="sm">
-                    1
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    2
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    3
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    ...
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    8
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    9
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    10
-                  </IconButton>
+                  {Array.from(
+                    { length: Math.ceil(mahasiswas.length / itemsPerPage) },
+                    (_, index) => (
+                      <IconButton
+                        variant="outlined"
+                        size="sm"
+                        key={index + 1}
+                        onClick={() => paginate(index + 1)}
+                      >
+                        {index + 1}
+                      </IconButton>
+                    )
+                  )}
                 </div>
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={
+                    currentPage === Math.ceil(mahasiswas.length / itemsPerPage)
+                  }
+                >
                   Next
                 </Button>
               </div>

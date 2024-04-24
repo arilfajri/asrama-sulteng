@@ -43,7 +43,7 @@ function App() {
           <Route path="/verifikasi/detail" element={<VerifikasiDetailView />} />
           <Route path="/datamahasiswa" element={<DataMahasiswaView />} />
           <Route
-            path="/datamahasiswa/detail"
+            path="/datamahasiswa/detail/:id"
             element={<DetailMahasiswaView />}
           />
           <Route
