@@ -7,6 +7,8 @@ import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
 import MahasiswaRoute from "./routes/MahasiswaRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
+import KeuanganRoute from "./routes/KeuanganRoute.js";
+import InformasiRoute from "./routes/InformasiRoute.js";
 import fileUpload from "express-fileupload";
 dotenv.config();
 
@@ -47,6 +49,8 @@ app.use(express.static("public"));
 app.use(UserRoute);
 app.use(MahasiswaRoute);
 app.use(AuthRoute);
+app.use(KeuanganRoute);
+app.use(InformasiRoute);
 
 // store.sync();
 
