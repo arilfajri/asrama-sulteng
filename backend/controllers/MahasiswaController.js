@@ -253,7 +253,7 @@ export const updateMahasiswa = async (req, res) => {
     };
 
     // Update file ktp jika diunggah
-    if (req.files.ktp) {
+    if (req.files && req.files.ktp) {
       const { fileName, url } = await saveFileAndGetURL(req.files.ktp, "ktp");
       updateData.ktp = url;
 
@@ -270,7 +270,7 @@ export const updateMahasiswa = async (req, res) => {
     }
 
     // Update file kartu keluarga jika diunggah
-    if (req.files.kartu_keluarga) {
+    if (req.files && req.files.kartu_keluarga) {
       const { fileName, url } = await saveFileAndGetURL(
         req.files.kartu_keluarga,
         "kartu_keluarga"
@@ -290,7 +290,7 @@ export const updateMahasiswa = async (req, res) => {
     }
 
     // Update file surat ket aktif kuliah jika diunggah
-    if (req.files.surat_ket_aktif_kuliah) {
+    if (req.files && req.files.surat_ket_aktif_kuliah) {
       const { fileName, url } = await saveFileAndGetURL(
         req.files.surat_ket_aktif_kuliah,
         "surat_ket_aktif_kuliah"

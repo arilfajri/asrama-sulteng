@@ -20,7 +20,7 @@ const Informasi = db.define(
         notEmpty: true,
       },
     },
-    foro_deskripsi: {
+    foto_deskripsi: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

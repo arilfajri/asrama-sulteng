@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.get("/keuangan", verifyUser, adminOnly, getKeuangan);
 router.get("/keuangan/:id", verifyUser, adminOnly, getKeuanganById);
-router.post("/keuangan", createKeuangan);
+router.post("/keuangan", verifyUser, adminOnly, createKeuangan);
 router.patch("/keuangan/:id", verifyUser, adminOnly, updateKeuangan);
 router.delete("/keuangan/:id", verifyUser, adminOnly, deleteKeuangan);
 
