@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import { get_mahasiswaReducer } from "./getMahasiswa/getDataMahasiswaSlice";
+import { authReducer } from "./auth/authSlice";
+import { kamarReducer } from "./kamar/kamarSlice";
+import { mahasiswaReducer } from "./mahasiswa/mahasiswaSlice";
 
 const reducer = combineReducers({
-  getDataMahasiswa: get_mahasiswaReducer,
+  auth: authReducer,
+  kamar: kamarReducer,
+  mahasiswa: mahasiswaReducer,
 });
 
 export default reducer;

@@ -6,7 +6,7 @@ import reducer from "./reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["getDataMahasiswa"],
+  whitelist: ["auth", "kamar", "mahasiswa"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

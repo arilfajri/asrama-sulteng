@@ -167,6 +167,7 @@ export const createMahasiswa = async (req, res) => {
       kartu_keluarga: savedFiles[1].url,
       surat_ket_aktif_kuliah: savedFiles[2].url,
       userId: req.userId,
+      id: req.userId,
     });
 
     await mahasiswa.save();

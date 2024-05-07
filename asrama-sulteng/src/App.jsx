@@ -60,8 +60,11 @@ function App() {
           <Route path="/keuangan/unduh" element={<UnduhDataKeuanganView />} />
           <Route path="/informasi" element={<InformasiView />} />
           <Route path="/kamar" element={<KamarTersediaView />} />
-          <Route path="/kamar/detail" element={<DetailKamarView />} />
-          <Route path="/kamar/detail/daftar" element={<BookingKamarView />} />
+          <Route path="/kamar/detail/:id" element={<DetailKamarView />} />
+          <Route
+            path="/kamar/detail/:id/daftar"
+            element={<BookingKamarView />}
+          />
           <Route path="/status" element={<StatusView />} />
         </Routes>
       </Router>

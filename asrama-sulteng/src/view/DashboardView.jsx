@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import TopBar from "../component/TopBar";
+import { getMe } from "../config/redux/auth/authThunk";
+import { useDispatch } from "react-redux";
 
 const DashboardView = () => {
   const TABLE_HEAD = ["Name", "Job", "Employed", ""];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
 
   const TABLE_ROWS = [
     {

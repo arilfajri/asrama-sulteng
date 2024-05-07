@@ -9,6 +9,7 @@ import MahasiswaRoute from "./routes/MahasiswaRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
+import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use(MahasiswaRoute);
 app.use(AuthRoute);
 app.use(KeuanganRoute);
 app.use(InformasiRoute);
+app.use(KamarRoute);
 
 // store.sync();
 

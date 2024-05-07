@@ -10,6 +10,7 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
+  Collapse,
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
@@ -182,7 +183,7 @@ const NavigationBar = () => {
             )}
           </IconButton>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           <div className="container mx-auto">
             {navList}
             <div className="flex items-center gap-x-1">
@@ -196,7 +197,7 @@ const NavigationBar = () => {
               </Button>
             </div>
           </div>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );

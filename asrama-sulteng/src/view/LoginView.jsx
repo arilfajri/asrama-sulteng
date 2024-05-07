@@ -1,9 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import Footer from "../component/Footer";
 import NavigationBar from "../component/NavigationBar";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe, login, logout } from "../config/redux/auth/authThunk";
+import { authRole } from "../config/redux/auth/authSelector";
+import { useNavigate } from "react-router-dom";
 
 const LoginView = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userRole = authRole();
+  console.log("role", userRole);
+
+  useEffect(() => {
+    dispatch(getMe())
+      .then(() => {
+        if (userRole === "admin") {
+          navigate("/dashboard");
+        } else if (userRole === "user") {
+          navigate("/kamar");
+        }
+      })
+      .catch((error) => {
+        console.error("Gagal mendapatkan data pengguna:", error);
+      });
+  }, [dispatch, navigate]);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .email("Email tidak valid")
+        .required("Email diperlukan"),
+      password: Yup.string()
+        .min(6, "Password harus terdiri dari setidaknya 6 karakter")
+        .required("Password diperlukan"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        await dispatch(login(values));
+        console.log("Dispatch berhasil menerima nilai:", values);
+        window.location.reload();
+      } catch (error) {
+        console.error("Gagal melakukan dispatch:", error);
+      }
+    },
+  });
   return (
     <div>
       <NavigationBar />
@@ -17,34 +70,62 @@ const LoginView = () => {
             Login
           </Typography>
 
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+          <form
+            className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+            onSubmit={formik.handleSubmit}
+          >
             <div className="mb-1 flex flex-col gap-6">
               <Typography color="blue-gray" className="-mb-3">
                 Email
               </Typography>
-              <Input
-                size="lg"
-                placeholder="Masukkan email kamu"
-                className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
+              <div>
+                <Input
+                  id="email"
+                  size="lg"
+                  placeholder="Masukkan email kamu"
+                  className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-700 m-0">{formik.errors.email}</div>
+                )}
+              </div>
               <Typography color="blue-gray" className="-mb-3">
                 Password
               </Typography>
-              <Input
-                type="password"
-                size="lg"
-                placeholder="Masukkan password kamu"
-                className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
+              <div>
+                <Input
+                  id="password"
+                  type="password"
+                  size="lg"
+                  placeholder="Masukkan password kamu"
+                  className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="text-red-700 m-0">
+                    {formik.errors.password}
+                  </div>
+                )}
+              </div>
             </div>
 
-            <Button className="mt-6" fullWidth color="deep-orange">
+            <Button
+              type="submit"
+              className="mt-6"
+              fullWidth
+              color="deep-orange"
+            >
               Login
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
@@ -54,6 +135,14 @@ const LoginView = () => {
               </a>
             </Typography>
           </form>
+          <Button
+            onClick={logOut}
+            className="mt-6"
+            fullWidth
+            color="deep-orange"
+          >
+            Logout
+          </Button>
         </Card>
       </div>
       <Footer />

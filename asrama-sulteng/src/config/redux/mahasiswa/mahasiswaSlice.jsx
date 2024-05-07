@@ -1,0 +1,71 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { createMahasiswa, getAllMahasiswa } from "./mahasiswaThunk";
+
+const mahasiswaInitState = {
+  data: [],
+};
+
+const mahasiswaSlice = createSlice({
+  name: "mahasiswa",
+  initialState: mahasiswaInitState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // createMahasiswa
+      .addCase(createMahasiswa.pending, (state, action) => {
+        return {
+          ...state,
+          createMahasiswaLoading: true,
+          createMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(createMahasiswa.fulfilled, (state, action) => {
+        return {
+          ...state,
+          data: action.payload,
+          createMahasiswaLoading: false,
+          createMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(createMahasiswa.rejected, (state, action) => {
+        return {
+          ...state,
+          createMahasiswaLoading: false,
+          createMahasiswaError: action.payload,
+          type: action.type,
+        };
+      })
+
+      // getAllMahasiswa
+      .addCase(getAllMahasiswa.pending, (state, action) => {
+        return {
+          ...state,
+          getAllMahasiswaLoading: true,
+          getAllMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(getAllMahasiswa.fulfilled, (state, action) => {
+        return {
+          ...state,
+          data: action.payload,
+          getAllMahasiswaLoading: false,
+          getAllMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(getAllMahasiswa.rejected, (state, action) => {
+        return {
+          ...state,
+          getAllMahasiswaLoading: false,
+          getAllMahasiswaError: action.payload,
+          type: action.type,
+        };
+      });
+  },
+});
+
+export const { actions: mahasiswaAction, reducer: mahasiswaReducer } =
+  mahasiswaSlice;
