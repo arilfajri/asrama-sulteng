@@ -5,7 +5,7 @@ import Mahasiswas from "./MahasiswaModel.js";
 const { DataTypes } = Sequelize;
 
 const Kamar = db.define(
-  "Kamar",
+  "kamar",
   {
     gambar: {
       type: DataTypes.STRING,
@@ -39,6 +39,7 @@ const Kamar = db.define(
   }
 );
 
+Mahasiswas.hasOne(Kamar, { foreignKey: "mahasiswaId" });
 Kamar.belongsTo(Mahasiswas, { foreignKey: "mahasiswaId" }); // Definisikan hubungan foreign key
 
 export default Kamar;

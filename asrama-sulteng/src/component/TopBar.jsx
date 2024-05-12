@@ -14,12 +14,19 @@ import {
 import React, { useState } from "react";
 import { logout } from "../config/redux/auth/authThunk";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { reset } from "../config/redux/auth/authSlice";
+import { resetDataMahasiswa } from "../config/redux/mahasiswa/mahasiswaSlice";
 
 const TopBar = () => {
+  const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const dispatch = useDispatch();
   const logOut = () => {
     dispatch(logout());
+    dispatch(reset());
+    dispatch(resetDataMahasiswa());
+    navigate("/");
   };
   return (
     <div>

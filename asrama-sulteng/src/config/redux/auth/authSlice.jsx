@@ -8,7 +8,9 @@ const authInitState = {
 const authSlice = createSlice({
   name: "auth",
   initialState: authInitState,
-  reducers: {},
+  reducers: {
+    reset: (state) => authInitState,
+  },
   extraReducers: (builder) => {
     builder
       // register
@@ -120,5 +122,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { reset } = authSlice.actions;
 
 export const { actions: authAction, reducer: authReducer } = authSlice;

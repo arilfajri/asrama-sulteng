@@ -10,7 +10,10 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { kamarSelector } from "../config/redux/kamar/kamarSelector";
+import {
+  kamarSelector,
+  kamardataSelector,
+} from "../config/redux/kamar/kamarSelector";
 import { useDispatch } from "react-redux";
 import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 
@@ -18,8 +21,8 @@ const KamarTersediaView = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllKamar());
-  }, []);
-  const kamar = kamarSelector();
+  }, [dispatch]);
+  const kamar = kamardataSelector();
   console.log("kamar", kamar);
   return (
     <div className="flex">

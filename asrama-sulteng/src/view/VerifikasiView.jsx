@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import {
   Button,
   Card,
   CardFooter,
+  Chip,
   IconButton,
   Input,
   Option,
@@ -14,6 +15,10 @@ import {
 import { EyeIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
+import { useDispatch } from "react-redux";
+import { allmahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
+import { getAllMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
+import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 
 const TABLE_HEAD = [
   "No",
@@ -25,49 +30,26 @@ const TABLE_HEAD = [
   "Aksi",
 ];
 
-const TABLE_ROWS = [
-  {
-    no: "1",
-    nama: "John Michael",
-    email: "example@gmail.com",
-    universitas: "Universitas Pasundan",
-    kamar: "A",
-    status: "Diterima",
-  },
-  {
-    no: "1",
-    nama: "Alexa Liras",
-    email: "example@gmail.com",
-    universitas: "Unikom",
-    kamar: "A1",
-    status: "Diterima",
-  },
-  {
-    no: "2",
-    nama: "Laurent Perrier",
-    email: "example@gmail.com",
-    universitas: "Universitas Telkom",
-    kamar: "A2",
-    status: "Diterima",
-  },
-  {
-    no: "3",
-    nama: "Michael Levi",
-    email: "example@gmail.com",
-    universitas: "Universitas Pendidikan Indonesia",
-    kamar: "A3",
-    status: "Diterima",
-  },
-  {
-    no: "4",
-    name: "Richard Gran",
-    universitas: "Manager",
-    kamar: "A4",
-    status: "Diterima",
-  },
-];
-
 const VerifikasiView = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const dispatch = useDispatch();
+  const mahasiswa = allmahasiswaSelector();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(mahasiswa);
+  useEffect(() => {
+    dispatch(getAllMahasiswa());
+    dispatch(getAllKamar());
+  }, [dispatch]);
+
+  // Hitung indeks item pertama dan terakhir untuk halaman saat ini
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = mahasiswa.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Mengubah halaman
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const isLast = (index) => index === mahasiswa.length - 1;
   return (
     <div className="flex">
       <Sidebar />
@@ -82,10 +64,15 @@ const VerifikasiView = () => {
           <div className="flex gap-3 justify-between">
             <div className="w-3 flex gap-3 items-center">
               <Typography>Show</Typography>
-              <Select label="Select Version">
-                <Option>10</Option>
-                <Option>30</Option>
-                <Option>50</Option>
+              <Select
+                label="Select Version"
+                value="5"
+                onChange={(val) => setItemsPerPage(val)}
+              >
+                <Option value="5">5</Option>
+                <Option value="10">10</Option>
+                <Option value="30">30</Option>
+                <Option value="50">50</Option>
               </Select>
               <Typography>Entries</Typography>
             </div>
@@ -119,83 +106,125 @@ const VerifikasiView = () => {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ no, nama, email, universitas, kamar, status }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
-
-                    return (
-                      <tr key={no}>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {no}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {nama}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {email}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {universitas}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal text-center"
-                          >
-                            {kamar}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {status}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Link to={"/verifikasi/detail"}>
-                            <Tooltip content="Detail">
-                              <EyeIcon
-                                color="blue"
-                                className="h-5 w-5 cursor-pointer"
-                              />
-                            </Tooltip>
-                          </Link>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
+                {currentItems.map((mahasiswa, index) => (
+                  <tr key={index}>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.id}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.nama}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.email}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.universitas}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.kamar.nomor_kamar}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Chip
+                        size="sm"
+                        variant="ghost"
+                        className=" w-max"
+                        value={mahasiswa.status}
+                        color={
+                          mahasiswa.status === "Diterima"
+                            ? "green"
+                            : mahasiswa.status === "Menunggu"
+                            ? "amber"
+                            : "red"
+                        }
+                      />
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Link
+                        to={`/verifikasi/detail/${mahasiswa.id}`}
+                        state={mahasiswa}
+                      >
+                        <Tooltip content="Detail">
+                          <EyeIcon
+                            color="blue"
+                            className="h-5 w-5 cursor-pointer"
+                          />
+                        </Tooltip>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
@@ -204,36 +233,41 @@ const VerifikasiView = () => {
                 color="blue-gray"
                 className="font-normal"
               >
-                Page 1 of 10
+                Page {currentPage} of{" "}
+                {Math.ceil(mahasiswa.length / itemsPerPage)}
               </Typography>
               <div className="flex gap-2">
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
                   Previous
                 </Button>
                 <div className="flex items-center gap-2">
-                  <IconButton variant="outlined" size="sm">
-                    1
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    2
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    3
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    ...
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    8
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    9
-                  </IconButton>
-                  <IconButton variant="text" size="sm">
-                    10
-                  </IconButton>
+                  {Array.from(
+                    { length: Math.ceil(mahasiswa.length / itemsPerPage) },
+                    (_, index) => (
+                      <IconButton
+                        variant="outlined"
+                        size="sm"
+                        key={index + 1}
+                        onClick={() => paginate(index + 1)}
+                      >
+                        {index + 1}
+                      </IconButton>
+                    )
+                  )}
                 </div>
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={
+                    currentPage === Math.ceil(mahasiswa.length / itemsPerPage)
+                  }
+                >
                   Next
                 </Button>
               </div>

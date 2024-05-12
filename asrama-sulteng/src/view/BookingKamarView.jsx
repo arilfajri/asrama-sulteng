@@ -28,8 +28,7 @@ const BookingKamarView = () => {
   const location = useLocation();
   const [jenis_kelamin, setJenisKelamin] = useState();
   const data = location.state;
-  const mahasiswa_id = mahasiswaSelectorId();
-  // console.log(mahasiswa_id);
+
   useEffect(() => {
     dispatch(getAllMahasiswa());
   }, [dispatch]);
@@ -104,7 +103,6 @@ const BookingKamarView = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
           Swal.fire({

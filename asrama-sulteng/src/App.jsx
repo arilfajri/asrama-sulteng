@@ -40,7 +40,10 @@ function App() {
           <Route path="/login" element={<LoginView />} />
           <Route path="/dashboard" element={<DashboardView />} />
           <Route path="/verifikasi" element={<VerifikasiView />} />
-          <Route path="/verifikasi/detail" element={<VerifikasiDetailView />} />
+          <Route
+            path="/verifikasi/detail/:id"
+            element={<VerifikasiDetailView />}
+          />
           <Route path="/datamahasiswa" element={<DataMahasiswaView />} />
           <Route
             path="/datamahasiswa/detail/:id"

@@ -3,6 +3,7 @@ import path from "path";
 import Users from "../models/UserModel.js";
 import fs from "fs";
 import { Op } from "sequelize";
+import Kamar from "../models/KamarModel.js";
 
 export const getMahasiswa = async (req, res) => {
   try {
@@ -13,6 +14,10 @@ export const getMahasiswa = async (req, res) => {
           {
             model: Users,
             attributes: ["name", "email"],
+          },
+          {
+            model: Kamar,
+            attributes: ["nomor_kamar"],
           },
         ],
       });
@@ -25,6 +30,10 @@ export const getMahasiswa = async (req, res) => {
           {
             model: Users,
             attributes: ["name", "email"],
+          },
+          {
+            model: Kamar,
+            attributes: ["nomor_kamar"],
           },
         ],
       });
@@ -168,6 +177,7 @@ export const createMahasiswa = async (req, res) => {
       surat_ket_aktif_kuliah: savedFiles[2].url,
       userId: req.userId,
       id: req.userId,
+      status: "Menunggu",
     });
 
     await mahasiswa.save();
@@ -205,6 +215,7 @@ export const updateMahasiswa = async (req, res) => {
       universitas,
       jurusan,
       angkatan,
+      status,
     } = req.body;
 
     if (
@@ -251,6 +262,7 @@ export const updateMahasiswa = async (req, res) => {
       universitas,
       jurusan,
       angkatan,
+      status,
     };
 
     // Update file ktp jika diunggah

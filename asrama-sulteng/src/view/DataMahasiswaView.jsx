@@ -20,27 +20,29 @@ import {
 import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
-import { useMahasiswaSelector } from "../config/redux/getMahasiswa/getDataMahasiswaSelector";
-import { get_mahasiswa } from "../config/redux/getMahasiswa/getDataMahasiswaThunk";
+import { allmahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
+import { getAllMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
+import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 
 const DataMahasiswaView = () => {
   const dispatch = useDispatch();
-  const mahasiswas = useMahasiswaSelector();
+  const mahasiswa = allmahasiswaSelector();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5); // Ubah jumlah item per halaman sesuai kebutuhan Anda
 
   useEffect(() => {
-    dispatch(get_mahasiswa());
-  }, []);
+    dispatch(getAllMahasiswa());
+    dispatch(getAllKamar());
+  }, [dispatch]);
 
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = mahasiswas.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = mahasiswa.slice(indexOfFirstItem, indexOfLastItem);
 
   // Mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const isLast = (index) => index === mahasiswas.length - 1;
+  const isLast = (index) => index === mahasiswa.length - 1;
 
   const TABLE_HEAD = [
     "No",
@@ -186,7 +188,7 @@ const DataMahasiswaView = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal text-center"
+                        className="font-normal"
                       >
                         {mahasiswa.kamar.nomor_kamar}
                       </Typography>
@@ -213,7 +215,7 @@ const DataMahasiswaView = () => {
                           : "p-4 border-b border-blue-gray-50"
                       }
                     >
-                      <div className="flex gap-2 justify-center">
+                      <div className="flex gap-2 ">
                         <Link
                           to={`/datamahasiswa/detail/${mahasiswa.id}`}
                           state={mahasiswa}
@@ -252,7 +254,7 @@ const DataMahasiswaView = () => {
                 className="font-normal"
               >
                 Page {currentPage} of{" "}
-                {Math.ceil(mahasiswas.length / itemsPerPage)}
+                {Math.ceil(mahasiswa.length / itemsPerPage)}
               </Typography>
               <div className="flex gap-2">
                 <Button
@@ -265,7 +267,7 @@ const DataMahasiswaView = () => {
                 </Button>
                 <div className="flex items-center gap-2">
                   {Array.from(
-                    { length: Math.ceil(mahasiswas.length / itemsPerPage) },
+                    { length: Math.ceil(mahasiswa.length / itemsPerPage) },
                     (_, index) => (
                       <IconButton
                         variant="outlined"
@@ -283,7 +285,7 @@ const DataMahasiswaView = () => {
                   size="sm"
                   onClick={() => paginate(currentPage + 1)}
                   disabled={
-                    currentPage === Math.ceil(mahasiswas.length / itemsPerPage)
+                    currentPage === Math.ceil(mahasiswa.length / itemsPerPage)
                   }
                 >
                   Next
