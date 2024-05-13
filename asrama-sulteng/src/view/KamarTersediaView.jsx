@@ -40,18 +40,37 @@ const KamarTersediaView = () => {
                   <img
                     src={kamarItem.gambar}
                     alt="card-image"
-                    className="h-full w-full"
+                    className={
+                      kamarItem.mahasiswa
+                        ? "opacity-50 h-full w-full"
+                        : "h-full w-full"
+                    }
                   />
                 </CardHeader>
                 <CardBody>
-                  <Typography variant="h5" color="blue-gray">
+                  <Typography
+                    variant="h5"
+                    color="blue-gray"
+                    className={kamarItem.mahasiswa ? "opacity-50" : ""}
+                  >
                     {kamarItem.nomor_kamar}
                   </Typography>
                 </CardBody>
                 <CardFooter className="pt-0">
-                  <Link to={`/kamar/detail/${kamarItem.id}`} state={kamarItem}>
-                    <Button className=" bg-blue-900">Pilih Kamar</Button>
-                  </Link>
+                  {kamarItem.mahasiswa ? (
+                    <Button className=" bg-blue-900" disabled>
+                      Kamar Terisi
+                    </Button>
+                  ) : (
+                    <Button className=" bg-blue-900">
+                      <Link
+                        to={`/kamar/detail/${kamarItem.id}`}
+                        state={kamarItem}
+                      >
+                        Pilih Kamar
+                      </Link>
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             ))}

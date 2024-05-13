@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { reset } from "../config/redux/auth/authSlice";
 import { resetDataMahasiswa } from "../config/redux/mahasiswa/mahasiswaSlice";
+import { resetDataKeuangan } from "../config/redux/keuangan/keuanganSlice";
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const TopBar = () => {
     dispatch(logout());
     dispatch(reset());
     dispatch(resetDataMahasiswa());
+    dispatch(resetDataKeuangan());
     navigate("/");
   };
   return (

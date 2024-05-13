@@ -38,9 +38,8 @@ const VerifikasiDetailView = () => {
   const handleOpenSurat = () => setOpenSurat(!openSurat);
 
   console.log(data);
-  const tanggalLahir = data?.tanggal_lahir; // String tanggal lahir dalam format ISO
+  const tanggalLahir = data?.tanggal_lahir;
 
-  // Mengambil 10 karakter pertama dari string tanggal lahir
   const tanggalLahirFormatted = tanggalLahir.slice(0, 10);
   const newplugin = defaultLayoutPlugin();
 
@@ -83,7 +82,7 @@ const VerifikasiDetailView = () => {
       icon: "success",
     }).then((result) => {
       if (result.isConfirmed || result.isDismissed) {
-        navigate(-1); // Menavigasi ke halaman sebelumnya
+        navigate(-1);
       }
     });
   };

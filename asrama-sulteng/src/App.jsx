@@ -22,13 +22,27 @@ import KamarTersediaView from "./view/KamarTersediaView";
 import DetailKamarView from "./view/DetailKamarView";
 import BookingKamarView from "./view/BookingKamarView";
 import StatusView from "./view/StatusView";
+import { authSelector } from "./config/redux/auth/authSelector";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getMe } from "./config/redux/auth/authThunk";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
+  const role = authSelector();
+  console.log(role);
+
   return (
     <div>
       <Router>
         <Routes>
           <Route path="/" element={<HomeView />} />
+          <Route path="*" element={<HomeView />} />
           <Route path="/visimisi" element={<VisimisiView />} />
           <Route
             path="/strukturorganisasi"
@@ -38,37 +52,54 @@ function App() {
           <Route path="/kontak" element={<KontakView />} />
           <Route path="/register" element={<RegisterView />} />
           <Route path="/login" element={<LoginView />} />
-          <Route path="/dashboard" element={<DashboardView />} />
-          <Route path="/verifikasi" element={<VerifikasiView />} />
-          <Route
-            path="/verifikasi/detail/:id"
-            element={<VerifikasiDetailView />}
-          />
-          <Route path="/datamahasiswa" element={<DataMahasiswaView />} />
-          <Route
-            path="/datamahasiswa/detail/:id"
-            element={<DetailMahasiswaView />}
-          />
-          <Route
-            path="/datamahasiswa/ubah"
-            element={<UbahDataMahasiswaView />}
-          />
-          <Route
-            path="/datamahasiswa/tambah"
-            element={<TambahDataMahasiswaView />}
-          />
-          <Route path="/keuangan" element={<KeuanganView />} />
-          <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
-          <Route path="/keuangan/ubah" element={<UbahKeuanganView />} />
-          <Route path="/keuangan/unduh" element={<UnduhDataKeuanganView />} />
-          <Route path="/informasi" element={<InformasiView />} />
-          <Route path="/kamar" element={<KamarTersediaView />} />
-          <Route path="/kamar/detail/:id" element={<DetailKamarView />} />
-          <Route
-            path="/kamar/detail/:id/daftar"
-            element={<BookingKamarView />}
-          />
-          <Route path="/status" element={<StatusView />} />
+
+          {/* admin */}
+          {role && role.role === "admin" && (
+            <>
+              <Route path="/dashboard" element={<DashboardView />} />
+              <Route path="/verifikasi" element={<VerifikasiView />} />
+              <Route
+                path="/verifikasi/detail/:id"
+                element={<VerifikasiDetailView />}
+              />
+              <Route path="/datamahasiswa" element={<DataMahasiswaView />} />
+              <Route
+                path="/datamahasiswa/detail/:id"
+                element={<DetailMahasiswaView />}
+              />
+              <Route
+                path="/datamahasiswa/ubah/:id"
+                element={<UbahDataMahasiswaView />}
+              />
+              <Route
+                path="/datamahasiswa/tambah"
+                element={<TambahDataMahasiswaView />}
+              />
+              <Route path="/keuangan" element={<KeuanganView />} />
+              <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
+              <Route path="/keuangan/ubah" element={<UbahKeuanganView />} />
+              <Route
+                path="/keuangan/unduh"
+                element={<UnduhDataKeuanganView />}
+              />
+              <Route path="/informasi" element={<InformasiView />} />
+            </>
+          )}
+          {/* admin */}
+
+          {/* user */}
+          {role && role.role === "user" && (
+            <>
+              <Route path="/kamar" element={<KamarTersediaView />} />
+              <Route path="/kamar/detail/:id" element={<DetailKamarView />} />
+              <Route
+                path="/kamar/detail/:id/daftar"
+                element={<BookingKamarView />}
+              />
+              <Route path="/status" element={<StatusView />} />
+            </>
+          )}
+          {/* user */}
         </Routes>
       </Router>
     </div>

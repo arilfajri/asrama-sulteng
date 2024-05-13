@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import {
   Button,
   Card,
   CardFooter,
+  Chip,
+  Dialog,
+  DialogBody,
   IconButton,
   Input,
   Option,
@@ -19,54 +22,60 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
+import { getAllKeuangan } from "../config/redux/keuangan/keuanganThunk";
+import {
+  keuanganSelector,
+  keuangandataSelector,
+} from "../config/redux/keuangan/keuanganSelector";
+import { useDispatch } from "react-redux";
 
 const KeuanganView = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllKeuangan());
+  }, [dispatch]);
+  const keuangan = keuanganSelector();
+  console.log(keuangan);
+
+  // State untuk mengontrol apakah dialog terbuka untuk setiap item dalam daftar
+  const [openDialogs, setOpenDialogs] = useState(
+    Array(keuangan.length).fill(false)
+  );
+
+  // Fungsi untuk menangani pembukaan dialog untuk item tertentu
+  const handleOpenDialog = (index) => {
+    const newOpenDialogs = [...openDialogs];
+    newOpenDialogs[index] = true;
+    setOpenDialogs(newOpenDialogs);
+  };
+  const handleCloseDialog = (index) => {
+    const newOpenDialogs = [...openDialogs];
+    newOpenDialogs[index] = false;
+    setOpenDialogs(newOpenDialogs);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  // Hitung indeks item pertama dan terakhir untuk halaman saat ini
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = keuangan.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Mengubah halaman
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const isLast = (index) => index === keuangan.length - 1;
+
   const TABLE_HEAD = [
     "No",
     "Tanggal",
     "Keterangan",
     "Pemasukkan",
     "Pengeluaran",
+    "Bukti Transaksi",
     "Aksi",
   ];
 
-  const TABLE_ROWS = [
-    {
-      no: "1",
-      tanggal: "21/07/2023",
-      keterangan: "beli listrik",
-      pemasukkan: "20.000",
-      pengeluaran: "20.000",
-    },
-    {
-      no: "2",
-      tanggal: "21/07/2023",
-      keterangan: "beli listrik",
-      pemasukkan: "20.000",
-      pengeluaran: "20.000",
-    },
-    {
-      no: "3",
-      tanggal: "21/07/2023",
-      keterangan: "beli listrik",
-      pemasukkan: "20.000",
-      pengeluaran: "20.000",
-    },
-    {
-      no: "4",
-      tanggal: "21/07/2023",
-      keterangan: "beli listrik",
-      pemasukkan: "20.000",
-      pengeluaran: "20.000",
-    },
-    {
-      no: "5",
-      tanggal: "21/07/2023",
-      keterangan: "beli listrik",
-      pemasukkan: "20.000",
-      pengeluaran: "20.000",
-    },
-  ];
   return (
     <div>
       <div className="flex">
@@ -125,86 +134,152 @@ const KeuanganView = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {TABLE_ROWS.map(
-                    (
-                      { no, tanggal, keterangan, pemasukkan, pengeluaran },
-                      index
-                    ) => {
-                      const isLast = index === TABLE_ROWS.length - 1;
-                      const classes = isLast
-                        ? "p-4"
-                        : "p-4 border-b border-blue-gray-50";
-
-                      return (
-                        <tr key={no}>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {no}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {tanggal}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {keterangan}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="green"
-                              className="font-normal"
-                            >
-                              {pemasukkan}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
+                  {currentItems.map((keuangan, index) => (
+                    <tr key={index}>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {keuangan.id}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {
+                            new Date(keuangan.tanggal)
+                              .toISOString()
+                              .split("T")[0]
+                          }
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {keuangan.keterangan}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          className=" w-max"
+                          color="green"
+                          value={
+                            keuangan.jenis === "Pemasukkan"
+                              ? keuangan.nominal.toLocaleString()
+                              : "-"
+                          }
+                        />
+                      </td>
+                      {/* Kolom Pengeluaran */}
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          className=" w-max"
+                          color="red"
+                          value={
+                            keuangan.jenis === "Pengeluaran"
+                              ? keuangan.nominal.toLocaleString()
+                              : "-"
+                          }
+                        />
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <img
+                          alt="nature"
+                          className=" h-20 w-20 rounded cursor-pointer"
+                          src={keuangan.bukti_transaksi}
+                          onClick={() => handleOpenDialog(index)}
+                        />
+                        <Dialog
+                          size="lg"
+                          open={openDialogs[index]}
+                          handler={() => handleCloseDialog(index)}
+                        >
+                          <DialogBody>
+                            <img
+                              alt="nature"
+                              className=" w-full rounded-lg object-cover object-center"
+                              src={keuangan.bukti_transaksi}
+                            />
+                          </DialogBody>
+                        </Dialog>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <div className="flex gap-2 ">
+                          <Link
+                            to={`/datakeuangan/ubah/${keuangan.id}`}
+                            state={keuangan}
+                          >
+                            <Tooltip content="Ubah">
+                              <PencilSquareIcon
+                                color="green"
+                                className="h-5 w-5 cursor-pointer"
+                              />
+                            </Tooltip>
+                          </Link>
+                          <Tooltip content="Hapus">
+                            <TrashIcon
                               color="red"
-                              className="font-normal"
-                            >
-                              {pengeluaran}
-                            </Typography>
-                          </td>
-
-                          <td className={classes}>
-                            <div className="flex gap-2">
-                              <Link to={"/keuangan/ubah"}>
-                                <Tooltip content="Ubah">
-                                  <PencilSquareIcon
-                                    color="green"
-                                    className="h-5 w-5 cursor-pointer"
-                                  />
-                                </Tooltip>
-                              </Link>
-                              <Tooltip content="Hapus">
-                                <TrashIcon
-                                  color="red"
-                                  className="h-5 w-5 cursor-pointer"
-                                />
-                              </Tooltip>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
+                              className="h-5 w-5 cursor-pointer"
+                            />
+                          </Tooltip>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
@@ -213,36 +288,41 @@ const KeuanganView = () => {
                   color="blue-gray"
                   className="font-normal"
                 >
-                  Page 1 of 10
+                  Page {currentPage} of{" "}
+                  {Math.ceil(keuangan.length / itemsPerPage)}
                 </Typography>
                 <div className="flex gap-2">
-                  <Button variant="outlined" size="sm">
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
                     Previous
                   </Button>
                   <div className="flex items-center gap-2">
-                    <IconButton variant="outlined" size="sm">
-                      1
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      2
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      3
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      ...
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      8
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      9
-                    </IconButton>
-                    <IconButton variant="text" size="sm">
-                      10
-                    </IconButton>
+                    {Array.from(
+                      { length: Math.ceil(keuangan.length / itemsPerPage) },
+                      (_, index) => (
+                        <IconButton
+                          variant="outlined"
+                          size="sm"
+                          key={index + 1}
+                          onClick={() => paginate(index + 1)}
+                        >
+                          {index + 1}
+                        </IconButton>
+                      )
+                    )}
                   </div>
-                  <Button variant="outlined" size="sm">
+                  <Button
+                    variant="outlined"
+                    size="sm"
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={
+                      currentPage === Math.ceil(keuangan.length / itemsPerPage)
+                    }
+                  >
                     Next
                   </Button>
                 </div>

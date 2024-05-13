@@ -56,22 +56,30 @@ export const updateMahasiswa = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res = await axios.patch(`http://localhost:5000/mahasiswas/${id}`, {
-        nama,
-        jenis_kelamin,
-        tempat_lahir,
-        tanggal_lahir,
-        email,
-        no_hp,
-        alamat_asal,
-        universitas,
-        jurusan,
-        angkatan,
-        status,
-        ktp,
-        kartu_keluarga,
-        surat_ket_aktif_kuliah,
-      });
+      const res = await axios.patch(
+        `http://localhost:5000/mahasiswas/${id}`,
+        {
+          nama,
+          jenis_kelamin,
+          tempat_lahir,
+          tanggal_lahir,
+          email,
+          no_hp,
+          alamat_asal,
+          universitas,
+          jurusan,
+          angkatan,
+          status,
+          ktp,
+          kartu_keluarga,
+          surat_ket_aktif_kuliah,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set header untuk FormData
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

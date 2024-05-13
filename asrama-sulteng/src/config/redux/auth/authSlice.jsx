@@ -92,34 +92,34 @@ const authSlice = createSlice({
           getMeError: action.payload,
           type: action.type,
         };
-      })
-
-      // logout
-      .addCase(logout.pending, (state, action) => {
-        return {
-          ...state,
-          logoutLoading: true,
-          logoutError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        return {
-          ...state,
-          data: action.payload,
-          logoutLoading: false,
-          logoutError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(logout.rejected, (state, action) => {
-        return {
-          ...state,
-          logoutLoading: false,
-          logoutError: action.payload,
-          type: action.type,
-        };
       });
+
+    // // logout
+    // .addCase(logout.pending, (state, action) => {
+    //   return {
+    //     ...state,
+    //     logoutLoading: true,
+    //     logoutError: undefined,
+    //     type: action.type,
+    //   };
+    // })
+    // .addCase(logout.fulfilled, (state, action) => {
+    //   return {
+    //     ...state,
+    //     data: action.payload,
+    //     logoutLoading: false,
+    //     logoutError: undefined,
+    //     type: action.type,
+    //   };
+    // })
+    // .addCase(logout.rejected, (state, action) => {
+    //   return {
+    //     ...state,
+    //     logoutLoading: false,
+    //     logoutError: action.payload,
+    //     type: action.type,
+    //   };
+    // });
   },
 });
 

@@ -30,10 +30,6 @@ const LoginView = () => {
       });
   }, [dispatch, navigate]);
 
-  const logOut = () => {
-    dispatch(logout());
-  };
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -135,14 +131,6 @@ const LoginView = () => {
               </a>
             </Typography>
           </form>
-          <Button
-            onClick={logOut}
-            className="mt-6"
-            fullWidth
-            color="deep-orange"
-          >
-            Logout
-          </Button>
         </Card>
       </div>
       <Footer />

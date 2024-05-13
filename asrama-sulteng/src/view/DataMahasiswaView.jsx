@@ -28,7 +28,7 @@ const DataMahasiswaView = () => {
   const dispatch = useDispatch();
   const mahasiswa = allmahasiswaSelector();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5); // Ubah jumlah item per halaman sesuai kebutuhan Anda
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   useEffect(() => {
     dispatch(getAllMahasiswa());
@@ -227,7 +227,10 @@ const DataMahasiswaView = () => {
                             />
                           </Tooltip>
                         </Link>
-                        <Link to={"/datamahasiswa/ubah"}>
+                        <Link
+                          to={`/datamahasiswa/ubah/${mahasiswa.id}`}
+                          state={mahasiswa}
+                        >
                           <Tooltip content="Ubah">
                             <PencilSquareIcon
                               color="green"
