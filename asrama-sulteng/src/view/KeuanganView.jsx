@@ -22,19 +22,20 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
-import { getAllKeuangan } from "../config/redux/keuangan/keuanganThunk";
 import {
-  keuanganSelector,
-  keuangandataSelector,
-} from "../config/redux/keuangan/keuanganSelector";
+  deleteKeuangan,
+  getAllKeuangan,
+} from "../config/redux/keuangan/keuanganThunk";
+import { keuangandataSelector } from "../config/redux/keuangan/keuanganSelector";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 const KeuanganView = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllKeuangan());
   }, [dispatch]);
-  const keuangan = keuanganSelector();
+  const keuangan = keuangandataSelector();
   console.log(keuangan);
 
   // State untuk mengontrol apakah dialog terbuka untuk setiap item dalam daftar
@@ -76,6 +77,32 @@ const KeuanganView = () => {
     "Aksi",
   ];
 
+  const handleDeleteKeuangan = (id) => {
+    Swal.fire({
+      title: "Apakah anda yakin ingin menhapus data ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Tidak, batalkan!",
+      confirmButtonText: "Iya, hapus!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Data Kamu Telah Terhapus",
+          icon: "success",
+        });
+        dispatch(deleteKeuangan(id))
+          .then(() => {
+            dispatch(getAllKeuangan());
+          })
+          .catch((error) => {
+            console.error("Error deleting kamar:", error);
+          });
+      }
+    });
+  };
   return (
     <div>
       <div className="flex">
@@ -97,10 +124,15 @@ const KeuanganView = () => {
             <div className="flex gap-3 justify-between">
               <div className="w-3 flex gap-3 items-center">
                 <Typography>Show</Typography>
-                <Select label="Select Version">
-                  <Option>10</Option>
-                  <Option>30</Option>
-                  <Option>50</Option>
+                <Select
+                  label="Select Version"
+                  value="5"
+                  onChange={(val) => setItemsPerPage(val)}
+                >
+                  <Option value="5">5</Option>
+                  <Option value="10">10</Option>
+                  <Option value="30">30</Option>
+                  <Option value="50">50</Option>
                 </Select>
                 <Typography>Entries</Typography>
               </div>
@@ -148,7 +180,7 @@ const KeuanganView = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {keuangan.id}
+                          {index + 1}
                         </Typography>
                       </td>
                       <td
@@ -260,7 +292,7 @@ const KeuanganView = () => {
                       >
                         <div className="flex gap-2 ">
                           <Link
-                            to={`/datakeuangan/ubah/${keuangan.id}`}
+                            to={`/keuangan/ubah/${keuangan.id}`}
                             state={keuangan}
                           >
                             <Tooltip content="Ubah">
@@ -274,6 +306,7 @@ const KeuanganView = () => {
                             <TrashIcon
                               color="red"
                               className="h-5 w-5 cursor-pointer"
+                              onClick={() => handleDeleteKeuangan(keuangan.id)}
                             />
                           </Tooltip>
                         </div>

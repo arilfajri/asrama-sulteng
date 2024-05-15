@@ -26,6 +26,10 @@ import { authSelector } from "./config/redux/auth/authSelector";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getMe } from "./config/redux/auth/authThunk";
+import KamarView from "./view/KamarView";
+import DetailKelolaKamarView from "./view/DetailKelolaKamarView";
+import TambahDataKamarView from "./view/TambahDataKamarView";
+import UbahDataKamarView from "./view/UbahDataKamarView";
 
 function App() {
   const dispatch = useDispatch();
@@ -77,12 +81,25 @@ function App() {
               />
               <Route path="/keuangan" element={<KeuanganView />} />
               <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
-              <Route path="/keuangan/ubah" element={<UbahKeuanganView />} />
+              <Route path="/keuangan/ubah/:id" element={<UbahKeuanganView />} />
               <Route
                 path="/keuangan/unduh"
                 element={<UnduhDataKeuanganView />}
               />
               <Route path="/informasi" element={<InformasiView />} />
+              <Route path="/kelolakamar" element={<KamarView />} />
+              <Route
+                path="/kelolakamar/detail/:id"
+                element={<DetailKelolaKamarView />}
+              />
+              <Route
+                path="/kelolakamar/ubah/:id"
+                element={<UbahDataKamarView />}
+              />
+              <Route
+                path="/kelolakamar/tambah"
+                element={<TambahDataKamarView />}
+              />
             </>
           )}
           {/* admin */}

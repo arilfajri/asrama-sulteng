@@ -14,6 +14,8 @@ const persistConfig = {
     "keuangan",
     "keuangandata",
     "logout",
+    "informasiData",
+    "informasi",
   ],
 };
 

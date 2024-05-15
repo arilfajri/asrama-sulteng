@@ -12,6 +12,7 @@ import {
   CircleStackIcon,
   BanknotesIcon,
   NewspaperIcon,
+  HomeModernIcon,
 } from "@heroicons/react/24/solid";
 import logo from "../assets/logo-asrama.png";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -123,6 +124,22 @@ const Sidebar = () => {
                 <NewspaperIcon className="h-5 w-5" />
               </ListItemPrefix>
               Informasi
+            </ListItem>
+          </Link>
+          <Link to={"/kelolakamar"}>
+            <ListItem
+              className={`${
+                activeItems["/kelolakamar"] ||
+                activeItems[`/kelolakamar/detail/${params.id}`] ||
+                activeItems["/kelolakamar/tambah"]
+                  ? "bg-blue-900 text-white"
+                  : "hover:bg-blue-900 hover:text-white"
+              }`}
+            >
+              <ListItemPrefix>
+                <HomeModernIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Kamar
             </ListItem>
           </Link>
         </List>

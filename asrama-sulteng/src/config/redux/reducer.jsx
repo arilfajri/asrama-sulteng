@@ -7,6 +7,8 @@ import { mahasiswadataReducer } from "./mahasiswa/mahasiswaDataSlice";
 import { keuangandataReducer } from "./keuangan/keuangandataSlice";
 import { keuanganReducer } from "./keuangan/keuanganSlice";
 import { logoutReducer } from "./auth/logoutSlice";
+import { informasiDataReducer } from "./informasi/informasidataSlice";
+import { informasiReducer } from "./informasi/informasiSlice";
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -17,6 +19,8 @@ const reducer = combineReducers({
   keuangan: keuanganReducer,
   keuangandata: keuangandataReducer,
   logout: logoutReducer,
+  informasiData: informasiDataReducer,
+  informasi: informasiReducer,
 });
 
 export default reducer;

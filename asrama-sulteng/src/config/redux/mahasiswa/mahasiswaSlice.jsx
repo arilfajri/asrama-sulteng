@@ -44,33 +44,6 @@ const mahasiswaSlice = createSlice({
         };
       })
 
-      // getAllMahasiswa
-      .addCase(getAllMahasiswa.pending, (state, action) => {
-        return {
-          ...state,
-          getAllMahasiswaLoading: true,
-          getAllMahasiswaError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(getAllMahasiswa.fulfilled, (state, action) => {
-        return {
-          ...state,
-          data: action.payload,
-          getAllMahasiswaLoading: false,
-          getAllMahasiswaError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(getAllMahasiswa.rejected, (state, action) => {
-        return {
-          ...state,
-          getAllMahasiswaLoading: false,
-          getAllMahasiswaError: action.payload,
-          type: action.type,
-        };
-      })
-
       // updateMahasiswa
       .addCase(updateMahasiswa.pending, (state, action) => {
         return {

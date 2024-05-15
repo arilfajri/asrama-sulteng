@@ -30,3 +30,58 @@ export const updateKamar = createAsyncThunk(
     }
   }
 );
+
+// Update Data by ID Admin
+export const updateKamarByAdmin = createAsyncThunk(
+  "kamar/updatekamarbyadmin",
+  async ({ id, nomor_kamar, fasilitas, gambar }, { rejectWithValue }) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:5000/kamar/admin/${id}`,
+        {
+          nomor_kamar,
+          fasilitas,
+          gambar,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set header untuk FormData
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// createKamar
+export const createKamar = createAsyncThunk(
+  "kamar/createKamar",
+  async (kamar, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("http://localhost:5000/kamar", kamar, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Set header untuk FormData
+        },
+      });
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Delete Data by ID
+export const deleteKamar = createAsyncThunk(
+  "kamar/deleteKamar",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/kamar/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

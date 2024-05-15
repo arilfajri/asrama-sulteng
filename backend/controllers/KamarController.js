@@ -174,6 +174,79 @@ export const updateKamar = async (req, res) => {
     });
   }
 };
+export const updateKamarByAdmin = async (req, res) => {
+  try {
+    const kamar = await Kamar.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!kamar) {
+      return res.status(404).json({ msg: "Data tidak ditemukan" });
+    }
+
+    const { nomor_kamar, fasilitas } = req.body;
+    if (!nomor_kamar || !fasilitas) {
+      return res.status(400).json({ msg: "Semua data kamar harus diisi" });
+    }
+
+    // Simpan file ke direktori yang sesuai dan buat URL
+    const saveFileAndGetURL = async (file) => {
+      const ext = path.extname(file.name);
+      const fileName = `gambar_kamar_${Date.now()}${ext}`;
+      const folderPath = `./public/uploads/gambar_kamar`;
+      const filePath = path.join(folderPath, fileName);
+
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+
+      await file.mv(filePath);
+      const url = `${req.protocol}://${req.get(
+        "host"
+      )}/uploads/gambar_kamar/${fileName}`;
+      return { fileName, url };
+    };
+
+    const updateData = {
+      nomor_kamar,
+      fasilitas,
+    };
+
+    // Update file bukti transaksi jika diunggah
+    if (req.files && req.files.gambar) {
+      const { fileName, url } = await saveFileAndGetURL(
+        req.files.gambar,
+        "gambar_kamar"
+      );
+      updateData.gambar = url;
+
+      // Hapus file bukti transaksi lama
+      if (kamar.gambar) {
+        const oldBuktiTransaksiPath = path.join(
+          "./public/uploads/gambar_kamar",
+          kamar.gambar.split("/").pop()
+        );
+        if (fs.existsSync(oldBuktiTransaksiPath)) {
+          fs.unlinkSync(oldBuktiTransaksiPath);
+        }
+      }
+    }
+
+    await Kamar.update(updateData, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json({ msg: "Data kamar berhasil diperbarui" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: "Terjadi kesalahan dalam memperbarui Data kamar",
+    });
+  }
+};
 
 export const deleteKamar = async (req, res) => {
   try {

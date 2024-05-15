@@ -10,10 +10,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import {
-  kamarSelector,
-  kamardataSelector,
-} from "../config/redux/kamar/kamarSelector";
+import { kamardataSelector } from "../config/redux/kamar/kamarSelector";
 import { useDispatch } from "react-redux";
 import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 

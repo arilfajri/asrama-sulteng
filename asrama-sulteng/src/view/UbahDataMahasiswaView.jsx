@@ -6,6 +6,7 @@ import {
   DialogBody,
   Input,
   MenuItem,
+  Option,
   Select,
   Tooltip,
   Typography,
@@ -26,6 +27,7 @@ import { updateMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
 import { useDispatch } from "react-redux";
 
 const UbahDataMahasiswaView = () => {
+  const [jenisKelamin, setJenisKelamin] = useState();
   const location = useLocation();
   const data = location.state;
   const dispatch = useDispatch();
@@ -104,31 +106,14 @@ const UbahDataMahasiswaView = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log("Form values:", { ...values, jenis_kelamin: jenis_kelamin });
+      console.log("Form values:", { ...values, jenis_kelamin: jenisKelamin });
       console.log(values.ktp[0]);
-      const formData = new FormData();
-      formData.append("id", values.id);
-      formData.append("nama", values.nama);
-      formData.append("jenis_kelamin", jenis_kelamin);
-      formData.append("tempat_lahir", values.tempat_lahir);
-      formData.append("tanggal_lahir", values.tanggal_lahir);
-      formData.append("email", values.email);
-      formData.append("no_hp", values.no_hp);
-      formData.append("alamat_asal", values.alamat_asal);
-      formData.append("universitas", values.universitas);
-      formData.append("jurusan", values.jurusan);
-      formData.append("angkatan", values.angkatan);
-      formData.append("ktp", values.ktp[0]);
-      formData.append("kartu_keluarga", values.kartu_keluarga[0]);
-      formData.append(
-        "surat_ket_aktif_kuliah",
-        values.surat_ket_aktif_kuliah[0]
-      );
 
       try {
         dispatch(
           updateMahasiswa({
             ...values,
+            jenis_kelamin: jenisKelamin || values.jenis_kelamin,
             ktp: values.ktp[0],
             kartuKeluarga: values.kartu_keluarga[0],
             surat_ket_aktif_kuliah: values.surat_ket_aktif_kuliah[0],
@@ -185,8 +170,8 @@ const UbahDataMahasiswaView = () => {
                     value={formik.values.jenis_kelamin}
                     onBlur={formik.handleBlur}
                   >
-                    <MenuItem value="Laki-Laki">Laki-Laki</MenuItem>
-                    <MenuItem value="Perempuan">Perempuan</MenuItem>
+                    <Option value="Laki-Laki">Laki-Laki</Option>
+                    <Option value="Perempuan">Perempuan</Option>
                   </Select>
                 </div>
               </div>

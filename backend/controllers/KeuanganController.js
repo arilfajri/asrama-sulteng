@@ -114,7 +114,7 @@ export const updateKeuangan = async (req, res) => {
     // Simpan file ke direktori yang sesuai dan buat URL
     const saveFileAndGetURL = async (file) => {
       const ext = path.extname(file.name);
-      const fileName = `bukti_transaksi_${tanggal}_${Date.now()}${ext}`;
+      const fileName = `bukti_transaksi_${Date.now()}${ext}`;
       const folderPath = `./public/uploads/bukti_transaksi`;
       const filePath = path.join(folderPath, fileName);
 

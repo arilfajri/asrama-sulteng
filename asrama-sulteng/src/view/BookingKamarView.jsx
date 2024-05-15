@@ -17,10 +17,6 @@ import {
   getAllMahasiswa,
 } from "../config/redux/mahasiswa/mahasiswaThunk";
 import Swal from "sweetalert2";
-import {
-  mahasiswaSelector,
-  mahasiswaSelectorId,
-} from "../config/redux/mahasiswa/mahasiswaSelector";
 import { updateKamar } from "../config/redux/kamar/kamarThunk";
 
 const BookingKamarView = () => {

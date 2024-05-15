@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllKamar, updateKamar } from "./kamarThunk";
+import {
+  createKamar,
+  deleteKamar,
+  updateKamar,
+  updateKamarByAdmin,
+} from "./kamarThunk";
 
 const kamarInitState = {
   data: [],
@@ -11,33 +16,32 @@ const kamarSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // getAllKamar
-      .addCase(getAllKamar.pending, (state, action) => {
+      // createKamar
+      .addCase(createKamar.pending, (state, action) => {
         return {
           ...state,
-          getAllKamarLoading: true,
-          getAllKamarError: undefined,
+          createKamarLoading: true,
+          createKamarError: undefined,
           type: action.type,
         };
       })
-      .addCase(getAllKamar.fulfilled, (state, action) => {
+      .addCase(createKamar.fulfilled, (state, action) => {
         return {
           ...state,
           data: action.payload,
-          getAllKamarLoading: false,
-          getAllKamarError: undefined,
+          createKamarLoading: false,
+          createKamarError: undefined,
           type: action.type,
         };
       })
-      .addCase(getAllKamar.rejected, (state, action) => {
+      .addCase(createKamar.rejected, (state, action) => {
         return {
           ...state,
-          getAllKamarLoading: false,
-          getAllKamarError: action.payload,
+          createKamarLoading: false,
+          createKamarError: action.payload,
           type: action.type,
         };
       })
-
       // updateKamar
       .addCase(updateKamar.pending, (state, action) => {
         return {
@@ -63,8 +67,62 @@ const kamarSlice = createSlice({
           updateKamarError: action.payload,
           type: action.type,
         };
+      })
+      // updateKamarByAdmin
+      .addCase(updateKamarByAdmin.pending, (state, action) => {
+        return {
+          ...state,
+          updateKamarByAdminLoading: true,
+          updateKamarByAdminError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(updateKamarByAdmin.fulfilled, (state, action) => {
+        return {
+          ...state,
+          data: action.payload,
+          updateKamarByAdminLoading: false,
+          updateKamarByAdminError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(updateKamarByAdmin.rejected, (state, action) => {
+        return {
+          ...state,
+          updateKamarByAdminLoading: false,
+          updateKamarByAdminError: action.payload,
+          type: action.type,
+        };
+      })
+      // deleteKamar
+      .addCase(deleteKamar.pending, (state, action) => {
+        return {
+          ...state,
+          deleteKamarLoading: true,
+          deleteKamarError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(deleteKamar.fulfilled, (state, action) => {
+        return {
+          ...state,
+          data: action.payload,
+          deleteKamarLoading: false,
+          deleteKamarError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(deleteKamar.rejected, (state, action) => {
+        return {
+          ...state,
+          deleteKamarLoading: false,
+          deleteKamarError: action.payload,
+          type: action.type,
+        };
       });
   },
 });
+
+export const { resetDataKamar } = kamarSlice.actions;
 
 export const { actions: kamarAction, reducer: kamarReducer } = kamarSlice;

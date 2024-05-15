@@ -12,12 +12,15 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
-import { logout } from "../config/redux/auth/authThunk";
+import { getMe, logout } from "../config/redux/auth/authThunk";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { reset } from "../config/redux/auth/authSlice";
 import { resetDataMahasiswa } from "../config/redux/mahasiswa/mahasiswaSlice";
 import { resetDataKeuangan } from "../config/redux/keuangan/keuanganSlice";
+import { resetDataInformasi } from "../config/redux/informasi/informasiSlice";
+import { resetDataKamar } from "../config/redux/kamar/kamarSlice";
+import { authSelector } from "../config/redux/auth/authSelector";
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -28,8 +31,12 @@ const TopBar = () => {
     dispatch(reset());
     dispatch(resetDataMahasiswa());
     dispatch(resetDataKeuangan());
-    navigate("/");
+    dispatch(resetDataInformasi());
+    dispatch(resetDataKamar());
+    navigate("/login");
   };
+
+  const admin = authSelector();
   return (
     <div>
       <div className="bg-abuAbu shadow flex justify-end">
@@ -41,7 +48,7 @@ const TopBar = () => {
               onMouseLeave={() => setIsHover(false)}
             >
               <UserCircleIcon className="h-6 w-6" />
-              <Typography>Aril Fajri Tolani</Typography>
+              <Typography>{admin.name}</Typography>
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`h-3.5 w-3.5 transition-transform transform ${
@@ -53,9 +60,9 @@ const TopBar = () => {
           <MenuList>
             <MenuItem className="flex items-center gap-2">
               <ArrowLeftStartOnRectangleIcon color="red" className="h-5 w-5" />
-              <Button onClick={logOut} className=" hover:text-red-900">
+              <button onClick={logOut} className=" hover:text-red-900">
                 Logout
-              </Button>
+              </button>
             </MenuItem>
           </MenuList>
         </Menu>
