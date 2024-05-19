@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
-import {
-  CurrencyDollarIcon,
-  EyeIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
+import { CurrencyDollarIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import {
   Button,
@@ -59,7 +54,11 @@ const DashboardView = () => {
 
   // Filter mahasiswa yang statusnya menunggu
   const mahasiswa = mahasiswaAll.filter(
-    (mahasiswa) => mahasiswa.status === "menunggu"
+    (mahasiswa) => mahasiswa.status === "Menunggu"
+  );
+  // Filter mahasiswa yang statusnya menunggu
+  const mahasiswaPenghuni = mahasiswaAll.filter(
+    (mahasiswa) => mahasiswa.status === "Diterima"
   );
 
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
@@ -267,7 +266,7 @@ const DashboardView = () => {
               Penguni Asrama
             </Typography>
             <Typography className=" text-5xl font-bold mt-5">
-              {mahasiswaAll.length}
+              {mahasiswaPenghuni.length}
             </Typography>
           </div>
         </div>

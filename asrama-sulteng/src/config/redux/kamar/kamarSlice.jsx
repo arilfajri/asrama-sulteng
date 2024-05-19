@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  createKamar,
-  deleteKamar,
-  updateKamar,
-  updateKamarByAdmin,
-} from "./kamarThunk";
+import { createKamar, deleteKamar, updateKamar } from "./kamarThunk";
 
 const kamarInitState = {
   data: [],
@@ -68,32 +63,7 @@ const kamarSlice = createSlice({
           type: action.type,
         };
       })
-      // updateKamarByAdmin
-      .addCase(updateKamarByAdmin.pending, (state, action) => {
-        return {
-          ...state,
-          updateKamarByAdminLoading: true,
-          updateKamarByAdminError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(updateKamarByAdmin.fulfilled, (state, action) => {
-        return {
-          ...state,
-          data: action.payload,
-          updateKamarByAdminLoading: false,
-          updateKamarByAdminError: undefined,
-          type: action.type,
-        };
-      })
-      .addCase(updateKamarByAdmin.rejected, (state, action) => {
-        return {
-          ...state,
-          updateKamarByAdminLoading: false,
-          updateKamarByAdminError: action.payload,
-          type: action.type,
-        };
-      })
+
       // deleteKamar
       .addCase(deleteKamar.pending, (state, action) => {
         return {

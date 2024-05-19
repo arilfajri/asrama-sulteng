@@ -8,9 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { CheckBadgeIcon, HomeModernIcon } from "@heroicons/react/24/solid";
 import logo from "../assets/logo-asrama.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const SidebarCalonPenghuni = () => {
+  const params = useParams();
   const [activeItems, setActiveItems] = useState({
     "/kamar": false,
     "/status": false,
@@ -41,8 +42,8 @@ const SidebarCalonPenghuni = () => {
             <ListItem
               className={`${
                 activeItems["/kamar"] ||
-                activeItems["/kamar/detail"] ||
-                activeItems["/kamar/detail/daftar"]
+                activeItems[`/kamar/detail/${params.id}`] ||
+                activeItems[`/kamar/detail/${params.id}/daftar`]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"
               }`}

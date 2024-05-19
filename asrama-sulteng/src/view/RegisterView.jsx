@@ -41,7 +41,7 @@ const RegisterView = () => {
         console.log("value", values);
         formik.resetForm();
         dispatch(register(values));
-        // navigate("/login");
+        navigate("/login");
       } catch (error) {
         console.error("Login failed:", error.response.data.msg);
       }
@@ -72,7 +72,7 @@ const RegisterView = () => {
                 <Input
                   id="name"
                   size="lg"
-                  placeholder="Masukkan nama kamu"
+                  placeholder="Masukkan nama!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -93,7 +93,7 @@ const RegisterView = () => {
                 <Input
                   id="email"
                   size="lg"
-                  placeholder="Masukkan email kamu"
+                  placeholder="Masukkan email!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -114,7 +114,7 @@ const RegisterView = () => {
                   id="password"
                   type="password"
                   size="lg"
-                  placeholder="Masukkan password kamu"
+                  placeholder="Masukkan password!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -137,7 +137,7 @@ const RegisterView = () => {
                   id="confPassword"
                   type="password"
                   size="lg"
-                  placeholder="Masukkan password kamu"
+                  placeholder="Masukkan konfirmasi password!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",

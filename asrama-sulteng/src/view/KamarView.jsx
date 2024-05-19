@@ -112,13 +112,15 @@ const KamarView = () => {
                         />
                       </Tooltip>
                     </Link>
-                    <Tooltip content="Hapus">
-                      <TrashIcon
-                        color="red"
-                        className="h-6 w-6 cursor-pointer"
-                        onClick={() => handleDeleteKamar(kamarItem.id)}
-                      />
-                    </Tooltip>
+                    {!kamarItem.mahasiswa && (
+                      <Tooltip content="Hapus">
+                        <TrashIcon
+                          color="red"
+                          className="h-6 w-6 cursor-pointer"
+                          onClick={() => handleDeleteKamar(kamarItem.id)}
+                        />
+                      </Tooltip>
+                    )}
                   </div>
                 </CardFooter>
               </Card>

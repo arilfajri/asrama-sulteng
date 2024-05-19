@@ -186,7 +186,7 @@ export const updateKamarByAdmin = async (req, res) => {
       return res.status(404).json({ msg: "Data tidak ditemukan" });
     }
 
-    const { nomor_kamar, fasilitas } = req.body;
+    const { nomor_kamar, fasilitas, mahasiswaId } = req.body;
     if (!nomor_kamar || !fasilitas) {
       return res.status(400).json({ msg: "Semua data kamar harus diisi" });
     }
@@ -212,6 +212,7 @@ export const updateKamarByAdmin = async (req, res) => {
     const updateData = {
       nomor_kamar,
       fasilitas,
+      mahasiswaId: mahasiswaId || null,
     };
 
     // Update file bukti transaksi jika diunggah

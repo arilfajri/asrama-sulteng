@@ -6,7 +6,7 @@ import {
   Select,
   Typography,
 } from "@material-tailwind/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TopBar from "../component/TopBar";
 import SidebarCalonPenghuni from "../component/SidebarCalonPenghuni";
 import { useDispatch } from "react-redux";
@@ -14,13 +14,19 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
   createMahasiswa,
+  deleteMahasiswa,
   getAllMahasiswa,
 } from "../config/redux/mahasiswa/mahasiswaThunk";
 import Swal from "sweetalert2";
 import { updateKamar } from "../config/redux/kamar/kamarThunk";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { daftar_jurusan, daftar_universitas } from "../config/data/listData";
+import { mahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
 
 const BookingKamarView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const [jenis_kelamin, setJenisKelamin] = useState();
   const data = location.state;
@@ -46,7 +52,7 @@ const BookingKamarView = () => {
       surat_ket_aktif_kuliah: "",
     },
     validationSchema: Yup.object().shape({
-      nama: Yup.string().required("Nama diperlukan"),
+      nama: Yup.string().required("Nama diperlukan").min(3, "Minimal 3 huruf"),
       // jenis_kelamin: Yup.string().required("Jenis kelamin diperlukan"),
       tempat_lahir: Yup.string().required("Tempat lahir diperlukan"),
       tanggal_lahir: Yup.date().required("Tanggal lahir diperlukan"),
@@ -56,14 +62,16 @@ const BookingKamarView = () => {
       no_hp: Yup.string()
         .required("Nomor HP diperlukan")
         .matches(/^\d+$/, "No hp harus berupa angka")
-        .max(12, "Nomor HP tidak boleh lebih dari 12 karakter"),
+        .max(12, "Nomor HP tidak boleh lebih dari 12 angka")
+        .min(11, "Nomor HP minimal 11 angka"),
       alamat_asal: Yup.string().required("Alamat asal diperlukan"),
       universitas: Yup.string().required("Universitas diperlukan"),
       jurusan: Yup.string().required("Jurusan diperlukan"),
       angkatan: Yup.string()
         .required("Angkatan diperlukan")
         .matches(/^\d+$/, "Angkatan harus berupa angka")
-        .max(4, "Angkatan tidak boleh lebih dari 4 karakter"),
+        .max(4, "Angkatan tidak boleh lebih dari 4 angka")
+        .min(4, "Angkatan minimal 4 angka"),
       ktp: Yup.string().required("KTP diperlukan"),
       kartu_keluarga: Yup.string().required("Kartu Keluarga diperlukan"),
       surat_ket_aktif_kuliah: Yup.string().required(
@@ -72,10 +80,11 @@ const BookingKamarView = () => {
     }),
     onSubmit: (values) => {
       console.log("Form values:", { ...values, jenis_kelamin: jenis_kelamin });
+      console.log("id", values.id);
       console.log(values.ktp[0]);
       const formData = new FormData();
       formData.append("nama", values.nama);
-      formData.append("jenis_kelamin", jenis_kelamin);
+      formData.append("jenis_kelamin", jenis_kelamin || values.jenis_kelamin);
       formData.append("tempat_lahir", values.tempat_lahir);
       formData.append("tanggal_lahir", values.tanggal_lahir);
       formData.append("email", values.email);
@@ -90,23 +99,18 @@ const BookingKamarView = () => {
         "surat_ket_aktif_kuliah",
         values.surat_ket_aktif_kuliah[0]
       );
-      dispatch(createMahasiswa(formData));
-
+      // formik.resetForm();
       Swal.fire({
-        title: "Apakah anda yakin ingin melakukan booking?",
-        text: "You won't be able to revert this!",
         icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        showDenyButton: true,
+        title: "Apakah anda yakin ingin melakukan booking?",
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
       }).then(async (result) => {
+        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Booking!",
-            text: "Your file has been deleted.",
-            icon: "success",
-          });
           try {
+            await dispatch(createMahasiswa(formData));
             await dispatch(
               updateKamar({
                 id: data.id,
@@ -114,11 +118,39 @@ const BookingKamarView = () => {
                 fasilitas: data.fasilitas,
               })
             );
+            navigate("/status");
           } catch (error) {
             console.error("Failed to create mahasiswa:", error);
           }
+          Swal.fire(
+            "Saved!",
+            "Kamu telah melakukan booking, silahkan menunggu diverifikasi terlebih dahulu",
+            "success"
+          );
+        } else if (result.isDenied) {
+          Swal.fire("Booking dibatalkan!", "", "error");
         }
       });
+      // Swal.fire({
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#3085d6",
+      //   cancelButtonColor: "#d33",
+      // }).then(async (result) => {
+      //   if (result.isConfirmed) {
+      //     Swal.fire({
+      //       title: "Booking!",
+      //       text: "Kamu telah melakukan booking, silahkan menunggu diverifikasi terlebih dahulu",
+      //       icon: "success",
+      //     });
+
+      //   } else {
+
+      //     Swal.fire({
+      //       title: "Booking dibatalkan",
+      //       icon: "error",
+      //     });
+      //   }
+      // });
     },
   });
 
@@ -229,6 +261,7 @@ const BookingKamarView = () => {
                     id="no_hp"
                     className="w-full"
                     label="No.Hp"
+                    type="number"
                     value={formik.values.no_hp}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -264,11 +297,17 @@ const BookingKamarView = () => {
                   <Input
                     id="universitas"
                     className="w-full"
-                    label="Kampus"
+                    label="Universitas"
                     value={formik.values.universitas}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    list="university-list"
                   />
+                  <datalist id="university-list">
+                    {daftar_universitas.map((uni, index) => (
+                      <option key={index} value={uni} />
+                    ))}
+                  </datalist>
                   {formik.touched.universitas && formik.errors.universitas && (
                     <div className="text-red-700 m-0">
                       {formik.errors.universitas}
@@ -283,10 +322,16 @@ const BookingKamarView = () => {
                     id="jurusan"
                     className="w-full"
                     label="Jurusan"
+                    list="jurusan-list"
                     value={formik.values.jurusan}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
+                  <datalist id="jurusan-list">
+                    {daftar_jurusan.map((uni, index) => (
+                      <option key={index} value={uni} />
+                    ))}
+                  </datalist>
                   {formik.touched.jurusan && formik.errors.jurusan && (
                     <div className="text-red-700 m-0">
                       {formik.errors.jurusan}
@@ -301,6 +346,7 @@ const BookingKamarView = () => {
                     id="angkatan"
                     className="w-full"
                     label="Angkatan"
+                    type="number"
                     value={formik.values.angkatan}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -333,7 +379,8 @@ const BookingKamarView = () => {
                       formik.setFieldValue("ktp", e.currentTarget.files)
                     }
                     onBlur={formik.handleBlur}
-                    multiple={false} // Jika hanya satu file yang diizinkan untuk diunggah
+                    multiple={false}
+                    accept="application/pdf"
                   />
                   {formik.touched.ktp && formik.errors.ktp && (
                     <div className="text-red-700 m-0">{formik.errors.ktp}</div>
@@ -355,7 +402,8 @@ const BookingKamarView = () => {
                       )
                     }
                     onBlur={formik.handleBlur}
-                    multiple={false} // Jika hanya satu file yang diizinkan untuk diunggah
+                    multiple={false}
+                    accept="application/pdf"
                   />
                   {formik.touched.kartu_keluarga &&
                     formik.errors.kartu_keluarga && (
@@ -366,7 +414,9 @@ const BookingKamarView = () => {
                 </div>
               </div>
               <div className="flex items-center">
-                <Typography className="w-96">Surat Ket.Aktif Kuliah</Typography>
+                <Typography className="w-96">
+                  Surat Ket.Aktif Kuliah / Bukti Diterima Kuliah
+                </Typography>
                 <div className="w-full">
                   <Input
                     id="surat_ket_aktif_kuliah"
@@ -380,7 +430,8 @@ const BookingKamarView = () => {
                       )
                     }
                     onBlur={formik.handleBlur}
-                    multiple={false} // Jika hanya satu file yang diizinkan untuk diunggah
+                    multiple={false}
+                    accept="application/pdf"
                   />
                   {formik.touched.surat_ket_aktif_kuliah &&
                     formik.errors.surat_ket_aktif_kuliah && (
@@ -393,11 +444,9 @@ const BookingKamarView = () => {
             </div>
           </div>
           <div className="p-5 flex gap-3">
-            {/* <Link to={"/datamahasiswa"}> */}
             <Button className="bg-blue-900" type="submit">
               Booking
             </Button>
-            {/* </Link> */}
           </div>
         </form>
       </div>

@@ -38,9 +38,17 @@ const VerifikasiDetailView = () => {
   const handleOpenSurat = () => setOpenSurat(!openSurat);
 
   console.log(data);
-  const tanggalLahir = data?.tanggal_lahir;
 
-  const tanggalLahirFormatted = tanggalLahir.slice(0, 10);
+  const formatDate = (dateString) => {
+    // Create a new Date object from the dateString
+    const date = new Date(dateString);
+    // Format the date using toLocaleDateString with the appropriate options
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
   const newplugin = defaultLayoutPlugin();
 
   // ktp
@@ -58,31 +66,85 @@ const VerifikasiDetailView = () => {
   );
 
   const terima = () => {
-    dispatch(
-      updateMahasiswa({
-        id: data.id,
-        nama: data.nama,
-        jenis_kelamin: data.jenis_kelamin,
-        tempat_lahir: data.tempat_lahir,
-        tanggal_lahir: data.tanggal_lahir,
-        email: data.email,
-        no_hp: data.no_hp,
-        alamat_asal: data.alamat_asal,
-        universitas: data.universitas,
-        jurusan: data.jurusan,
-        angkatan: data.angkatan,
-        status: "Diterima",
-        ktp: data.ktp,
-        kartu_keluarga: data.kartu_keluarga,
-        surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
-      })
-    );
     Swal.fire({
-      title: "Data Mahasiswa Diterima!",
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed || result.isDismissed) {
-        navigate(-1);
+      title: "Apakah anda yakin ingin menerima mahasiswa ini?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Diteriman!",
+          text: "Mahasiswa telah diterima",
+          icon: "success",
+        });
+        try {
+          dispatch(
+            updateMahasiswa({
+              id: data.id,
+              nama: data.nama,
+              jenis_kelamin: data.jenis_kelamin,
+              tempat_lahir: data.tempat_lahir,
+              tanggal_lahir: data.tanggal_lahir,
+              email: data.email,
+              no_hp: data.no_hp,
+              alamat_asal: data.alamat_asal,
+              universitas: data.universitas,
+              jurusan: data.jurusan,
+              angkatan: data.angkatan,
+              status: "Diterima",
+              ktp: data.ktp,
+              kartu_keluarga: data.kartu_keluarga,
+              surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
+            })
+          );
+          navigate(-1);
+        } catch (error) {
+          console.error("Failed to update mahasiswa:", error);
+        }
+      }
+    });
+  };
+
+  const tolak = () => {
+    Swal.fire({
+      title: "Apakah anda yakin ingin menolak mahasiswa ini?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Ditolak!",
+          text: "Mahasiswa di tolak",
+          icon: "error",
+        });
+        try {
+          dispatch(
+            updateMahasiswa({
+              id: data.id,
+              nama: data.nama,
+              jenis_kelamin: data.jenis_kelamin,
+              tempat_lahir: data.tempat_lahir,
+              tanggal_lahir: data.tanggal_lahir,
+              email: data.email,
+              no_hp: data.no_hp,
+              alamat_asal: data.alamat_asal,
+              universitas: data.universitas,
+              jurusan: data.jurusan,
+              angkatan: data.angkatan,
+              status: "Ditolak",
+              ktp: data.ktp,
+              kartu_keluarga: data.kartu_keluarga,
+              surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
+            })
+          );
+          navigate(-1);
+        } catch (error) {
+          console.error("Failed to create mahasiswa:", error);
+        }
       }
     });
   };
@@ -121,7 +183,7 @@ const VerifikasiDetailView = () => {
               <Typography className="w-96">Tanggal Lahir</Typography>
               <Input
                 className="w-full"
-                value={tanggalLahirFormatted}
+                value={formatDate(data.tanggal_lahir)}
                 label="Tanggal Lahir"
               />
             </div>
@@ -206,7 +268,9 @@ const VerifikasiDetailView = () => {
               </Dialog>
             </div>
             <div className="flex items-center">
-              <Typography className="w-96">Surat Ket.Aktif Kuliah</Typography>
+              <Typography className="w-96">
+                Surat Ket.Aktif Kuliah / Bukti Diterima Kuliah
+              </Typography>
               <button
                 onClick={handleOpenSurat}
                 className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
@@ -230,7 +294,9 @@ const VerifikasiDetailView = () => {
           </div>
         </div>
         <div className="p-5 flex gap-3">
-          <Button color="red">Tolak</Button>
+          <Button color="red" onClick={tolak}>
+            Tolak
+          </Button>
           <Button color="green" onClick={terima}>
             terima
           </Button>

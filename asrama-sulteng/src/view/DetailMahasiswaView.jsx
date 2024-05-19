@@ -32,10 +32,16 @@ const DetailMahasiswaView = () => {
   const handleOpenSurat = () => setOpenSurat(!openSurat);
 
   console.log(data);
-  const tanggalLahir = data?.tanggal_lahir; // String tanggal lahir dalam format ISO
-
-  // Mengambil 10 karakter pertama dari string tanggal lahir
-  const tanggalLahirFormatted = tanggalLahir.slice(0, 10);
+  const formatDate = (dateString) => {
+    // Create a new Date object from the dateString
+    const date = new Date(dateString);
+    // Format the date using toLocaleDateString with the appropriate options
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
   const newplugin = defaultLayoutPlugin();
 
   // ktp
@@ -86,7 +92,7 @@ const DetailMahasiswaView = () => {
               <Typography className="w-96">Tanggal Lahir</Typography>
               <Input
                 className="w-full"
-                value={tanggalLahirFormatted}
+                value={formatDate(data.tanggal_lahir)}
                 label="Tanggal Lahir"
               />
             </div>

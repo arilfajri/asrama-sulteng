@@ -33,7 +33,7 @@ export const getMahasiswa = async (req, res) => {
           },
           {
             model: Kamar,
-            attributes: ["nomor_kamar"],
+            attributes: ["nomor_kamar", "id"],
           },
         ],
       });
@@ -160,6 +160,14 @@ export const createMahasiswa = async (req, res) => {
       saveFileAndGetURL(kartu_keluarga, "kartu_keluarga"),
       saveFileAndGetURL(surat_ket_aktif_kuliah, "surat_ket_aktif_kuliah"),
     ]);
+    let user_id;
+    let user_status;
+    if (req.role === "user") {
+      (user_id = req.userId), (user_status = "Menunggu");
+    } else {
+      user_id = "";
+      user_status = "Diterima";
+    }
 
     const mahasiswa = new Mahasiswa({
       nama,
@@ -176,14 +184,15 @@ export const createMahasiswa = async (req, res) => {
       kartu_keluarga: savedFiles[1].url,
       surat_ket_aktif_kuliah: savedFiles[2].url,
       userId: req.userId,
-      id: req.userId,
-      status: "Menunggu",
+      id: user_id,
+      status: user_status,
     });
 
-    await mahasiswa.save();
-    res
-      .status(201)
-      .json({ msg: "Data mahasiswa dan dokumen tersimpan dengan sukses" });
+    const savedMahasiswa = await mahasiswa.save();
+    res.status(201).json({
+      msg: "Data mahasiswa dan dokumen tersimpan dengan sukses",
+      mahasiswa: savedMahasiswa,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({

@@ -53,7 +53,15 @@ const DetailKelolaKamarView = () => {
           </Dialog>
         </div>
         <div className="p-5">
-          <Typography className="text-lg">Kamar {data?.nomor_kamar}</Typography>
+          <Typography className=" text-xl font-bold">
+            Kamar {data?.nomor_kamar}
+          </Typography>
+          <Typography className=" font-semibold">
+            Penghuni:{" "}
+            {data?.mahasiswa?.nama
+              ? data?.mahasiswa?.nama
+              : "Tidak ada penghuni"}
+          </Typography>
           <Typography>Fasilitas:</Typography>
           <Typography>{data?.fasilitas}</Typography>
           <div className="flex gap-16 h-14 w-14 mt-3">

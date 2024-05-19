@@ -78,7 +78,7 @@ const LoginView = () => {
                 <Input
                   id="email"
                   size="lg"
-                  placeholder="Masukkan email kamu"
+                  placeholder="Masukkan email!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",
@@ -99,7 +99,7 @@ const LoginView = () => {
                   id="password"
                   type="password"
                   size="lg"
-                  placeholder="Masukkan password kamu"
+                  placeholder="Masukkan password!"
                   className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
                   labelProps={{
                     className: "before:content-none after:content-none",

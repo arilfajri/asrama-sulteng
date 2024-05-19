@@ -43,6 +43,8 @@ const KeuanganView = () => {
     Array(keuangan.length).fill(false)
   );
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   // Fungsi untuk menangani pembukaan dialog untuk item tertentu
   const handleOpenDialog = (index) => {
     const newOpenDialogs = [...openDialogs];
@@ -58,10 +60,18 @@ const KeuanganView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
+  const filteredTransaksi = keuangan.filter((keuangan) =>
+    keuangan.keterangan.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = keuangan.slice(indexOfFirstItem, indexOfLastItem);
+
+  const currentItems = filteredTransaksi.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -103,6 +113,18 @@ const KeuanganView = () => {
       }
     });
   };
+
+  const formatDate = (dateString) => {
+    // Create a new Date object from the dateString
+    const date = new Date(dateString);
+    // Format the date using toLocaleDateString with the appropriate options
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <div>
       <div className="flex">
@@ -140,6 +162,7 @@ const KeuanganView = () => {
                 <Input
                   label="Search"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
             </div>
@@ -195,11 +218,7 @@ const KeuanganView = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {
-                            new Date(keuangan.tanggal)
-                              .toISOString()
-                              .split("T")[0]
-                          }
+                          {formatDate(keuangan.tanggal)}
                         </Typography>
                       </td>
                       <td

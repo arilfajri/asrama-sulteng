@@ -13,14 +13,22 @@ import { Link } from "react-router-dom";
 import { kamardataSelector } from "../config/redux/kamar/kamarSelector";
 import { useDispatch } from "react-redux";
 import { getAllKamar } from "../config/redux/kamar/kamarThunk";
+import { getAllMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
+import { mahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
 
 const KamarTersediaView = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllKamar());
+    dispatch(getAllMahasiswa());
   }, [dispatch]);
   const kamar = kamardataSelector();
-  console.log("kamar", kamar);
+  const mahasiswa = mahasiswaSelector();
+
+  const kamarMahasiswa = mahasiswa?.kamar?.id;
+
+  console.log("mahasiswa", mahasiswa);
+  console.log("kamar", kamarMahasiswa);
   return (
     <div className="flex">
       <SidebarCalonPenghuni />
@@ -37,29 +45,43 @@ const KamarTersediaView = () => {
                   <img
                     src={kamarItem.gambar}
                     alt="card-image"
-                    className={
-                      kamarItem.mahasiswa
-                        ? "opacity-50 h-full w-full"
-                        : "h-full w-full"
-                    }
+                    className={`h-full w-full ${
+                      kamarMahasiswa || kamarItem.mahasiswa ? "opacity-50" : ""
+                    }`}
                   />
                 </CardHeader>
                 <CardBody>
                   <Typography
                     variant="h5"
                     color="blue-gray"
-                    className={kamarItem.mahasiswa ? "opacity-50" : ""}
+                    className={`${
+                      kamarMahasiswa || kamarItem.mahasiswa ? "opacity-50" : ""
+                    }`}
                   >
                     {kamarItem.nomor_kamar}
                   </Typography>
                 </CardBody>
                 <CardFooter className="pt-0">
-                  {kamarItem.mahasiswa ? (
-                    <Button className=" bg-blue-900" disabled>
+                  {kamarMahasiswa ? (
+                    kamarItem.id === kamarMahasiswa ? (
+                      <Button className="bg-blue-900" disabled>
+                        Anda Telah Membooking Kamar Ini
+                      </Button>
+                    ) : kamarItem.mahasiswa ? (
+                      <Button className="bg-blue-900" disabled>
+                        Kamar Terisi
+                      </Button>
+                    ) : (
+                      <Button className="bg-blue-900" disabled>
+                        Pilih Kamar
+                      </Button>
+                    )
+                  ) : kamarItem.mahasiswa ? (
+                    <Button className="bg-blue-900" disabled>
                       Kamar Terisi
                     </Button>
                   ) : (
-                    <Button className=" bg-blue-900">
+                    <Button className="bg-blue-900">
                       <Link
                         to={`/kamar/detail/${kamarItem.id}`}
                         state={kamarItem}

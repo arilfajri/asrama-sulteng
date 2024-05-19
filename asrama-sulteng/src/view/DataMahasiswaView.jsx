@@ -26,24 +26,38 @@ import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 
 const DataMahasiswaView = () => {
   const dispatch = useDispatch();
-  const mahasiswa = allmahasiswaSelector();
+  const mahasiswaAll = allmahasiswaSelector();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     dispatch(getAllMahasiswa());
     dispatch(getAllKamar());
   }, [dispatch]);
 
+  // Filter mahasiswa yang statusnya Diterima
+  const mahasiswa = mahasiswaAll.filter(
+    (mahasiswa) => mahasiswa.status === "Diterima"
+  );
+
+  const filteredMahasiswa = mahasiswa.filter((mahasiswa) =>
+    mahasiswa.nama.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = mahasiswa.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentItems = mahasiswa.slice(indexOfFirstItem, indexOfLastItem);
+
+  const currentItems = filteredMahasiswa.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const isLast = (index) => index === mahasiswa.length - 1;
-
+  const isLast = (index) => index === filteredMahasiswa.length - 1;
   const TABLE_HEAD = [
     "No",
     "Nama",
@@ -90,6 +104,7 @@ const DataMahasiswaView = () => {
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
@@ -130,7 +145,7 @@ const DataMahasiswaView = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {mahasiswa.id}
+                        {index + 1}
                       </Typography>
                     </td>
                     <td
@@ -190,7 +205,7 @@ const DataMahasiswaView = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {mahasiswa.kamar.nomor_kamar}
+                        {mahasiswa.kamar?.nomor_kamar}
                       </Typography>
                     </td>
                     <td

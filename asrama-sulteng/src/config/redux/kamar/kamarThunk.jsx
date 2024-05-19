@@ -34,7 +34,10 @@ export const updateKamar = createAsyncThunk(
 // Update Data by ID Admin
 export const updateKamarByAdmin = createAsyncThunk(
   "kamar/updatekamarbyadmin",
-  async ({ id, nomor_kamar, fasilitas, gambar }, { rejectWithValue }) => {
+  async (
+    { id, nomor_kamar, fasilitas, gambar, mahasiswaId },
+    { rejectWithValue }
+  ) => {
     try {
       const res = await axios.patch(
         `http://localhost:5000/kamar/admin/${id}`,
@@ -42,6 +45,7 @@ export const updateKamarByAdmin = createAsyncThunk(
           nomor_kamar,
           fasilitas,
           gambar,
+          mahasiswaId,
         },
         {
           headers: {

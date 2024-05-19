@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createMahasiswa,
+  deleteMahasiswa,
   getAllMahasiswa,
   updateMahasiswa,
 } from "./mahasiswaThunk";
@@ -67,6 +68,33 @@ const mahasiswaSlice = createSlice({
           ...state,
           updateMahasiswaLoading: false,
           updateMahasiswaError: action.payload,
+          type: action.type,
+        };
+      })
+
+      // deleteMahasiswa
+      .addCase(deleteMahasiswa.pending, (state, action) => {
+        return {
+          ...state,
+          deleteMahasiswaLoading: true,
+          deleteMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(deleteMahasiswa.fulfilled, (state, action) => {
+        return {
+          ...state,
+          data: action.payload,
+          deleteMahasiswaLoading: false,
+          deleteMahasiswaError: undefined,
+          type: action.type,
+        };
+      })
+      .addCase(deleteMahasiswa.rejected, (state, action) => {
+        return {
+          ...state,
+          deleteMahasiswaLoading: false,
+          deleteMahasiswaError: action.payload,
           type: action.type,
         };
       });

@@ -35,6 +35,7 @@ const VerifikasiView = () => {
   const dispatch = useDispatch();
   const mahasiswa = allmahasiswaSelector();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
   console.log(mahasiswa);
   useEffect(() => {
@@ -42,14 +43,20 @@ const VerifikasiView = () => {
     dispatch(getAllKamar());
   }, [dispatch]);
 
+  const filteredMahasiswa = mahasiswa.filter((mahasiswa) =>
+    mahasiswa.nama.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = mahasiswa.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredMahasiswa.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const isLast = (index) => index === mahasiswa.length - 1;
+  const isLast = (index) => index === filteredMahasiswa.length - 1;
   return (
     <div className="flex">
       <Sidebar />
@@ -80,6 +87,7 @@ const VerifikasiView = () => {
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
@@ -120,7 +128,7 @@ const VerifikasiView = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {mahasiswa.id}
+                        {index + 1}
                       </Typography>
                     </td>
                     <td
@@ -180,7 +188,7 @@ const VerifikasiView = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {mahasiswa.kamar.nomor_kamar}
+                        {mahasiswa.kamar?.nomor_kamar}
                       </Typography>
                     </td>
                     <td
@@ -211,17 +219,21 @@ const VerifikasiView = () => {
                           : "p-4 border-b border-blue-gray-50"
                       }
                     >
-                      <Link
-                        to={`/verifikasi/detail/${mahasiswa.id}`}
-                        state={mahasiswa}
-                      >
-                        <Tooltip content="Detail">
-                          <EyeIcon
-                            color="blue"
-                            className="h-5 w-5 cursor-pointer"
-                          />
-                        </Tooltip>
-                      </Link>
+                      {mahasiswa.status === "Diterima" ? (
+                        <EyeIcon color="blue" className="h-5 w-5 opacity-50" />
+                      ) : (
+                        <Link
+                          to={`/verifikasi/detail/${mahasiswa.id}`}
+                          state={mahasiswa}
+                        >
+                          <Tooltip content="Detail">
+                            <EyeIcon
+                              color="blue"
+                              className="h-5 w-5 cursor-pointer"
+                            />
+                          </Tooltip>
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))}

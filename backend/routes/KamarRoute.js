@@ -17,7 +17,7 @@ router.get("/kamar", verifyUser, getKamar);
 router.get("/kamar/:id", verifyUser, getKamarById);
 router.post("/kamar", verifyUser, adminOnly, createKamar);
 router.patch("/kamar/:id", verifyUser, updateKamar);
-router.patch("/kamar/admin/:id", verifyUser, updateKamarByAdmin);
+router.patch("/kamar/admin/:id", verifyUser, adminOnly, updateKamarByAdmin);
 router.delete("/kamar/:id", verifyUser, adminOnly, deleteKamar);
 
 export default router;

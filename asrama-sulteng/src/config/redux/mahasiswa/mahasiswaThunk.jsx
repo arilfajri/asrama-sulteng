@@ -86,3 +86,16 @@ export const updateMahasiswa = createAsyncThunk(
     }
   }
 );
+
+// Delete Data by ID
+export const deleteMahasiswa = createAsyncThunk(
+  "mahasiswa/deleteMahasiswa",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/mahasiswas/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
