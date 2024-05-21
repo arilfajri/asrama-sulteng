@@ -131,6 +131,7 @@ const Sidebar = () => {
               className={`${
                 activeItems["/kelolakamar"] ||
                 activeItems[`/kelolakamar/detail/${params.id}`] ||
+                activeItems[`/kelolakamar/ubah/${params.id}`] ||
                 activeItems["/kelolakamar/tambah"]
                   ? "bg-blue-900 text-white"
                   : "hover:bg-blue-900 hover:text-white"

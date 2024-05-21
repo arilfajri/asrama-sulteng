@@ -10,6 +10,8 @@ const persistConfig = {
     "auth",
     "kamar",
     "mahasiswa",
+    "mahasiswadata",
+    "mahasiswaall",
     "kamardata",
     "keuangan",
     "keuangandata",

@@ -98,7 +98,7 @@ const NavigationBar = () => {
         color="black"
         className="flex items-center gap-x-2 p-2 font-medium hover:bg-orange-50 hover:text-orangeAsrama rounded-full"
       >
-        <a href="#" className="flex items-center">
+        <a href="/mahasiswa" className="flex items-center">
           Data Mahasiswa Penghuni
         </a>
       </Typography>

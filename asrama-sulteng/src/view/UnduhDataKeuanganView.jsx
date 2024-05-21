@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import { FunnelIcon } from "@heroicons/react/24/solid";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
@@ -71,28 +70,6 @@ const UnduhDataKeuanganView = () => {
 
         {showTable && (
           <div className="p-5">
-            {/* <table className="w-full border-collapse border border-gray-300">
-              <thead>
-                <tr>
-                  <th className="border border-gray-300">Tanggal</th>
-                  <th className="border border-gray-300">Keterangan</th>
-                  <th className="border border-gray-300">Jenis</th>
-                  <th className="border border-gray-300">Nominal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredKeuangan.map((item, index) => (
-                  <tr key={index}>
-                    <td className="border border-gray-300">{item.tanggal}</td>
-                    <td className="border border-gray-300">
-                      {item.keterangan}
-                    </td>
-                    <td className="border border-gray-300">{item.jenis}</td>
-                    <td className="border border-gray-300">{item.nominal}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table> */}
             <Card className="h-full w-full overflow-scroll">
               <table className="w-full min-w-max table-auto text-left">
                 <thead>

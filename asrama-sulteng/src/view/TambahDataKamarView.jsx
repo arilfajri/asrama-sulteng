@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import Sidebar from "../component/Sidebar";
-import { Button, Input, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Input,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from "@material-tailwind/react";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
@@ -14,6 +23,7 @@ const TambahDataKamarView = () => {
   const navigate = useNavigate();
 
   const [prevImgGambarKamar, setPrevImgGambarKamar] = useState(null);
+  const [selectedFacilities, setSelectedFacilities] = useState([]);
 
   const handleGambarKamarChange = (e) => {
     const file = e.target.files[0]; // Ambil file gambar yang dipilih
@@ -31,6 +41,19 @@ const TambahDataKamarView = () => {
     }
   };
 
+  const handleFacilityChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedFacilities([...selectedFacilities, value]);
+    } else {
+      setSelectedFacilities(
+        selectedFacilities.filter((facility) => facility !== value)
+      );
+    }
+  };
+
+  console.log(selectedFacilities);
+
   const formik = useFormik({
     initialValues: {
       gambar: "",
@@ -40,12 +63,19 @@ const TambahDataKamarView = () => {
     validationSchema: Yup.object().shape({
       gambar: Yup.string().required("Gambar diperlukan"),
       nomor_kamar: Yup.string().required("Nomor kamar diperlukan"),
-      fasilitas: Yup.string().required("Fasilitas diperlukan"),
+      // fasilitas: Yup.string().required("Fasilitas diperlukan"),
     }),
     onSubmit: (values) => {
+      console.log("form value", { ...values, fasilitas: selectedFacilities });
       console.log("Form Values:", values);
+      values.fasilitas = selectedFacilities.join(", ");
       try {
-        dispatch(createKamar({ ...values, gambar: values.gambar[0] }));
+        dispatch(
+          createKamar({
+            ...values,
+            gambar: values.gambar[0],
+          })
+        );
         Swal.fire({
           title: "Data Kamar Berhasil Ditambah!",
           icon: "success",
@@ -118,19 +148,37 @@ const TambahDataKamarView = () => {
               <div className="flex items-center">
                 <Typography className="w-96">Fasilitas</Typography>
                 <div className="w-full">
-                  <Input
-                    id="fasilitas"
-                    className="w-full"
-                    label="Fasilitas"
-                    value={formik.values.fasilitas}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.fasilitas && formik.errors.fasilitas && (
-                    <div className="text-red-700 m-0">
-                      {formik.errors.fasilitas}
-                    </div>
-                  )}
+                  <Card>
+                    <List>
+                      {["Lemari", "Meja", "Kasur", "Kursi"].map((facility) => (
+                        <ListItem className="p-0" key={facility}>
+                          <label
+                            htmlFor={`facility-${facility}`}
+                            className="flex w-full cursor-pointer items-center px-3 py-2"
+                          >
+                            <ListItemPrefix className="mr-3">
+                              <Checkbox
+                                id={`facility-${facility}`}
+                                value={facility}
+                                ripple={false}
+                                className="hover:before:opacity-0"
+                                containerProps={{
+                                  className: "p-0",
+                                }}
+                                onChange={handleFacilityChange}
+                              />
+                            </ListItemPrefix>
+                            <Typography
+                              color="blue-gray"
+                              className="font-medium"
+                            >
+                              {facility}
+                            </Typography>
+                          </label>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Card>
                 </div>
               </div>
             </div>

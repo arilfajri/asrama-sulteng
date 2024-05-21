@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
 import {
   getInformasi,
   updateInformasi,
 } from "../config/redux/informasi/informasiThunk";
-import {
-  informasiDataSelector,
-  informasiSelector,
-} from "../config/redux/informasi/informasiSelector";
+import { informasiDataSelector } from "../config/redux/informasi/informasiSelector";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
@@ -114,7 +111,7 @@ const InformasiView = () => {
           title: "Informasi Berhasil Diubah!",
           icon: "success",
         });
-        dispatch(informasiSelector());
+        dispatch(getInformasi());
       } catch (error) {
         console.error("Failed to create data keuangan:", error);
       }

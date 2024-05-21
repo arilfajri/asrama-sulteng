@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from "../component/NavigationBar";
 import { Button } from "@material-tailwind/react";
 import budaya1 from "../assets/banyakOrang.png";
 import budaya2 from "../assets/recycle.png";
 import budaya3 from "../assets/waktu.png";
 import Footer from "../component/Footer";
+import { getInformasi } from "../config/redux/informasi/informasiThunk";
+import { informasiDataSelector } from "../config/redux/informasi/informasiSelector";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const HomeView = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInformasi());
+  }, [dispatch]);
+  const informasi = informasiDataSelector();
+  console.log(informasi);
   return (
     <div>
       <NavigationBar />
       {/* banner */}
       <div className="md:h-96 h-72 relative flex items-center justify-center mt-20">
         <img
-          src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={informasi[0].banner}
           alt=""
           className="w-full object-cover md:h-96 md:w-full lg:w-full lg:h-full h-72 brightness-50"
         />
@@ -26,9 +36,11 @@ const HomeView = () => {
             Terlupakan
           </h1>
           <h1 className="text-sm pt-12">Segera Booking kamar !</h1>
-          <Button color="deep-orange" className="mt-6">
-            Booking
-          </Button>
+          <Link to="/login">
+            <Button color="deep-orange" className="mt-6">
+              Booking
+            </Button>
+          </Link>
         </div>
       </div>
       {/* banner */}
@@ -45,16 +57,11 @@ const HomeView = () => {
                 Asrama Tora - Tora
               </h1>
             </div>
-            <p className="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequatur illo reiciendis temporibus at pariatur, necessitatibus
-              perferendis repudiandae libero aut modi exercitationem inventore
-              quae recusandae voluptatum officia nulla minima doloremque sit.
-            </p>
+            <p className="text-justify">{informasi[0].deskripsi_singkat}</p>
           </div>
           <div className="md:w-1/2">
             <img
-              src="https://plus.unsplash.com/premium_photo-1681493795338-e797a16e8934?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={informasi[0].foto_deskripsi}
               alt=""
               className="lg:w-[400px] md:w-[300px] mx-auto"
             />

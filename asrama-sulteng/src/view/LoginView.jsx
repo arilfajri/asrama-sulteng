@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMe, login, logout } from "../config/redux/auth/authThunk";
 import { authRole } from "../config/redux/auth/authSelector";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const LoginView = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,38 @@ const LoginView = () => {
       .then(() => {
         if (userRole === "admin") {
           navigate("/dashboard");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Login berhasil",
+          });
         } else if (userRole === "user") {
           navigate("/kamar");
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            },
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Login berhasil",
+          });
         }
       })
       .catch((error) => {

@@ -32,6 +32,22 @@ export const getAllMahasiswa = createAsyncThunk(
   }
 );
 
+// get all mahasiswa
+export const getMahasiswa = createAsyncThunk(
+  "mahasiswa/allMahasiswa",
+  async (mahasiswaData, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/mahasiswa",
+        mahasiswaData
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 // Update Data by ID
 export const updateMahasiswa = createAsyncThunk(
   "mahasiswa/updateMahasiswa",

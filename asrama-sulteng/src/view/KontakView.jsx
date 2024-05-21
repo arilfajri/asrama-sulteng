@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from "../component/NavigationBar";
 import Banner from "../component/Banner";
 import {
@@ -7,8 +7,16 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/solid";
 import Footer from "../component/Footer";
+import { useDispatch } from "react-redux";
+import { getInformasi } from "../config/redux/informasi/informasiThunk";
+import { informasiDataSelector } from "../config/redux/informasi/informasiSelector";
 
 const KontakView = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInformasi());
+  }, [dispatch]);
+  const informasi = informasiDataSelector();
   return (
     <div>
       <NavigationBar />
@@ -18,13 +26,13 @@ const KontakView = () => {
         <div className="flex justify-center items-center gap-4">
           <PhoneIcon className="h-8 w-8" />
           <h1 className="font-semibold md:text-lg text-base">
-            No.Telp : 0822-1761-1246
+            No.Telp : {informasi[0].no_hp}
           </h1>
         </div>
         <div className="flex justify-center items-center gap-4">
           <EnvelopeIcon className="h-8 w-8" />
           <h1 className="font-semibold md:text-lg text-base">
-            Email : asramatoratora.bdg@gmail.com
+            Email : {informasi[0].email}
           </h1>
         </div>
       </div>

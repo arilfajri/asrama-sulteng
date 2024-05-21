@@ -16,6 +16,7 @@ import {
 } from "@material-tailwind/react";
 import {
   EyeIcon,
+  FunnelIcon,
   MagnifyingGlassIcon,
   PencilSquareIcon,
   TrashIcon,
@@ -29,6 +30,7 @@ import {
 import { keuangandataSelector } from "../config/redux/keuangan/keuanganSelector";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import * as XLSX from "xlsx";
 
 const KeuanganView = () => {
   const dispatch = useDispatch();
@@ -59,14 +61,26 @@ const KeuanganView = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-
-  const filteredTransaksi = keuangan.filter((keuangan) =>
-    keuangan.keterangan.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // Hitung indeks item pertama dan terakhir untuk halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const filteredTransaksi = keuangan
+    .filter((keuangan) => {
+      const keuanganDate = new Date(keuangan.tanggal);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+      const matchesDateRange =
+        (!start || keuanganDate >= start) && (!end || keuanganDate <= end);
+      const matchesSearchTerm = keuangan.keterangan
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesDateRange && matchesSearchTerm;
+    })
+    .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
   const currentItems = filteredTransaksi.slice(
     indexOfFirstItem,
@@ -76,6 +90,59 @@ const KeuanganView = () => {
   // Mengubah halaman
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const isLast = (index) => index === keuangan.length - 1;
+
+  const exportToExcel = () => {
+    // Hitung total pemasukkan dan pengeluaran
+    let totalPemasukkan = 0;
+    let totalPengeluaran = 0;
+    filteredTransaksi.forEach((transaksi) => {
+      if (transaksi.jenis.toLowerCase() === "pemasukkan") {
+        totalPemasukkan += transaksi.nominal;
+      } else {
+        totalPengeluaran += transaksi.nominal;
+      }
+    });
+
+    // Data transaksi
+    const data = filteredTransaksi.map((transaksi, index) => ({
+      No: index + 1,
+      Tanggal: transaksi.tanggal,
+      Keterangan: transaksi.keterangan,
+      Pemasukkan:
+        transaksi.jenis.toLowerCase() === "pemasukkan"
+          ? transaksi.nominal
+          : "-",
+      Pengeluaran:
+        transaksi.jenis.toLowerCase() === "pengeluaran"
+          ? transaksi.nominal
+          : "-",
+    }));
+
+    // Tambahkan baris untuk total pemasukkan dan pengeluaran
+    data.push(
+      {
+        No: "",
+        Tanggal: "",
+        Keterangan: "Total Pemasukkan:",
+        Pemasukkan: totalPemasukkan,
+        Pengeluaran: "",
+      },
+      {
+        No: "",
+        Tanggal: "",
+        Keterangan: "Total Pengeluaran:",
+        Pemasukkan: "",
+        Pengeluaran: totalPengeluaran,
+      }
+    );
+
+    // Buat file Excel
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Laporan Keuangan");
+
+    XLSX.writeFile(wb, "laporan_keuangan.xlsx");
+  };
 
   const TABLE_HEAD = [
     "No",
@@ -139,9 +206,12 @@ const KeuanganView = () => {
               <Button color="green">Tambah Data</Button>
             </Link>
             <Link to={"/keuangan/unduh"}>
-              <Button color="green">Unduh Data</Button>
+              <Button color="green" onClick={exportToExcel}>
+                Unduh Data
+              </Button>
             </Link>
           </div>
+
           <div className="p-5">
             <div className="flex gap-3 justify-between">
               <div className="w-3 flex gap-3 items-center">
@@ -167,6 +237,25 @@ const KeuanganView = () => {
               </div>
             </div>
           </div>
+          <div className="grid grid-cols-2 gap-3 px-5">
+            <div className="col-span-1">
+              <Input
+                label="Tanggal Mulai"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div className="col-span-1">
+              <Input
+                label="Tanggal Akhir"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+
           <div className="p-5">
             <Card className="h-full w-full overflow-scroll">
               <table className="w-full min-w-max table-auto text-left">

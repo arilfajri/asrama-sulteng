@@ -30,6 +30,7 @@ import KamarView from "./view/KamarView";
 import DetailKelolaKamarView from "./view/DetailKelolaKamarView";
 import TambahDataKamarView from "./view/TambahDataKamarView";
 import UbahDataKamarView from "./view/UbahDataKamarView";
+import MahasiswaView from "./view/MahasiswaView";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
           />
           <Route path="/informasibiaya" element={<InformasiBiayaView />} />
           <Route path="/kontak" element={<KontakView />} />
+          <Route path="/mahasiswa" element={<MahasiswaView />} />
           <Route path="/register" element={<RegisterView />} />
           <Route path="/login" element={<LoginView />} />
 

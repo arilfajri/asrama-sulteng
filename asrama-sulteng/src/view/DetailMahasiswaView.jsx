@@ -133,7 +133,7 @@ const DetailMahasiswaView = () => {
               />
             </div>
             <div className="flex items-center">
-              <Typography className="w-96">Kamar Yang Di Booking</Typography>
+              <Typography className="w-96">Nomor Kamar</Typography>
               <Input
                 className="w-full"
                 value={data?.kamar?.nomor_kamar}

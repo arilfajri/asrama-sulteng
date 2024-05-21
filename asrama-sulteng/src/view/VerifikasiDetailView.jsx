@@ -19,7 +19,10 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { EyeIcon } from "@heroicons/react/24/solid";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { updateMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
+import {
+  getAllMahasiswa,
+  updateMahasiswa,
+} from "../config/redux/mahasiswa/mahasiswaThunk";
 
 const VerifikasiDetailView = () => {
   const location = useLocation();
@@ -100,6 +103,7 @@ const VerifikasiDetailView = () => {
             })
           );
           navigate(-1);
+          dispatch(getAllMahasiswa());
         } catch (error) {
           console.error("Failed to update mahasiswa:", error);
         }

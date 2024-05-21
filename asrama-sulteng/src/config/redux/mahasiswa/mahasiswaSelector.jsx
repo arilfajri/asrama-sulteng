@@ -6,5 +6,8 @@ export const mahasiswaSelector = () =>
 export const allmahasiswaSelector = () =>
   useSelector((state) => state?.mahasiswadata?.data);
 
+export const mahasiswaallSelector = () =>
+  useSelector((state) => state?.mahasiswaall?.data);
+
 export const mahasiswaSelectorId = () =>
   useSelector((state) => state?.mahasiswa?.data[0]?.id);

@@ -21,8 +21,13 @@ import { Link } from "react-router-dom";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
 import { allmahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
-import { getAllMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
+import {
+  deleteMahasiswa,
+  getAllMahasiswa,
+} from "../config/redux/mahasiswa/mahasiswaThunk";
 import { getAllKamar } from "../config/redux/kamar/kamarThunk";
+import Swal from "sweetalert2";
+import * as XLSX from "xlsx";
 
 const DataMahasiswaView = () => {
   const dispatch = useDispatch();
@@ -68,6 +73,57 @@ const DataMahasiswaView = () => {
     "Aksi",
   ];
 
+  const exportToExcel = () => {
+    const data = filteredMahasiswa.map((mahasiswa, index) => ({
+      No: index + 1,
+      Nama: mahasiswa.nama,
+      "Jenis Kelamin": mahasiswa.jenis_kelamin,
+      "Tempat Lahir": mahasiswa.tempat_lahir,
+      "Tanggal Lahir": mahasiswa.tanggal_lahir,
+      Email: mahasiswa.email,
+      "No Hp": mahasiswa.no_hp,
+      "Alamat Asal": mahasiswa.alamat_asal,
+      Universitas: mahasiswa.universitas,
+      Jurusan: mahasiswa.jurusan,
+      Angkatan: mahasiswa.jurusan,
+      "Nomor Kamar": mahasiswa.kamar?.nomor_kamar || "",
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Mahasiswa");
+
+    XLSX.writeFile(wb, "mahasiswa.xlsx");
+  };
+
+  const handleDeleteMahasiswa = (id) => {
+    Swal.fire({
+      title: "Apakah anda yakin ingin menhapus data ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Tidak, batalkan!",
+      confirmButtonText: "Iya, hapus!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Data Kamu Telah Terhapus",
+          icon: "success",
+        });
+        dispatch(deleteMahasiswa(id))
+          .then(() => {
+            dispatch(getAllKamar());
+            dispatch(getAllMahasiswa());
+          })
+          .catch((error) => {
+            console.error("Error deleting kamar:", error);
+          });
+      }
+    });
+  };
+
   return (
     <div className="flex">
       <Sidebar />
@@ -82,7 +138,9 @@ const DataMahasiswaView = () => {
           <Link to={"/datamahasiswa/tambah"}>
             <Button color="green">Tambah Data</Button>
           </Link>
-          <Button color="green">Unduh Data</Button>
+          <Button color="green" onClick={exportToExcel}>
+            Unduh Data
+          </Button>
         </div>
         <div className="p-5">
           <div className="flex gap-3 justify-between">
@@ -257,6 +315,7 @@ const DataMahasiswaView = () => {
                           <TrashIcon
                             color="red"
                             className="h-5 w-5 cursor-pointer"
+                            onClick={() => handleDeleteMahasiswa(mahasiswa.id)}
                           />
                         </Tooltip>
                       </div>

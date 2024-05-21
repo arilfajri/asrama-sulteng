@@ -44,6 +44,28 @@ export const getMahasiswa = async (req, res) => {
   }
 };
 
+export const getAllMahasiswa = async (req, res) => {
+  try {
+    let response;
+    response = await Mahasiswa.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["name", "email"],
+        },
+        {
+          model: Kamar,
+          attributes: ["nomor_kamar", "id"],
+        },
+      ],
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 export const getMahasiswaById = async (req, res) => {
   try {
     const mahasiswa = await Mahasiswa.findOne({

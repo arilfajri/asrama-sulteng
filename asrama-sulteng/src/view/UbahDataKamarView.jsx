@@ -1,9 +1,18 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
-import { Button, Input, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Input,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from "@material-tailwind/react";
 import TopBar from "../component/TopBar";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
@@ -15,7 +24,19 @@ const UbahDataKamarView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(data);
+  const initialFacilities = data.fasilitas;
+  const initialFacilitiesArray = initialFacilities
+    ? initialFacilities.split(", ")
+    : [];
   const [prevImgGambarKamar, setPrevImgGambarKamar] = useState(data.gambar);
+  const [selectedFacilities, setSelectedFacilities] = useState(
+    initialFacilitiesArray
+  );
+  console.log(initialFacilitiesArray);
+
+  useEffect(() => {
+    setSelectedFacilities(initialFacilitiesArray);
+  }, [initialFacilities]);
 
   const handleGambarKamarChange = (e) => {
     const file = e.target.files[0]; // Ambil file gambar yang dipilih
@@ -33,15 +54,29 @@ const UbahDataKamarView = () => {
     }
   };
 
+  const handleFacilityChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedFacilities([...selectedFacilities, value]);
+    } else {
+      setSelectedFacilities(
+        selectedFacilities.filter((facility) => facility !== value)
+      );
+    }
+  };
+
+  console.log(selectedFacilities);
+
   const formik = useFormik({
     initialValues: data,
     validationSchema: Yup.object().shape({
       gambar: Yup.string().required("Gambar diperlukan"),
       nomor_kamar: Yup.string().required("Nomor kamar diperlukan"),
-      fasilitas: Yup.string().required("Fasilitas diperlukan"),
+      // fasilitas: Yup.string().required("Fasilitas diperlukan"),
     }),
     onSubmit: (values) => {
       console.log("Form Values:", values.gambar);
+      values.fasilitas = selectedFacilities.join(", ");
       try {
         dispatch(
           updateKamarByAdmin({
@@ -121,19 +156,38 @@ const UbahDataKamarView = () => {
               <div className="flex items-center">
                 <Typography className="w-96">Fasilitas</Typography>
                 <div className="w-full">
-                  <Input
-                    id="fasilitas"
-                    className="w-full"
-                    label="Fasilitas"
-                    value={formik.values.fasilitas}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.fasilitas && formik.errors.fasilitas && (
-                    <div className="text-red-700 m-0">
-                      {formik.errors.fasilitas}
-                    </div>
-                  )}
+                  <Card>
+                    <List>
+                      {["Lemari", "Meja", "Kasur", "Kursi"].map((facility) => (
+                        <ListItem className="p-0" key={facility}>
+                          <label
+                            htmlFor={`facility-${facility}`}
+                            className="flex w-full cursor-pointer items-center px-3 py-2"
+                          >
+                            <ListItemPrefix className="mr-3">
+                              <Checkbox
+                                id={`facility-${facility}`}
+                                value={facility}
+                                ripple={false}
+                                className="hover:before:opacity-0"
+                                checked={selectedFacilities.includes(facility)}
+                                containerProps={{
+                                  className: "p-0",
+                                }}
+                                onChange={handleFacilityChange}
+                              />
+                            </ListItemPrefix>
+                            <Typography
+                              color="blue-gray"
+                              className="font-medium"
+                            >
+                              {facility}
+                            </Typography>
+                          </label>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Card>
                 </div>
               </div>
             </div>
