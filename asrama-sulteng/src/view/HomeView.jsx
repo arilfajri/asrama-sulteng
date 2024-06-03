@@ -46,7 +46,7 @@ const HomeView = () => {
       {/* banner */}
 
       {/* deskripsi */}
-      <div className="container mx-auto">
+      <div className="container mx-auto p-5">
         <div className="md:flex py-10">
           <div className="md:w-1/2 ">
             <div className="flex gap-2 py-2">
@@ -97,7 +97,7 @@ const HomeView = () => {
       {/* budaya */}
 
       {/* alamat */}
-      <div className="py-10">
+      <div className="py-10 px-5">
         <h1 className="text-2xl text-center font-semibold">Alamat</h1>
         <div className="flex justify-center pt-5">
           <iframe

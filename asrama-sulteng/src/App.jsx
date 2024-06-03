@@ -16,7 +16,6 @@ import TambahDataMahasiswaView from "./view/TambahDataMahasiswaView";
 import KeuanganView from "./view/KeuanganView";
 import TambahKeuanganView from "./view/TambahKeuanganView";
 import UbahKeuanganView from "./view/UbahKeuanganView";
-import UnduhDataKeuanganView from "./view/UnduhDataKeuanganView";
 import InformasiView from "./view/InformasiView";
 import KamarTersediaView from "./view/KamarTersediaView";
 import DetailKamarView from "./view/DetailKamarView";
@@ -84,10 +83,7 @@ function App() {
               <Route path="/keuangan" element={<KeuanganView />} />
               <Route path="/keuangan/tambah" element={<TambahKeuanganView />} />
               <Route path="/keuangan/ubah/:id" element={<UbahKeuanganView />} />
-              <Route
-                path="/keuangan/unduh"
-                element={<UnduhDataKeuanganView />}
-              />
+
               <Route path="/informasi" element={<InformasiView />} />
               <Route path="/kelolakamar" element={<KamarView />} />
               <Route

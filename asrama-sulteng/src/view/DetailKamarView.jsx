@@ -24,7 +24,9 @@ const DetailKamarView = () => {
 
   return (
     <div className="flex">
-      <SidebarCalonPenghuni />
+      <div className="hidden md:flex">
+        <SidebarCalonPenghuni />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -57,23 +59,23 @@ const DetailKamarView = () => {
           <Typography>
             {data?.fasilitas ? data?.fasilitas : "Tidak Ada Fasilitas"}
           </Typography>
-          <div className="flex gap-16 h-14 w-14 mt-3">
+          <div className="flex gap-16 flex-wrap mt-3">
             {data?.fasilitas && data.fasilitas.length > 0 ? (
               <>
                 {data.fasilitas.includes("Kasur") && (
-                  <img src={kasur} alt="Kasur" />
+                  <img src={kasur} alt="Kasur" className="w-14 h-14" />
                 )}
                 {data.fasilitas.includes("Meja") && (
-                  <img src={meja} alt="Meja" />
+                  <img src={meja} alt="Meja" className="w-14 h-14" />
                 )}
                 {data.fasilitas.includes("Lemari") && (
-                  <img src={lemari} alt="Lemari" />
+                  <img src={lemari} alt="Lemari" className="w-14 h-14" />
                 )}
                 {data.fasilitas.includes("lemari") && (
-                  <img src={lemari} alt="Lemari" />
+                  <img src={lemari} alt="Lemari" className="w-14 h-14" />
                 )}
                 {data.fasilitas.includes("Kursi") && (
-                  <img src={kursi} alt="Kursi" />
+                  <img src={kursi} alt="Kursi" className="w-14 h-14" />
                 )}
               </>
             ) : (

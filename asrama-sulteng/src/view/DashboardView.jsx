@@ -71,7 +71,9 @@ const DashboardView = () => {
   const isLast = (index) => index === mahasiswa.length - 1;
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="flex items-center justify-between p-5">
@@ -85,7 +87,7 @@ const DashboardView = () => {
             </Button>
           </Link>
         </div>
-        <div className=" grid grid-cols-3 gap-4 p-5">
+        <div className="grid md:grid-cols-3 gap-4 p-5 grid-cols-none">
           <div className="bg-red-500 text-white flex px-12 py-10 gap-5 justify-center items-center rounded-lg">
             <BanknotesIcon className="h-16 w-16" />
             <div>
@@ -108,8 +110,8 @@ const DashboardView = () => {
             </div>
           </div>
         </div>
-        <div className="p-5 flex gap-5">
-          <Card className="h-full w-2/3 shadow-none">
+        <div className="p-5 md:flex gap-5">
+          <Card className="h-full md:w-2/3 shadow-none w-full">
             <Typography className=" py-2">
               Daftar Calon Penghuni Yang Belum Di Verifikasi
             </Typography>
@@ -154,7 +156,7 @@ const DashboardView = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {mahasiswa.nama}
+                          {mahasiswa?.nama}
                         </Typography>
                       </td>
 
@@ -170,7 +172,7 @@ const DashboardView = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {mahasiswa.universitas}
+                          {mahasiswa?.universitas}
                         </Typography>
                       </td>
                       <td
@@ -258,11 +260,11 @@ const DashboardView = () => {
               </div>
             </CardFooter>
           </Card>
-          <div className="w-1/3 bg-orangeAsrama2 rounded-lg flex flex-col justify-center items-center text-white">
-            <Typography className=" text-2xl font-bold">
+          <div className="md:w-1/3 bg-orangeAsrama2 rounded-lg flex flex-col justify-center items-center text-white w-full p-5 mt-5 md:mt-0">
+            <Typography className=" text-2xl font-bold text-center">
               Jumlah Mahasiswa{" "}
             </Typography>
-            <Typography className=" text-2xl font-bold">
+            <Typography className=" text-2xl font-bold text-center">
               Penguni Asrama
             </Typography>
             <Link to={"/datamahasiswa"}>

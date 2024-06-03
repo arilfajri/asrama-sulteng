@@ -82,7 +82,9 @@ const UbahKeuanganView = () => {
   };
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -91,9 +93,9 @@ const UbahKeuanganView = () => {
         <form onSubmit={formik.handleSubmit}>
           <div className="p-5">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Tanggal</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="tanggal"
                     label="Tanggal Transaksi"
@@ -115,9 +117,10 @@ const UbahKeuanganView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Keterangan</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Textarea
                     id="keterangan"
                     label="Keterangan"
@@ -132,9 +135,10 @@ const UbahKeuanganView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Jenis</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Select
                     id="jenis"
                     label="Jenis"
@@ -148,9 +152,10 @@ const UbahKeuanganView = () => {
                   </Select>
                 </div>
               </div>
-              <div className="flex items-center">
+
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Nominal</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="nominal"
                     label="Nominal"
@@ -166,9 +171,10 @@ const UbahKeuanganView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Bukti Transaksi</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   {prevImgBuktiTransaksi && (
                     <img
                       src={prevImgBuktiTransaksi}

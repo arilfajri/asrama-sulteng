@@ -112,29 +112,31 @@ const NavigationBar = () => {
         fullWidth
       >
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-          <div className="flex items-center gap-4">
-            <img src={logo} alt="" className="w-16" />
-            <div className="flex flex-col items-center">
-              <Typography
-                as="a"
-                href="#"
-                className="cursor-pointer font-bold uppercase text-orangeAsrama"
-              >
-                ASRAMA
-              </Typography>
-              <Typography
-                as="a"
-                href="#"
-                className="cursor-pointer font-bold uppercase"
-              >
-                tora-tora
-              </Typography>
+          <Link to={"/"}>
+            <div className="flex items-center gap-4">
+              <img src={logo} alt="" className="w-16" />
+              <div className="flex flex-col items-center">
+                <Typography
+                  as="a"
+                  href="#"
+                  className="cursor-pointer font-bold uppercase text-orangeAsrama"
+                >
+                  ASRAMA
+                </Typography>
+                <Typography
+                  as="a"
+                  href="#"
+                  className="cursor-pointer font-bold uppercase"
+                >
+                  tora-tora
+                </Typography>
+              </div>
             </div>
-          </div>
+          </Link>
 
           <div className="hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-x-1">
-            <Link to={"/login"}>
+          <Link to={"/login"}>
+            <div className="flex items-center gap-x-1">
               <Button
                 variant="gradient"
                 size="sm"
@@ -143,8 +145,8 @@ const NavigationBar = () => {
               >
                 <span>Login</span>
               </Button>
-            </Link>
-          </div>
+            </div>
+          </Link>
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -187,14 +189,16 @@ const NavigationBar = () => {
           <div className="container mx-auto">
             {navList}
             <div className="flex items-center gap-x-1">
-              <Button
-                fullWidth
-                variant="gradient"
-                size="sm"
-                color="deep-orange"
-              >
-                <span>Login</span>
-              </Button>
+              <Link to={"/login"}>
+                <Button
+                  fullWidth
+                  variant="gradient"
+                  size="sm"
+                  color="deep-orange"
+                >
+                  <span>Login</span>
+                </Button>
+              </Link>
             </div>
           </div>
         </Collapse>

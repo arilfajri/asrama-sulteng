@@ -76,7 +76,9 @@ const KamarView = () => {
   };
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -94,55 +96,61 @@ const KamarView = () => {
             />
           </div>
         </div>
-        <div className="p-5 grid grid-cols-3 gap-4 justify-between">
-          {currentKamars.map((kamarItem) => (
-            <Card key={kamarItem.id} className="mt-6">
-              <CardHeader color="blue-gray" className="relative h-56">
-                <img
-                  src={kamarItem.gambar}
-                  alt="card-image"
-                  className="h-full w-full"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography variant="h5" color="blue-gray">
-                  {kamarItem.nomor_kamar}
-                </Typography>
-              </CardBody>
-              <CardFooter className="pt-0 flex items-center justify-between">
-                <Button className=" bg-blue-900">
-                  <Link
-                    to={`/kelolakamar/detail/${kamarItem.id}`}
-                    state={kamarItem}
-                  >
-                    Detail Kamar
-                  </Link>
-                </Button>
-                <div className="flex gap-2 ">
-                  <Link
-                    to={`/kelolakamar/ubah/${kamarItem.id}`}
-                    state={kamarItem}
-                  >
-                    <Tooltip content="Ubah">
-                      <PencilSquareIcon
-                        color="green"
-                        className=" h-6 w-6 cursor-pointer"
-                      />
-                    </Tooltip>
-                  </Link>
-                  {!kamarItem.mahasiswa && (
-                    <Tooltip content="Hapus">
-                      <TrashIcon
-                        color="red"
-                        className="h-6 w-6 cursor-pointer"
-                        onClick={() => handleDeleteKamar(kamarItem.id)}
-                      />
-                    </Tooltip>
-                  )}
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+        <div className="p-5 grid sm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-4 justify-between">
+          {kamar.length === 0 ? (
+            <Typography className="p-4 text-center text-red-200 col-span-3 place-self-center">
+              Tidak Ada Data Kamar
+            </Typography>
+          ) : (
+            currentKamars.map((kamarItem) => (
+              <Card key={kamarItem.id} className="mt-6">
+                <CardHeader color="blue-gray" className="relative h-56">
+                  <img
+                    src={kamarItem.gambar}
+                    alt="card-image"
+                    className="h-full w-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray">
+                    {kamarItem.nomor_kamar}
+                  </Typography>
+                </CardBody>
+                <CardFooter className="pt-0 flex items-center justify-between">
+                  <Button className=" bg-blue-900 md:min-w-max sm:w-min">
+                    <Link
+                      to={`/kelolakamar/detail/${kamarItem.id}`}
+                      state={kamarItem}
+                    >
+                      Detail Kamar
+                    </Link>
+                  </Button>
+                  <div className="flex gap-2 ">
+                    <Link
+                      to={`/kelolakamar/ubah/${kamarItem.id}`}
+                      state={kamarItem}
+                    >
+                      <Tooltip content="Ubah">
+                        <PencilSquareIcon
+                          color="green"
+                          className=" h-6 w-6 cursor-pointer"
+                        />
+                      </Tooltip>
+                    </Link>
+                    {!kamarItem.mahasiswa && (
+                      <Tooltip content="Hapus">
+                        <TrashIcon
+                          color="red"
+                          className="h-6 w-6 cursor-pointer"
+                          onClick={() => handleDeleteKamar(kamarItem.id)}
+                        />
+                      </Tooltip>
+                    )}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          )}
         </div>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">

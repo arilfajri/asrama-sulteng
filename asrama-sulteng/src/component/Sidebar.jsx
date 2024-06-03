@@ -156,7 +156,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden md:block min-h-screen">
         <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 h-full">
           {SidebarContent}
         </Card>

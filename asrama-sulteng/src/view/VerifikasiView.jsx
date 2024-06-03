@@ -59,7 +59,9 @@ const VerifikasiView = () => {
   const isLast = (index) => index === filteredMahasiswa.length - 1;
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -68,7 +70,7 @@ const VerifikasiView = () => {
           </Typography>
         </div>
         <div className="p-5">
-          <div className="flex gap-3 justify-between">
+          <div className="md:flex gap-3 justify-between">
             <div className="w-3 flex gap-3 items-center">
               <Typography>Show</Typography>
               <Select
@@ -83,7 +85,7 @@ const VerifikasiView = () => {
               </Select>
               <Typography>Entries</Typography>
             </div>
-            <div>
+            <div className="pt-3 md:pt-0">
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -114,129 +116,140 @@ const VerifikasiView = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((mahasiswa, index) => (
-                  <tr key={index}>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {index + 1}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.nama}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.email}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.universitas}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.kamar?.nomor_kamar}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Chip
-                        size="sm"
-                        variant="ghost"
-                        className=" w-max"
-                        value={mahasiswa.status}
-                        color={
-                          mahasiswa.status === "Diterima"
-                            ? "green"
-                            : mahasiswa.status === "Menunggu"
-                            ? "amber"
-                            : "red"
-                        }
-                      />
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      {mahasiswa.status === "Diterima" ? (
-                        <EyeIcon color="blue" className="h-5 w-5 opacity-50" />
-                      ) : (
-                        <Link
-                          to={`/verifikasi/detail/${mahasiswa.id}`}
-                          state={mahasiswa}
-                        >
-                          <Tooltip content="Detail">
-                            <EyeIcon
-                              color="blue"
-                              className="h-5 w-5 cursor-pointer"
-                            />
-                          </Tooltip>
-                        </Link>
-                      )}
+                {mahasiswa.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="p-4 text-center text-red-200">
+                      Tidak Ada Data Mahasiswa
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  currentItems.map((mahasiswa, index) => (
+                    <tr key={index}>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {index + 1}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.nama}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.email}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.universitas}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.kamar?.nomor_kamar}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          className=" w-max"
+                          value={mahasiswa.status}
+                          color={
+                            mahasiswa.status === "Diterima"
+                              ? "green"
+                              : mahasiswa.status === "Menunggu"
+                              ? "amber"
+                              : "red"
+                          }
+                        />
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        {mahasiswa.status === "Diterima" ? (
+                          <EyeIcon
+                            color="blue"
+                            className="h-5 w-5 opacity-50"
+                          />
+                        ) : (
+                          <Link
+                            to={`/verifikasi/detail/${mahasiswa.id}`}
+                            state={mahasiswa}
+                          >
+                            <Tooltip content="Detail">
+                              <EyeIcon
+                                color="blue"
+                                className="h-5 w-5 cursor-pointer"
+                              />
+                            </Tooltip>
+                          </Link>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

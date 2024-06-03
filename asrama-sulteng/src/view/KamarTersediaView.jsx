@@ -53,7 +53,9 @@ const KamarTersediaView = () => {
   console.log("kamar", kamarMahasiswa);
   return (
     <div className="flex">
-      <SidebarCalonPenghuni />
+      <div className="hidden md:flex">
+        <SidebarCalonPenghuni />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5 flex justify-between">
@@ -66,53 +68,59 @@ const KamarTersediaView = () => {
             />
           </div>
         </div>
-        <div className="p-5 grid grid-cols-3 gap-4 justify-between">
-          {currentKamars.map((kamarItem) => (
-            <Card key={kamarItem.id} className="mt-6">
-              <CardHeader color="blue-gray" className="relative h-56">
-                <img
-                  src={kamarItem.gambar}
-                  alt="card-image"
-                  className="h-full w-full"
-                />
-              </CardHeader>
-              <CardBody>
-                <Typography variant="h5" color="blue-gray">
-                  {kamarItem.nomor_kamar}
-                </Typography>
-              </CardBody>
-              <CardFooter className="pt-0">
-                {kamarMahasiswa ? (
-                  kamarItem.id === kamarMahasiswa ? (
-                    <Button className="bg-blue-900" disabled>
-                      Anda Telah Membooking Kamar Ini
-                    </Button>
+        <div className="p-5 grid sm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-4 justify-between">
+          {kamar.length === 0 ? (
+            <Typography className="p-4 text-center text-red-200 col-span-3 place-self-center">
+              Tidak Ada Data Kamar
+            </Typography>
+          ) : (
+            currentKamars.map((kamarItem) => (
+              <Card key={kamarItem.id} className="mt-6">
+                <CardHeader color="blue-gray" className="relative h-56">
+                  <img
+                    src={kamarItem.gambar}
+                    alt="card-image"
+                    className="h-full w-full"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Typography variant="h5" color="blue-gray">
+                    {kamarItem.nomor_kamar}
+                  </Typography>
+                </CardBody>
+                <CardFooter className="pt-0">
+                  {kamarMahasiswa ? (
+                    kamarItem.id === kamarMahasiswa ? (
+                      <Button className="bg-blue-900" disabled>
+                        Anda Telah Membooking Kamar Ini
+                      </Button>
+                    ) : kamarItem.mahasiswa ? (
+                      <Button className="bg-blue-900" disabled>
+                        Kamar Terisi
+                      </Button>
+                    ) : (
+                      <Button className="bg-blue-900" disabled>
+                        Pilih Kamar
+                      </Button>
+                    )
                   ) : kamarItem.mahasiswa ? (
                     <Button className="bg-blue-900" disabled>
                       Kamar Terisi
                     </Button>
                   ) : (
-                    <Button className="bg-blue-900" disabled>
-                      Pilih Kamar
+                    <Button className="bg-blue-900">
+                      <Link
+                        to={`/kamar/detail/${kamarItem.id}`}
+                        state={kamarItem}
+                      >
+                        Pilih Kamar
+                      </Link>
                     </Button>
-                  )
-                ) : kamarItem.mahasiswa ? (
-                  <Button className="bg-blue-900" disabled>
-                    Kamar Terisi
-                  </Button>
-                ) : (
-                  <Button className="bg-blue-900">
-                    <Link
-                      to={`/kamar/detail/${kamarItem.id}`}
-                      state={kamarItem}
-                    >
-                      Pilih Kamar
-                    </Link>
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
-          ))}
+                  )}
+                </CardFooter>
+              </Card>
+            ))
+          )}
         </div>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">

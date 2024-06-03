@@ -91,7 +91,9 @@ const TambahDataKamarView = () => {
   });
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -100,9 +102,9 @@ const TambahDataKamarView = () => {
         <form onSubmit={formik.handleSubmit}>
           <div className="p-5">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Gambar Kamar</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   {prevImgGambarKamar && (
                     <img
                       src={prevImgGambarKamar}
@@ -142,9 +144,9 @@ const TambahDataKamarView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Nomor Kamar</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="nomor_kamar"
                     label="Nomor Kamar"
@@ -159,9 +161,9 @@ const TambahDataKamarView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Fasilitas</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Card>
                     <List>
                       {["Lemari", "Meja", "Kasur", "Kursi"].map((facility) => (

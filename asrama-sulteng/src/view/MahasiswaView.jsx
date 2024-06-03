@@ -70,7 +70,7 @@ const MahasiswaView = () => {
         </Typography>
       </div>
       <div className="p-5">
-        <div className="flex gap-3 justify-between">
+        <div className="md:flex gap-3 justify-between">
           <div className="w-3 flex gap-3 items-center">
             <Typography>Show</Typography>
             <Select
@@ -85,7 +85,7 @@ const MahasiswaView = () => {
             </Select>
             <Typography>Entries</Typography>
           </div>
-          <div>
+          <div className=" md:pt-0 pt-3">
             <Input
               label="Search"
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -116,88 +116,108 @@ const MahasiswaView = () => {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((mahasiswa, index) => (
-                <tr key={index}>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {index + 1}
-                    </Typography>
-                  </td>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mahasiswa.nama}
-                    </Typography>
-                  </td>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mahasiswa.jenis_kelamin}
-                    </Typography>
-                  </td>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mahasiswa.universitas}
-                    </Typography>
-                  </td>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mahasiswa.jurusan}
-                    </Typography>
-                  </td>
-                  <td
-                    className={
-                      isLast(index) ? "p-4" : "p-4 border-b border-blue-gray-50"
-                    }
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {mahasiswa.angkatan}
-                    </Typography>
+              {mahasiswa.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="p-4 text-center text-red-200">
+                    Tidak Ada Data Mahasiswa
                   </td>
                 </tr>
-              ))}
+              ) : (
+                currentItems.map((mahasiswa, index) => (
+                  <tr key={index}>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {index + 1}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.nama}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.jenis_kelamin}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.universitas}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.jurusan}
+                      </Typography>
+                    </td>
+                    <td
+                      className={
+                        isLast(index)
+                          ? "p-4"
+                          : "p-4 border-b border-blue-gray-50"
+                      }
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {mahasiswa.angkatan}
+                      </Typography>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

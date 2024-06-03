@@ -30,7 +30,7 @@ const Footer = () => {
               <p className="text-sm">{informasi[0]?.email}</p>
             </div>
           </div>
-          <div className="md:w-1/2 flex gap-6 justify-center">
+          <div className="md:w-1/2 flex gap-6 md:justify-center justify-between">
             <div className="text-sm">
               <a href="">
                 <h1 className="mt-3 hover:text-orangeAsrama">Visi Misi</h1>

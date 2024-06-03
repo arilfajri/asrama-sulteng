@@ -120,7 +120,9 @@ const InformasiView = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -131,9 +133,9 @@ const InformasiView = () => {
         <form onSubmit={formik.handleSubmit}>
           <div className="p-5">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Banner</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   {prevImgBanner && (
                     <img
                       src={prevImgBanner}
@@ -160,9 +162,9 @@ const InformasiView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Deskripsi Singkat</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Textarea
                     id="deskripsi_singkat"
                     label="Deskripsi Singkat"
@@ -178,9 +180,9 @@ const InformasiView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Foto Deskripsi</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   {prevImgFotoDeskripsi && (
                     <img
                       src={prevImgFotoDeskripsi}
@@ -211,9 +213,9 @@ const InformasiView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Visi</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Textarea
                     id="visi"
                     label="Visi"
@@ -226,9 +228,9 @@ const InformasiView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Misi</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Textarea
                     id="misi"
                     label="Misi"
@@ -241,9 +243,9 @@ const InformasiView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Alamat</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="alamat"
                     className="w-full"
@@ -259,10 +261,10 @@ const InformasiView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Kontak</Typography>
                 <div className=" flex flex-col w-full gap-2">
-                  <div className="w-full">
+                  <div className="w-full pt-3 md:pt-0">
                     <Input
                       id="email"
                       className="w-full"
@@ -277,7 +279,7 @@ const InformasiView = () => {
                       </div>
                     )}
                   </div>
-                  <div className="w-full">
+                  <div className="w-full pt-3 md:pt-0">
                     <Input
                       id="no_hp"
                       className="w-full"
@@ -294,9 +296,9 @@ const InformasiView = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Struktur Organisasi</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   {prevImgStukturOrganisasi && (
                     <img
                       src={prevImgStukturOrganisasi}
@@ -327,9 +329,9 @@ const InformasiView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Biaya</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="biaya"
                     className="w-full"

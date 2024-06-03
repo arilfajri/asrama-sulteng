@@ -17,7 +17,7 @@ const VisimisiView = () => {
       <NavigationBar />
       <Banner text={"Visi Misi"} />
       {/* visi */}
-      <div className="bg-abuAbu my-10 md:flex md:py-20 py-8 text-justify">
+      <div className="bg-abuAbu my-10 md:flex md:py-20 py-8 text-justify p-5">
         <div className="w-full md:w-2/5 flex flex-col items-center justify-center mb-3 md:mb-0">
           <div className="text-3xl uppercase font-bold">Visi</div>
           <div
@@ -31,7 +31,7 @@ const VisimisiView = () => {
       </div>
       {/* visi */}
       {/* misi */}
-      <div className="bg-abuAbu my-10 md:flex md:py-20 py-8 text-justify">
+      <div className="bg-abuAbu my-10 md:flex md:py-20 py-8 text-justify p-5">
         <div className="w-full md:w-2/5 flex flex-col items-center justify-center mb-3 md:mb-0">
           <div className="text-3xl uppercase font-bold">Misi</div>
           <div

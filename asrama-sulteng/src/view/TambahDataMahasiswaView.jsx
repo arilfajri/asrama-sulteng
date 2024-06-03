@@ -145,7 +145,9 @@ const TambahDataMahasiswaView = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -153,12 +155,13 @@ const TambahDataMahasiswaView = () => {
             Tambah Data Mahasiswa Asrama
           </Typography>
         </div>
+
         <form onSubmit={formik.handleSubmit}>
           <div className="p-5">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Nama</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="nama"
                     label="Nama"
@@ -171,9 +174,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Jenis Kelamin</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Select
                     id="jenis_kelamin"
                     label="Jenis Kelamin"
@@ -187,9 +190,9 @@ const TambahDataMahasiswaView = () => {
                   </Select>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Tempat Lahir</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="tempat_lahir"
                     label="Tempat Lahir"
@@ -205,9 +208,9 @@ const TambahDataMahasiswaView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Tanggal Lahir</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="tanggal_lahir"
                     className="w-full"
@@ -225,9 +228,9 @@ const TambahDataMahasiswaView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Email</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="email"
                     className="w-full"
@@ -243,9 +246,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">No. Hp</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="no_hp"
                     className="w-full"
@@ -262,9 +265,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Alamat Asal</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="alamat_asal"
                     className="w-full"
@@ -280,9 +283,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Universitas</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="universitas"
                     className="w-full"
@@ -304,9 +307,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Jurusan</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="jurusan"
                     className="w-full"
@@ -328,9 +331,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Angkatan</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="angkatan"
                     className="w-full"
@@ -347,9 +350,9 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Kamar</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Select
                     id="kamar"
                     label="Kamar"
@@ -366,9 +369,9 @@ const TambahDataMahasiswaView = () => {
                   </Select>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">KTP</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="ktp"
                     className="w-full"
@@ -402,9 +405,9 @@ const TambahDataMahasiswaView = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Kartu Keluarga</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="kartu_keluarga"
                     className="w-full"
@@ -444,11 +447,11 @@ const TambahDataMahasiswaView = () => {
                 </div>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">
                   Surat Ket.Aktif Kuliah / Bukti Diterima Kuliah
                 </Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="surat_ket_aktif_kuliah"
                     className="w-full"

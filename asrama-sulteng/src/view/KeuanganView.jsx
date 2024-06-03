@@ -30,7 +30,6 @@ import {
 import { keuangandataSelector } from "../config/redux/keuangan/keuanganSelector";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import * as XLSX from "xlsx";
 
 const KeuanganView = () => {
   const dispatch = useDispatch();
@@ -195,7 +194,9 @@ const KeuanganView = () => {
   return (
     <div>
       <div className="flex">
-        <Sidebar />
+        <div className="hidden md:flex">
+          <Sidebar />
+        </div>
         <div className="w-full">
           <TopBar />
           <div className="p-5">
@@ -205,15 +206,13 @@ const KeuanganView = () => {
             <Link to={"/keuangan/tambah"}>
               <Button color="green">Tambah Data</Button>
             </Link>
-            <Link to={"/keuangan/unduh"}>
-              <Button color="green" onClick={exportToExcel}>
-                Unduh Data
-              </Button>
-            </Link>
+            <Button color="green" onClick={exportToExcel}>
+              Unduh Data
+            </Button>
           </div>
 
           <div className="p-5">
-            <div className="flex gap-3 justify-between">
+            <div className="md:flex gap-3 justify-between">
               <div className="w-3 flex gap-3 items-center">
                 <Typography>Show</Typography>
                 <Select
@@ -228,7 +227,7 @@ const KeuanganView = () => {
                 </Select>
                 <Typography>Entries</Typography>
               </div>
-              <div>
+              <div className=" pt-3 md:pt-0">
                 <Input
                   label="Search"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -278,149 +277,159 @@ const KeuanganView = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((keuangan, index) => (
-                    <tr key={index}>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {index + 1}
-                        </Typography>
-                      </td>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {formatDate(keuangan.tanggal)}
-                        </Typography>
-                      </td>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {keuangan.keterangan}
-                        </Typography>
-                      </td>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <Chip
-                          size="sm"
-                          variant="ghost"
-                          className=" w-max"
-                          color="green"
-                          value={
-                            keuangan.jenis === "Pemasukkan"
-                              ? keuangan.nominal.toLocaleString()
-                              : "-"
-                          }
-                        />
-                      </td>
-                      {/* Kolom Pengeluaran */}
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <Chip
-                          size="sm"
-                          variant="ghost"
-                          className=" w-max"
-                          color="red"
-                          value={
-                            keuangan.jenis === "Pengeluaran"
-                              ? keuangan.nominal.toLocaleString()
-                              : "-"
-                          }
-                        />
-                      </td>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <img
-                          alt="nature"
-                          className=" h-20 w-20 rounded cursor-pointer"
-                          src={keuangan.bukti_transaksi}
-                          onClick={() => handleOpenDialog(index)}
-                        />
-                        <Dialog
-                          size="lg"
-                          open={openDialogs[index]}
-                          handler={() => handleCloseDialog(index)}
-                        >
-                          <DialogBody>
-                            <img
-                              alt="nature"
-                              className=" w-full rounded-lg object-cover object-center"
-                              src={keuangan.bukti_transaksi}
-                            />
-                          </DialogBody>
-                        </Dialog>
-                      </td>
-                      <td
-                        className={
-                          isLast(index)
-                            ? "p-4"
-                            : "p-4 border-b border-blue-gray-50"
-                        }
-                      >
-                        <div className="flex gap-2 ">
-                          <Link
-                            to={`/keuangan/ubah/${keuangan.id}`}
-                            state={keuangan}
-                          >
-                            <Tooltip content="Ubah">
-                              <PencilSquareIcon
-                                color="green"
-                                className="h-5 w-5 cursor-pointer"
-                              />
-                            </Tooltip>
-                          </Link>
-                          <Tooltip content="Hapus">
-                            <TrashIcon
-                              color="red"
-                              className="h-5 w-5 cursor-pointer"
-                              onClick={() => handleDeleteKeuangan(keuangan.id)}
-                            />
-                          </Tooltip>
-                        </div>
+                  {keuangan.length === 0 ? (
+                    <tr>
+                      <td colSpan="7" className="p-4 text-center text-red-200">
+                        Tidak Ada Data Keuangan
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    currentItems.map((keuangan, index) => (
+                      <tr key={index}>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {index + 1}
+                          </Typography>
+                        </td>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {formatDate(keuangan.tanggal)}
+                          </Typography>
+                        </td>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {keuangan.keterangan}
+                          </Typography>
+                        </td>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <Chip
+                            size="sm"
+                            variant="ghost"
+                            className=" w-max"
+                            color="green"
+                            value={
+                              keuangan.jenis === "Pemasukkan"
+                                ? keuangan.nominal.toLocaleString()
+                                : "-"
+                            }
+                          />
+                        </td>
+                        {/* Kolom Pengeluaran */}
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <Chip
+                            size="sm"
+                            variant="ghost"
+                            className=" w-max"
+                            color="red"
+                            value={
+                              keuangan.jenis === "Pengeluaran"
+                                ? keuangan.nominal.toLocaleString()
+                                : "-"
+                            }
+                          />
+                        </td>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <img
+                            alt="nature"
+                            className=" h-20 w-20 rounded cursor-pointer"
+                            src={keuangan.bukti_transaksi}
+                            onClick={() => handleOpenDialog(index)}
+                          />
+                          <Dialog
+                            size="lg"
+                            open={openDialogs[index]}
+                            handler={() => handleCloseDialog(index)}
+                          >
+                            <DialogBody>
+                              <img
+                                alt="nature"
+                                className=" w-full rounded-lg object-cover object-center"
+                                src={keuangan.bukti_transaksi}
+                              />
+                            </DialogBody>
+                          </Dialog>
+                        </td>
+                        <td
+                          className={
+                            isLast(index)
+                              ? "p-4"
+                              : "p-4 border-b border-blue-gray-50"
+                          }
+                        >
+                          <div className="flex gap-2 ">
+                            <Link
+                              to={`/keuangan/ubah/${keuangan.id}`}
+                              state={keuangan}
+                            >
+                              <Tooltip content="Ubah">
+                                <PencilSquareIcon
+                                  color="green"
+                                  className="h-5 w-5 cursor-pointer"
+                                />
+                              </Tooltip>
+                            </Link>
+                            <Tooltip content="Hapus">
+                              <TrashIcon
+                                color="red"
+                                className="h-5 w-5 cursor-pointer"
+                                onClick={() =>
+                                  handleDeleteKeuangan(keuangan.id)
+                                }
+                              />
+                            </Tooltip>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

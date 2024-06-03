@@ -135,18 +135,20 @@ const UbahDataMahasiswaView = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
-          <Typography className="text-xl">Data Penghuni Asrama</Typography>
+          <Typography className="text-xl">Ubah Data Penghuni Asrama</Typography>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="p-5">
             <div className="flex flex-col gap-5">
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Nama</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="nama"
                     label="Nama"
@@ -159,9 +161,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Jenis Kelamin</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Select
                     id="jenis_kelamin"
                     label="Jenis Kelamin"
@@ -175,9 +177,9 @@ const UbahDataMahasiswaView = () => {
                   </Select>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Tempat Lahir</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="tempat_lahir"
                     label="Tempat Lahir"
@@ -193,9 +195,9 @@ const UbahDataMahasiswaView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Tanggal Lahir</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="tanggal_lahir"
                     className="w-full"
@@ -219,9 +221,9 @@ const UbahDataMahasiswaView = () => {
                     )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Email</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="email"
                     className="w-full"
@@ -237,9 +239,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">No. Hp</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="no_hp"
                     className="w-full"
@@ -255,9 +257,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Alamat Asal</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="alamat_asal"
                     className="w-full"
@@ -273,9 +275,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Universitas</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="universitas"
                     className="w-full"
@@ -291,9 +293,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Jurusan</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="jurusan"
                     className="w-full"
@@ -309,9 +311,9 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Angkatan</Typography>
-                <div className="w-full">
+                <div className="w-full pt-3 md:pt-0">
                   <Input
                     id="angkatan"
                     className="w-full"
@@ -327,184 +329,190 @@ const UbahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Kamar Yang Di Booking</Typography>
                 <Input
-                  className="w-full"
+                  className="w-full mt-3 md:mt-0"
                   label="Kamar"
                   value={data?.kamar?.nomor_kamar}
                   disabled
                 />
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">KTP</Typography>
-                <div className="w-full flex items-center gap-3">
-                  <button
-                    onClick={handleOpenKtp}
-                    className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
-                  >
-                    <Typography className=" text-sm">{ktp}</Typography>
-                    <Tooltip content="Lihat KTP">
-                      <EyeIcon className="h-5 w-5 cursor-pointer" />
-                    </Tooltip>
-                  </button>
-                  <Dialog open={openKtp} handler={handleCloseKtp}>
-                    <DialogBody className=" overflow-scroll">
-                      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                        <Viewer fileUrl={data?.ktp} plugins={[newplugin]} />
-                      </Worker>
-                    </DialogBody>
-                  </Dialog>
-                  <Input
-                    id="ktp"
-                    className="w-full"
-                    type="file"
-                    label="KTP"
-                    onChange={(e) => {
-                      const file = e.currentTarget.files[0];
-                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+                <div className="w-full pt-3 md:pt-0">
+                  <div className=" flex flex-col gap-2 w-full">
+                    <button
+                      onClick={handleOpenKtp}
+                      className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
+                    >
+                      <Typography className=" text-sm">{ktp}</Typography>
+                      <Tooltip content="Lihat KTP">
+                        <EyeIcon className="h-5 w-5 cursor-pointer" />
+                      </Tooltip>
+                    </button>
+                    <Dialog open={openKtp} handler={handleCloseKtp}>
+                      <DialogBody className=" overflow-scroll">
+                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                          <Viewer fileUrl={data?.ktp} plugins={[newplugin]} />
+                        </Worker>
+                      </DialogBody>
+                    </Dialog>
+                    <Input
+                      id="ktp"
+                      className="w-full"
+                      type="file"
+                      label="KTP"
+                      onChange={(e) => {
+                        const file = e.currentTarget.files[0];
+                        const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
 
-                      if (file && file.size > maxSize) {
-                        Swal.fire({
-                          title: "Ukuran file tidak boleh melebihi 5MB!",
-                          icon: "error",
-                        });
-                        formik.setFieldError(
-                          "ktp",
-                          "Ukuran file melebihi 5 MB"
-                        );
-                        return;
-                      }
+                        if (file && file.size > maxSize) {
+                          Swal.fire({
+                            title: "Ukuran file tidak boleh melebihi 5MB!",
+                            icon: "error",
+                          });
+                          formik.setFieldError(
+                            "ktp",
+                            "Ukuran file melebihi 5 MB"
+                          );
+                          return;
+                        }
 
-                      formik.setFieldValue("ktp", e.currentTarget.files);
-                    }}
-                    onBlur={formik.handleBlur}
-                    multiple={false}
-                    accept="application/pdf"
-                  />
+                        formik.setFieldValue("ktp", e.currentTarget.files);
+                      }}
+                      onBlur={formik.handleBlur}
+                      multiple={false}
+                      accept="application/pdf"
+                    />
+                  </div>
                   {formik.touched.ktp && formik.errors.ktp && (
                     <div className="text-red-700 m-0">{formik.errors.ktp}</div>
                   )}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Kartu Keluarga</Typography>
-                <div className="w-full flex items-center gap-3">
-                  <button
-                    onClick={handleOpenKK}
-                    className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
-                  >
-                    <Typography className=" text-sm">
-                      {kartuKeluarga}
-                    </Typography>
-                    <Tooltip content="Lihat KK">
-                      <EyeIcon className="h-5 w-5 cursor-pointer" />
-                    </Tooltip>
-                  </button>
-                  <Dialog open={openKK} handler={handleCloseKK}>
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                      <Viewer
-                        fileUrl={data?.kartu_keluarga}
-                        plugins={[newplugin]}
-                      />
-                    </Worker>
-                  </Dialog>
-                  <Input
-                    id="kartu_keluarga"
-                    className="w-full"
-                    type="file"
-                    label="KK"
-                    onChange={(e) => {
-                      const file = e.currentTarget.files[0];
-                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+                <div className="w-full pt-3 md:pt-0">
+                  <div className=" flex flex-col gap-2 w-full">
+                    <button
+                      onClick={handleOpenKK}
+                      className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
+                    >
+                      <Typography className=" text-sm">
+                        {kartuKeluarga}
+                      </Typography>
+                      <Tooltip content="Lihat KK">
+                        <EyeIcon className="h-5 w-5 cursor-pointer" />
+                      </Tooltip>
+                    </button>
+                    <Dialog open={openKK} handler={handleCloseKK}>
+                      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                        <Viewer
+                          fileUrl={data?.kartu_keluarga}
+                          plugins={[newplugin]}
+                        />
+                      </Worker>
+                    </Dialog>
+                    <Input
+                      id="kartu_keluarga"
+                      className="w-full"
+                      type="file"
+                      label="KK"
+                      onChange={(e) => {
+                        const file = e.currentTarget.files[0];
+                        const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
 
-                      if (file && file.size > maxSize) {
-                        Swal.fire({
-                          title: "Ukuran file tidak boleh melebihi 5MB!",
-                          icon: "error",
-                        });
-                        formik.setFieldError(
+                        if (file && file.size > maxSize) {
+                          Swal.fire({
+                            title: "Ukuran file tidak boleh melebihi 5MB!",
+                            icon: "error",
+                          });
+                          formik.setFieldError(
+                            "kartu_keluarga",
+                            "Ukuran file melebihi 5 MB"
+                          );
+                          return;
+                        }
+
+                        formik.setFieldValue(
                           "kartu_keluarga",
-                          "Ukuran file melebihi 5 MB"
+                          e.currentTarget.files
                         );
-                        return;
-                      }
-
-                      formik.setFieldValue(
-                        "kartu_keluarga",
-                        e.currentTarget.files
-                      );
-                    }}
-                    onBlur={formik.handleBlur}
-                    multiple={false}
-                    accept="application/pdf"
-                  />
-                  {formik.touched.kartu_keluarga &&
-                    formik.errors.kartu_keluarga && (
-                      <div className="text-red-700 m-0">
-                        {formik.errors.kartu_keluarga}
-                      </div>
-                    )}
+                      }}
+                      onBlur={formik.handleBlur}
+                      multiple={false}
+                      accept="application/pdf"
+                    />
+                    {formik.touched.kartu_keluarga &&
+                      formik.errors.kartu_keluarga && (
+                        <div className="text-red-700 m-0">
+                          {formik.errors.kartu_keluarga}
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex md:items-center flex-col md:flex-row items-start">
                 <Typography className="w-96">Surat Ket.Aktif Kuliah</Typography>
-                <div className="w-full flex items-center gap-3">
-                  <button
-                    onClick={handleOpenSurat}
-                    className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
-                  >
-                    <Typography className=" text-sm">
-                      {suratKetAktifKuliah}
-                    </Typography>
-                    <Tooltip content="Lihat KK">
-                      <EyeIcon className="h-5 w-5 cursor-pointer" />
-                    </Tooltip>
-                  </button>
-                  <Dialog open={openSurat} handler={handleCloseSurat}>
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-                      <Viewer
-                        fileUrl={data?.surat_ket_aktif_kuliah}
-                        plugins={[newplugin]}
-                      />
-                    </Worker>
-                  </Dialog>
-                  <Input
-                    id="surat_ket_aktif_kuliah"
-                    className="w-full"
-                    type="file"
-                    label="Ket.Aktif Kuliah"
-                    onChange={(e) => {
-                      const file = e.currentTarget.files[0];
-                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+                <div className="w-full pt-3 md:pt-0">
+                  <div className=" flex flex-col gap-2 w-full">
+                    <button
+                      onClick={handleOpenSurat}
+                      className="flex bg-blue-gray-50 rounded items-center p-2 italic gap-2"
+                    >
+                      <Typography className=" text-sm">
+                        {suratKetAktifKuliah}
+                      </Typography>
+                      <Tooltip content="Lihat KK">
+                        <EyeIcon className="h-5 w-5 cursor-pointer" />
+                      </Tooltip>
+                    </button>
+                    <Dialog open={openSurat} handler={handleCloseSurat}>
+                      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                        <Viewer
+                          fileUrl={data?.surat_ket_aktif_kuliah}
+                          plugins={[newplugin]}
+                        />
+                      </Worker>
+                    </Dialog>
+                    <Input
+                      id="surat_ket_aktif_kuliah"
+                      className="w-full"
+                      type="file"
+                      label="Ket.Aktif Kuliah"
+                      onChange={(e) => {
+                        const file = e.currentTarget.files[0];
+                        const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
 
-                      if (file && file.size > maxSize) {
-                        Swal.fire({
-                          title: "Ukuran file tidak boleh melebihi 5MB!",
-                          icon: "error",
-                        });
-                        formik.setFieldError(
+                        if (file && file.size > maxSize) {
+                          Swal.fire({
+                            title: "Ukuran file tidak boleh melebihi 5MB!",
+                            icon: "error",
+                          });
+                          formik.setFieldError(
+                            "surat_ket_aktif_kuliah",
+                            "Ukuran file melebihi 5 MB"
+                          );
+                          return;
+                        }
+
+                        formik.setFieldValue(
                           "surat_ket_aktif_kuliah",
-                          "Ukuran file melebihi 5 MB"
+                          e.currentTarget.files
                         );
-                        return;
-                      }
-
-                      formik.setFieldValue(
-                        "surat_ket_aktif_kuliah",
-                        e.currentTarget.files
-                      );
-                    }}
-                    onBlur={formik.handleBlur}
-                    multiple={false}
-                    accept="application/pdf"
-                  />
-                  {formik.touched.surat_ket_aktif_kuliah &&
-                    formik.errors.surat_ket_aktif_kuliah && (
-                      <div className="text-red-700 m-0">
-                        {formik.errors.surat_ket_aktif_kuliah}
-                      </div>
-                    )}
+                      }}
+                      onBlur={formik.handleBlur}
+                      multiple={false}
+                      accept="application/pdf"
+                    />
+                    {formik.touched.surat_ket_aktif_kuliah &&
+                      formik.errors.surat_ket_aktif_kuliah && (
+                        <div className="text-red-700 m-0">
+                          {formik.errors.surat_ket_aktif_kuliah}
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
             </div>

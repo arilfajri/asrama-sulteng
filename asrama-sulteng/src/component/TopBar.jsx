@@ -21,6 +21,8 @@ import { resetDataKeuangan } from "../config/redux/keuangan/keuanganSlice";
 import { resetDataInformasi } from "../config/redux/informasi/informasiSlice";
 import { resetDataKamar } from "../config/redux/kamar/kamarSlice";
 import { authSelector } from "../config/redux/auth/authSelector";
+import Sidebar from "./Sidebar";
+import SidebarCalonPenghuni from "./SidebarCalonPenghuni";
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -39,11 +41,20 @@ const TopBar = () => {
   const admin = authSelector();
   return (
     <div>
-      <div className="bg-abuAbu shadow flex justify-end">
+      <div className="bg-abuAbu shadow flex justify-between md:justify-end items-center">
+        {admin === "admin" ? (
+          <div className="block md:hidden">
+            <Sidebar />
+          </div>
+        ) : (
+          <div className="block md:hidden">
+            <SidebarCalonPenghuni />
+          </div>
+        )}
         <Menu allowHover>
           <MenuHandler>
             <div
-              className="cursor-pointer hover:text-blue-800 gap-1 py-5 px-12 flex items-center"
+              className="cursor-pointer hover:text-blue-800 gap-1 p-5 flex items-center"
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >

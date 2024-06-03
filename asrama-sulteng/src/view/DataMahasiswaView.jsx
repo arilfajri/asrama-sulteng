@@ -27,7 +27,7 @@ import {
 } from "../config/redux/mahasiswa/mahasiswaThunk";
 import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 import Swal from "sweetalert2";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 
 const DataMahasiswaView = () => {
   const dispatch = useDispatch();
@@ -73,28 +73,155 @@ const DataMahasiswaView = () => {
     "Aksi",
   ];
 
-  const exportToExcel = () => {
-    const data = filteredMahasiswa.map((mahasiswa, index) => ({
-      No: index + 1,
-      Nama: mahasiswa.nama,
-      "Jenis Kelamin": mahasiswa.jenis_kelamin,
-      "Tempat Lahir": mahasiswa.tempat_lahir,
-      "Tanggal Lahir": mahasiswa.tanggal_lahir,
-      Email: mahasiswa.email,
-      "No Hp": mahasiswa.no_hp,
-      "Alamat Asal": mahasiswa.alamat_asal,
-      Universitas: mahasiswa.universitas,
-      Jurusan: mahasiswa.jurusan,
-      Angkatan: mahasiswa.jurusan,
-      "Nomor Kamar": mahasiswa.kamar?.nomor_kamar || "",
-    }));
-
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Mahasiswa");
-
-    XLSX.writeFile(wb, "mahasiswa.xlsx");
+  const formatDate = (dateString) => {
+    // Create a new Date object from the dateString
+    const date = new Date(dateString);
+    // Format the date using toLocaleDateString with the appropriate options
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
   };
+
+  const exportToExcel = () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Mahasiswa");
+
+    // Add title row
+    const titleRow = worksheet.addRow(["ASRAMA PELAJAR MAHASISWA TORA-TORA"]);
+    titleRow.font = { name: "TimesNewRoman", size: 16, bold: true };
+    titleRow.alignment = { vertical: "middle", horizontal: "center" };
+    worksheet.mergeCells("A1:L1"); // Merge cells for title
+    titleRow.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFFFFFFF" }, // Putih
+    };
+
+    // Add description rows
+    const descriptionRows = [
+      "SULAWESI TENGAH - BANDUNG",
+      "Alamat : Jl. Wiranta No. 60, Cicadas, Cibeunying Kidul, Kota Bandung, Jawa Barat Kantor Pos. 40121, Telp 0822-1761-1246",
+      "Email : asramatoratora.bdg@gmail.com, Instagram : asramasulteng.bandung",
+    ];
+    descriptionRows.forEach((description) => {
+      const row = worksheet.addRow([description]);
+      row.font = { name: "TimesNewRoman" };
+      row.alignment = { vertical: "middle", horizontal: "center" };
+      worksheet.mergeCells(
+        `A${worksheet.lastRow.number}:L${worksheet.lastRow.number}`
+      );
+      row.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFFFFFFF" }, // Putih
+      };
+    });
+
+    // Add some space after description
+    worksheet.addRow([]);
+    // Define header
+    const headerRow = worksheet.addRow([
+      "No",
+      "Nama",
+      "Jenis Kelamin",
+      "Tempat Lahir",
+      "Tanggal Lahir",
+      "Email",
+      "No. HP",
+      "Alamat Asal",
+      "Universitas",
+      "Jurusan",
+      "Angkatan",
+      "Nomor Kamar",
+    ]);
+
+    // Set column widths
+    const columnWidths = [10, 20, 20, 20, 20, 30, 30, 30, 30, 50, 20, 20];
+    columnWidths.forEach((width, index) => {
+      worksheet.getColumn(index + 1).width = width;
+    });
+
+    // Set header row height
+    headerRow.height = 40;
+
+    headerRow.eachCell((cell) => {
+      cell.font = {
+        bold: true,
+        color: { argb: "FFFFFFFF" },
+        name: "TimesNewRoman",
+      };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FF1A50B0" },
+      };
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
+
+    // Add data rows
+    filteredMahasiswa.forEach((mahasiswa, index) => {
+      const rowData = [
+        index + 1,
+        mahasiswa.nama,
+        mahasiswa.jenis_kelamin,
+        mahasiswa.tempat_lahir,
+        formatDate(mahasiswa.tanggal_lahir),
+        mahasiswa.email,
+        mahasiswa.no_hp,
+        mahasiswa.alamat_asal,
+        mahasiswa.universitas,
+        mahasiswa.jurusan,
+        mahasiswa.angkatan,
+        mahasiswa.kamar?.nomor_kamar || "",
+      ];
+      const dataRow = worksheet.addRow(rowData);
+      dataRow.eachCell((cell) => {
+        cell.font = { name: "TimesNewRoman", size: 11 }; // Ubah font dan ukuran di sini
+      });
+    });
+
+    // Generate Excel file
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Mahasiswa.xlsx";
+      a.click();
+    });
+  };
+  // const exportToExcel = () => {
+  //   const data = filteredMahasiswa.map((mahasiswa, index) => ({
+  //     No: index + 1,
+  //     Nama: mahasiswa.nama,
+  //     "Jenis Kelamin": mahasiswa.jenis_kelamin,
+  //     "Tempat Lahir": mahasiswa.tempat_lahir,
+  //     "Tanggal Lahir": mahasiswa.tanggal_lahir,
+  //     Email: mahasiswa.email,
+  //     "No Hp": mahasiswa.no_hp,
+  //     "Alamat Asal": mahasiswa.alamat_asal,
+  //     Universitas: mahasiswa.universitas,
+  //     Jurusan: mahasiswa.jurusan,
+  //     Angkatan: mahasiswa.jurusan,
+  //     "Nomor Kamar": mahasiswa.kamar?.nomor_kamar || "",
+  //   }));
+
+  //   const ws = XLSX.utils.json_to_sheet(data);
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, "Mahasiswa");
+
+  //   XLSX.writeFile(wb, "mahasiswa.xlsx");
+  // };
 
   const handleDeleteMahasiswa = (id) => {
     Swal.fire({
@@ -126,7 +253,9 @@ const DataMahasiswaView = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <div className="hidden md:flex">
+        <Sidebar />
+      </div>
       <div className="w-full">
         <TopBar />
         <div className="p-5">
@@ -143,7 +272,7 @@ const DataMahasiswaView = () => {
           </Button>
         </div>
         <div className="p-5">
-          <div className="flex gap-3 justify-between">
+          <div className="md:flex gap-3 justify-between">
             <div className="w-3 flex gap-3 items-center">
               <Typography>Show</Typography>
               <Select
@@ -158,7 +287,7 @@ const DataMahasiswaView = () => {
               </Select>
               <Typography>Entries</Typography>
             </div>
-            <div>
+            <div className=" pt-3 md:pt-0">
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -189,139 +318,149 @@ const DataMahasiswaView = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((mahasiswa, index) => (
-                  <tr key={index}>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {index + 1}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.nama}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.email}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.universitas}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.kamar?.nomor_kamar}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {mahasiswa.no_hp}
-                      </Typography>
-                    </td>
-                    <td
-                      className={
-                        isLast(index)
-                          ? "p-4"
-                          : "p-4 border-b border-blue-gray-50"
-                      }
-                    >
-                      <div className="flex gap-2 ">
-                        <Link
-                          to={`/datamahasiswa/detail/${mahasiswa.id}`}
-                          state={mahasiswa}
-                        >
-                          <Tooltip content="Detail">
-                            <EyeIcon
-                              color="blue"
-                              className="h-5 w-5 cursor-pointer"
-                            />
-                          </Tooltip>
-                        </Link>
-                        <Link
-                          to={`/datamahasiswa/ubah/${mahasiswa.id}`}
-                          state={mahasiswa}
-                        >
-                          <Tooltip content="Ubah">
-                            <PencilSquareIcon
-                              color="green"
-                              className="h-5 w-5 cursor-pointer"
-                            />
-                          </Tooltip>
-                        </Link>
-                        <Tooltip content="Hapus">
-                          <TrashIcon
-                            color="red"
-                            className="h-5 w-5 cursor-pointer"
-                            onClick={() => handleDeleteMahasiswa(mahasiswa.id)}
-                          />
-                        </Tooltip>
-                      </div>
+                {mahasiswa.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" className="p-4 text-center text-red-200">
+                      Tidak Ada Data Mahasiswa
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  currentItems.map((mahasiswa, index) => (
+                    <tr key={index}>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {index + 1}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.nama}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.email}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.universitas}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.kamar?.nomor_kamar}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {mahasiswa.no_hp}
+                        </Typography>
+                      </td>
+                      <td
+                        className={
+                          isLast(index)
+                            ? "p-4"
+                            : "p-4 border-b border-blue-gray-50"
+                        }
+                      >
+                        <div className="flex gap-2 ">
+                          <Link
+                            to={`/datamahasiswa/detail/${mahasiswa.id}`}
+                            state={mahasiswa}
+                          >
+                            <Tooltip content="Detail">
+                              <EyeIcon
+                                color="blue"
+                                className="h-5 w-5 cursor-pointer"
+                              />
+                            </Tooltip>
+                          </Link>
+                          <Link
+                            to={`/datamahasiswa/ubah/${mahasiswa.id}`}
+                            state={mahasiswa}
+                          >
+                            <Tooltip content="Ubah">
+                              <PencilSquareIcon
+                                color="green"
+                                className="h-5 w-5 cursor-pointer"
+                              />
+                            </Tooltip>
+                          </Link>
+                          <Tooltip content="Hapus">
+                            <TrashIcon
+                              color="red"
+                              className="h-5 w-5 cursor-pointer"
+                              onClick={() =>
+                                handleDeleteMahasiswa(mahasiswa.id)
+                              }
+                            />
+                          </Tooltip>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
