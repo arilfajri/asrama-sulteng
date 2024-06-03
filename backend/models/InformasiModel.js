@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Users from "./UserModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -76,10 +77,20 @@ const Informasi = db.define(
         notEmpty: true,
       },
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     freezeTableName: true,
   }
 );
+
+Users.hasMany(Informasi, { foreignKey: "userId" });
+Informasi.belongsTo(Users, { foreignKey: "userId" });
 
 export default Informasi;

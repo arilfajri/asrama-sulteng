@@ -89,3 +89,16 @@ export const deleteKamar = createAsyncThunk(
     }
   }
 );
+
+// getKamarById
+export const getKamarById = createAsyncThunk(
+  "kamar/getKamarById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/kamar/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

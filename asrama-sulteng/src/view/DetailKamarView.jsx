@@ -54,17 +54,30 @@ const DetailKamarView = () => {
         <div className="p-5">
           <Typography className="text-lg">Kamar {data?.nomor_kamar}</Typography>
           <Typography>Fasilitas:</Typography>
-          <Typography>{data?.fasilitas}</Typography>
+          <Typography>
+            {data?.fasilitas ? data?.fasilitas : "Tidak Ada Fasilitas"}
+          </Typography>
           <div className="flex gap-16 h-14 w-14 mt-3">
-            {data?.fasilitas.includes("Kasur") && (
-              <img src={kasur} alt="Kasur" />
-            )}
-            {data?.fasilitas.includes("Meja") && <img src={meja} alt="Meja" />}
-            {data?.fasilitas.includes("Lemari") && (
-              <img src={lemari} alt="Lemari" />
-            )}
-            {data?.fasilitas.includes("Kursi") && (
-              <img src={kursi} alt="Kursi" />
+            {data?.fasilitas && data.fasilitas.length > 0 ? (
+              <>
+                {data.fasilitas.includes("Kasur") && (
+                  <img src={kasur} alt="Kasur" />
+                )}
+                {data.fasilitas.includes("Meja") && (
+                  <img src={meja} alt="Meja" />
+                )}
+                {data.fasilitas.includes("Lemari") && (
+                  <img src={lemari} alt="Lemari" />
+                )}
+                {data.fasilitas.includes("lemari") && (
+                  <img src={lemari} alt="Lemari" />
+                )}
+                {data.fasilitas.includes("Kursi") && (
+                  <img src={kursi} alt="Kursi" />
+                )}
+              </>
+            ) : (
+              <Typography></Typography>
             )}
           </div>
         </div>

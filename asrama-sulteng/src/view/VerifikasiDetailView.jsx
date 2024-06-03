@@ -78,7 +78,7 @@ const VerifikasiDetailView = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Diteriman!",
+          title: "Diterima!",
           text: "Mahasiswa telah diterima",
           icon: "success",
         });

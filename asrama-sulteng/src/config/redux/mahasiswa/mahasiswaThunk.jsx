@@ -115,3 +115,16 @@ export const deleteMahasiswa = createAsyncThunk(
     }
   }
 );
+
+// getMahasiswaById
+export const getMahasiswaById = createAsyncThunk(
+  "mahasiswa/getMahasiswaById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/mahasiswas/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

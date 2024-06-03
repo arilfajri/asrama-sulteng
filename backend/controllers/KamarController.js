@@ -42,7 +42,7 @@ export const createKamar = async (req, res) => {
     const { nomor_kamar, fasilitas, mahasiswaId } = req.body;
     const { gambar } = req.files;
 
-    if (!nomor_kamar || !fasilitas)
+    if (!nomor_kamar)
       return res.status(400).json({ msg: "Semua data transaksi harus diisi" });
 
     // Validasi ukuran dan ekstensi file
@@ -83,7 +83,7 @@ export const createKamar = async (req, res) => {
 
     const kamar = new Kamar({
       nomor_kamar,
-      fasilitas,
+      fasilitas: fasilitas || null,
       mahasiswaId: mahasiswaId || null,
       gambar: url,
     });
@@ -113,7 +113,7 @@ export const updateKamar = async (req, res) => {
     }
 
     const { nomor_kamar, fasilitas, mahasiswaId } = req.body;
-    if (!nomor_kamar || !fasilitas) {
+    if (!nomor_kamar) {
       return res.status(400).json({ msg: "Semua data kamar harus diisi" });
     }
 
@@ -137,7 +137,7 @@ export const updateKamar = async (req, res) => {
 
     const updateData = {
       nomor_kamar,
-      fasilitas,
+      fasilitas: fasilitas || null,
       mahasiswaId: req.userId,
     };
 
@@ -187,7 +187,7 @@ export const updateKamarByAdmin = async (req, res) => {
     }
 
     const { nomor_kamar, fasilitas, mahasiswaId } = req.body;
-    if (!nomor_kamar || !fasilitas) {
+    if (!nomor_kamar) {
       return res.status(400).json({ msg: "Semua data kamar harus diisi" });
     }
 
@@ -211,7 +211,7 @@ export const updateKamarByAdmin = async (req, res) => {
 
     const updateData = {
       nomor_kamar,
-      fasilitas,
+      fasilitas: fasilitas || null,
       mahasiswaId: mahasiswaId || null,
     };
 

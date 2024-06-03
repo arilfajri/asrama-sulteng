@@ -180,12 +180,27 @@ const UbahKeuanganView = () => {
                     id="bukti_transaksi"
                     type="file"
                     label="Bukti Transaksi"
+                    accept=".png, .jpg, .jpeg"
                     onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran gambar tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        }).formik.setFieldError(
+                          "bukti_transaksi",
+                          "File melebihi 5 MB"
+                        );
+                        return;
+                      }
+
                       formik.setFieldValue(
                         "bukti_transaksi",
                         e.currentTarget.files
                       );
-                      handleBuktiTransaksiChange(e); // Panggil fungsi handleBannerChange
+                      handleBuktiTransaksiChange(e); // Call the function handleBuktiTransaksiChange
                     }}
                     onBlur={formik.handleBlur}
                     multiple={false}

@@ -104,6 +104,7 @@ export const createInformasi = async (req, res) => {
       banner: savedFiles[0].url,
       foto_deskripsi: savedFiles[1].url,
       struktur_organisasi: savedFiles[2].url,
+      userId: req.userId,
     });
 
     await informasi.save();

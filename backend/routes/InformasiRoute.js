@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 
-router.get("/informasi", verifyUser, adminOnly, getInformasi);
+router.get("/informasi", getInformasi);
 router.get("/informasi/:id", verifyUser, adminOnly, getInformasiById);
 router.post("/informasi", verifyUser, adminOnly, createInformasi);
 router.patch("/informasi/:id", verifyUser, adminOnly, updateInformasi);

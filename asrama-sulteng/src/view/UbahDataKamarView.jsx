@@ -122,7 +122,21 @@ const UbahDataKamarView = () => {
                     id="gambar"
                     type="file"
                     label="Gambar"
+                    accept=".png, .jpg, .jpeg"
                     onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran gambar tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        }).formik.setFieldError(
+                          "bukti_transaksi",
+                          "File melebihi 5 MB"
+                        );
+                        return;
+                      }
                       formik.setFieldValue("gambar", e.currentTarget.files);
                       handleGambarKamarChange(e); // Panggil fungsi handleBannerChange
                     }}

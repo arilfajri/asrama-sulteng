@@ -185,7 +185,7 @@ const DashboardView = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {mahasiswa.kamar.nomor_kamar}
+                          {mahasiswa.kamar?.nomor_kamar}
                         </Typography>
                       </td>
 
@@ -265,9 +265,11 @@ const DashboardView = () => {
             <Typography className=" text-2xl font-bold">
               Penguni Asrama
             </Typography>
-            <Typography className=" text-5xl font-bold mt-5">
-              {mahasiswaPenghuni.length}
-            </Typography>
+            <Link to={"/datamahasiswa"}>
+              <Typography className=" text-5xl font-bold mt-5">
+                {mahasiswaPenghuni.length}
+              </Typography>
+            </Link>
           </div>
         </div>
       </div>

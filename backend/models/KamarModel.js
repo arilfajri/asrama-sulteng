@@ -24,7 +24,7 @@ const Kamar = db.define(
     },
     fasilitas: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
       },

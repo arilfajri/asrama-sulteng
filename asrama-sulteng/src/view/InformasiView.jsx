@@ -145,6 +145,7 @@ const InformasiView = () => {
                     id="banner"
                     type="file"
                     label="Banner"
+                    accept=".png, .jpg, .jpeg"
                     onChange={(e) => {
                       formik.setFieldValue("banner", e.currentTarget.files);
                       handleBannerChange(e); // Panggil fungsi handleBannerChange
@@ -191,6 +192,7 @@ const InformasiView = () => {
                     id="foto_deskripsi"
                     type="file"
                     label="Foto Deskripsi"
+                    accept=".png, .jpg, .jpeg"
                     onChange={(e) => {
                       formik.setFieldValue(
                         "foto_deskripsi",
@@ -306,6 +308,7 @@ const InformasiView = () => {
                     id="struktur_organisasi"
                     type="file"
                     label="Struktur Organisasi"
+                    accept=".png, .jpg, .jpeg"
                     onChange={(e) => {
                       formik.setFieldValue(
                         "struktur_organisasi",

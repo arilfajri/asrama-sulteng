@@ -80,6 +80,7 @@ export const createKeuangan = async (req, res) => {
       jenis,
       nominal,
       bukti_transaksi: url,
+      userId: req.userId,
     });
 
     await informasiTransaksi.save();

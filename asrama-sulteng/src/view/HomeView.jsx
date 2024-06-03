@@ -23,7 +23,7 @@ const HomeView = () => {
       {/* banner */}
       <div className="md:h-96 h-72 relative flex items-center justify-center mt-20">
         <img
-          src={informasi[0].banner}
+          src={informasi[0]?.banner}
           alt=""
           className="w-full object-cover md:h-96 md:w-full lg:w-full lg:h-full h-72 brightness-50"
         />
@@ -57,11 +57,11 @@ const HomeView = () => {
                 Asrama Tora - Tora
               </h1>
             </div>
-            <p className="text-justify">{informasi[0].deskripsi_singkat}</p>
+            <p className="text-justify">{informasi[0]?.deskripsi_singkat}</p>
           </div>
           <div className="md:w-1/2">
             <img
-              src={informasi[0].foto_deskripsi}
+              src={informasi[0]?.foto_deskripsi}
               alt=""
               className="lg:w-[400px] md:w-[300px] mx-auto"
             />

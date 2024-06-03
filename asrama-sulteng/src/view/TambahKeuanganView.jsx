@@ -64,6 +64,23 @@ const TambahKeuanganView = () => {
       }
     },
   });
+  const [prevImgBuktiTransaksi, setPrevBuksetPrevImgBuktiTransaksi] =
+    useState();
+  const handleBuktiTransaksiChange = (e) => {
+    const file = e.target.files[0]; // Ambil file gambar yang dipilih
+    const reader = new FileReader(); // Buat instance FileReader
+
+    // Ketika pembacaan file selesai
+    reader.onloadend = () => {
+      setPrevBuksetPrevImgBuktiTransaksi(reader.result); // Set URL gambar yang dipilih sebagai preview
+    };
+
+    if (file) {
+      reader.readAsDataURL(file); // Membaca file gambar sebagai URL data
+    } else {
+      setPrevBuksetPrevImgBuktiTransaksi(null); // Set preview menjadi null jika tidak ada file yang dipilih
+    }
+  };
   return (
     <div className="flex">
       <Sidebar />
@@ -147,16 +164,39 @@ const TambahKeuanganView = () => {
               <div className="flex items-center">
                 <Typography className="w-96">Bukti Transaksi</Typography>
                 <div className="w-full">
+                  {prevImgBuktiTransaksi && (
+                    <img
+                      src={prevImgBuktiTransaksi}
+                      alt="Struktur Organisasi Preview"
+                      className="w-44 h-22 pb-3"
+                    />
+                  )}
                   <Input
                     id="bukti_transaksi"
                     type="file"
                     label="Bukti Transaksi"
-                    onChange={(e) =>
+                    accept=".png, .jpg, .jpeg"
+                    onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran gambar tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        }).formik.setFieldError(
+                          "bukti_transaksi",
+                          "File melebihi 5 MB"
+                        );
+                        return;
+                      }
+
                       formik.setFieldValue(
                         "bukti_transaksi",
                         e.currentTarget.files
-                      )
-                    }
+                      );
+                      handleBuktiTransaksiChange(e); // Call the function handleBuktiTransaksiChange
+                    }}
                     onBlur={formik.handleBlur}
                     multiple={false}
                   />

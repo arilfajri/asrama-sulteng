@@ -55,7 +55,7 @@ const StatusView = () => {
     });
   };
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <SidebarCalonPenghuni />
       <div className="w-full">
         <TopBar />

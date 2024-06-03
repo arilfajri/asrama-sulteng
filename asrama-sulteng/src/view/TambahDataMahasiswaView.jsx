@@ -374,9 +374,24 @@ const TambahDataMahasiswaView = () => {
                     className="w-full"
                     type="file"
                     label="KTP"
-                    onChange={(e) =>
-                      formik.setFieldValue("ktp", e.currentTarget.files)
-                    }
+                    onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran file tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        });
+                        formik.setFieldError(
+                          "ktp",
+                          "Ukuran file melebihi 5 MB"
+                        );
+                        return;
+                      }
+
+                      formik.setFieldValue("ktp", e.currentTarget.files);
+                    }}
                     onBlur={formik.handleBlur}
                     multiple={false}
                     accept="application/pdf"
@@ -386,6 +401,7 @@ const TambahDataMahasiswaView = () => {
                   )}
                 </div>
               </div>
+
               <div className="flex items-center">
                 <Typography className="w-96">Kartu Keluarga</Typography>
                 <div className="w-full">
@@ -394,12 +410,27 @@ const TambahDataMahasiswaView = () => {
                     className="w-full"
                     type="file"
                     label="KK"
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran file tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        });
+                        formik.setFieldError(
+                          "kartu_keluarga",
+                          "Ukuran file melebihi 5 MB"
+                        );
+                        return;
+                      }
+
                       formik.setFieldValue(
                         "kartu_keluarga",
                         e.currentTarget.files
-                      )
-                    }
+                      );
+                    }}
                     onBlur={formik.handleBlur}
                     multiple={false}
                     accept="application/pdf"
@@ -412,6 +443,7 @@ const TambahDataMahasiswaView = () => {
                     )}
                 </div>
               </div>
+
               <div className="flex items-center">
                 <Typography className="w-96">
                   Surat Ket.Aktif Kuliah / Bukti Diterima Kuliah
@@ -422,12 +454,27 @@ const TambahDataMahasiswaView = () => {
                     className="w-full"
                     type="file"
                     label="Ket.Aktif Kuliah"
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const file = e.currentTarget.files[0];
+                      const maxSize = 5 * 1024 * 1024; // 5 MB dalam byte
+
+                      if (file && file.size > maxSize) {
+                        Swal.fire({
+                          title: "Ukuran file tidak boleh melebihi 5MB!",
+                          icon: "error",
+                        });
+                        formik.setFieldError(
+                          "surat_ket_aktif_kuliah",
+                          "Ukuran file melebihi 5 MB"
+                        );
+                        return;
+                      }
+
                       formik.setFieldValue(
                         "surat_ket_aktif_kuliah",
                         e.currentTarget.files
-                      )
-                    }
+                      );
+                    }}
                     onBlur={formik.handleBlur}
                     multiple={false}
                     accept="application/pdf"
