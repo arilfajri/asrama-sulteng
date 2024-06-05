@@ -39,10 +39,11 @@ const TopBar = () => {
   };
 
   const admin = authSelector();
+
   return (
     <div>
       <div className="bg-abuAbu shadow flex justify-between md:justify-end items-center">
-        {admin === "admin" ? (
+        {admin.role === "admin" ? (
           <div className="block md:hidden">
             <Sidebar />
           </div>

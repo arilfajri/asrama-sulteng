@@ -15,8 +15,6 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import {
-  EyeIcon,
-  FunnelIcon,
   MagnifyingGlassIcon,
   PencilSquareIcon,
   TrashIcon,
@@ -30,6 +28,7 @@ import {
 import { keuangandataSelector } from "../config/redux/keuangan/keuanganSelector";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import ExcelJS from "exceljs";
 
 const KeuanganView = () => {
   const dispatch = useDispatch();
@@ -91,57 +90,212 @@ const KeuanganView = () => {
   const isLast = (index) => index === keuangan.length - 1;
 
   const exportToExcel = () => {
-    // Hitung total pemasukkan dan pengeluaran
-    let totalPemasukkan = 0;
-    let totalPengeluaran = 0;
-    filteredTransaksi.forEach((transaksi) => {
-      if (transaksi.jenis.toLowerCase() === "pemasukkan") {
-        totalPemasukkan += transaksi.nominal;
-      } else {
-        totalPengeluaran += transaksi.nominal;
-      }
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Keuangan");
+
+    // Add title row
+    const titleRow = worksheet.addRow(["ASRAMA PELAJAR MAHASISWA TORA-TORA"]);
+    titleRow.font = { name: "Times New Roman", size: 16, bold: true };
+    titleRow.alignment = { vertical: "middle", horizontal: "center" };
+    worksheet.mergeCells("A1:E1"); // Merge cells for title
+    titleRow.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFFFFFFF" }, // Putih
+    };
+
+    // Add description rows
+    const descriptionRows = [
+      "SULAWESI TENGAH - BANDUNG",
+      "Alamat : Jl. Wiranta No. 60, Cicadas, Cibeunying Kidul, Kota Bandung, Jawa Barat",
+      "Kantor Pos. 40121, Telp 0822-1761-1246",
+      "Email : asramatoratora.bdg@gmail.com, Instagram : asramasulteng.bandung",
+    ];
+    descriptionRows.forEach((description) => {
+      const row = worksheet.addRow([description]);
+      row.font = { name: "Times New Roman" };
+      row.alignment = { vertical: "middle", horizontal: "center" };
+      worksheet.mergeCells(
+        `A${worksheet.lastRow.number}:E${worksheet.lastRow.number}`
+      );
+      row.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFFFFFFF" }, // Putih
+      };
     });
 
-    // Data transaksi
-    const data = filteredTransaksi.map((transaksi, index) => ({
-      No: index + 1,
-      Tanggal: transaksi.tanggal,
-      Keterangan: transaksi.keterangan,
-      Pemasukkan:
-        transaksi.jenis.toLowerCase() === "pemasukkan"
-          ? transaksi.nominal
-          : "-",
-      Pengeluaran:
-        transaksi.jenis.toLowerCase() === "pengeluaran"
-          ? transaksi.nominal
-          : "-",
-    }));
+    // Add some space after description
+    const spaceRow = worksheet.addRow([]);
+    spaceRow.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFFFFFFF" }, // Putih
+    };
 
-    // Tambahkan baris untuk total pemasukkan dan pengeluaran
-    data.push(
-      {
-        No: "",
-        Tanggal: "",
-        Keterangan: "Total Pemasukkan:",
-        Pemasukkan: totalPemasukkan,
-        Pengeluaran: "",
-      },
-      {
-        No: "",
-        Tanggal: "",
-        Keterangan: "Total Pengeluaran:",
-        Pemasukkan: "",
-        Pengeluaran: totalPengeluaran,
-      }
+    // Define header
+    const headerRow = worksheet.addRow([
+      "No",
+      "Tanggal",
+      "Keterangan",
+      "Pemasukkan",
+      "Pengeluaran",
+    ]);
+
+    // Set column widths
+    const columnWidths = [10, 20, 40, 20, 20];
+    columnWidths.forEach((width, index) => {
+      worksheet.getColumn(index + 1).width = width;
+    });
+
+    // Set header row height and style
+    headerRow.height = 40;
+    headerRow.eachCell((cell) => {
+      cell.font = {
+        bold: true,
+        color: { argb: "FFFFFFFF" },
+        name: "Times New Roman",
+      };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FF1A50B0" },
+      };
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
+
+    // Add data rows
+    let totalPemasukkan = 0;
+    let totalPengeluaran = 0;
+
+    filteredTransaksi.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
+
+    filteredTransaksi.forEach((transaksi, index) => {
+      const pemasukkan =
+        transaksi.jenis === "Pemasukkan" ? transaksi.nominal : 0;
+      const pengeluaran =
+        transaksi.jenis === "Pengeluaran" ? transaksi.nominal : 0;
+
+      totalPemasukkan += pemasukkan;
+      totalPengeluaran += pengeluaran;
+
+      const rowData = [
+        index + 1,
+        formatDate(transaksi.tanggal),
+        transaksi.keterangan,
+        pemasukkan !== 0 ? "Rp. " + pemasukkan.toLocaleString("id-ID") : "-",
+        pengeluaran !== 0 ? "Rp. " + pengeluaran.toLocaleString("id-ID") : "-",
+      ];
+      const dataRow = worksheet.addRow(rowData);
+      dataRow.eachCell((cell) => {
+        cell.font = { name: "Times New Roman", size: 11 };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
+    });
+    const totalRow = worksheet.addRow([
+      "Total",
+      "",
+      "",
+      "Rp. " + totalPemasukkan.toLocaleString("id-ID"),
+      "Rp. " + totalPengeluaran.toLocaleString("id-ID"),
+    ]);
+    worksheet.mergeCells(
+      `A${worksheet.lastRow.number}:C${worksheet.lastRow.number}`
     );
+    totalRow.alignment = { vertical: "middle", horizontal: "center" };
 
-    // Buat file Excel
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Laporan Keuangan");
+    totalRow.eachCell((cell, colNumber) => {
+      cell.font = { bold: true, name: "Times New Roman", size: 11 };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFEFFF00" },
+      };
+      cell.border = {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        bottom: { style: "thin" },
+        right: { style: "thin" },
+      };
+    });
 
-    XLSX.writeFile(wb, "laporan_keuangan.xlsx");
+    // Generate Excel file
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Keuangan.xlsx";
+      a.click();
+    });
   };
+
+  // const exportToExcel = () => {
+  //   // Hitung total pemasukkan dan pengeluaran
+  //   let totalPemasukkan = 0;
+  //   let totalPengeluaran = 0;
+  //   filteredTransaksi.forEach((transaksi) => {
+  //     if (transaksi.jenis.toLowerCase() === "pemasukkan") {
+  //       totalPemasukkan += transaksi.nominal;
+  //     } else {
+  //       totalPengeluaran += transaksi.nominal;
+  //     }
+  //   });
+
+  //   // Data transaksi
+  //   const data = filteredTransaksi.map((transaksi, index) => ({
+  //     No: index + 1,
+  //     Tanggal: transaksi.tanggal,
+  //     Keterangan: transaksi.keterangan,
+  //     Pemasukkan:
+  //       transaksi.jenis.toLowerCase() === "pemasukkan"
+  //         ? transaksi.nominal
+  //         : "-",
+  //     Pengeluaran:
+  //       transaksi.jenis.toLowerCase() === "pengeluaran"
+  //         ? transaksi.nominal
+  //         : "-",
+  //   }));
+
+  //   // Tambahkan baris untuk total pemasukkan dan pengeluaran
+  //   data.push(
+  //     {
+  //       No: "",
+  //       Tanggal: "",
+  //       Keterangan: "Total Pemasukkan:",
+  //       Pemasukkan: totalPemasukkan,
+  //       Pengeluaran: "",
+  //     },
+  //     {
+  //       No: "",
+  //       Tanggal: "",
+  //       Keterangan: "Total Pengeluaran:",
+  //       Pemasukkan: "",
+  //       Pengeluaran: totalPengeluaran,
+  //     }
+  //   );
+
+  //   // Buat file Excel
+  //   const ws = XLSX.utils.json_to_sheet(data);
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, "Laporan Keuangan");
+
+  //   XLSX.writeFile(wb, "laporan_keuangan.xlsx");
+  // };
 
   const TABLE_HEAD = [
     "No",
@@ -345,7 +499,7 @@ const KeuanganView = () => {
                             color="green"
                             value={
                               keuangan.jenis === "Pemasukkan"
-                                ? keuangan.nominal.toLocaleString()
+                                ? keuangan.nominal.toLocaleString("id-ID")
                                 : "-"
                             }
                           />
@@ -365,7 +519,7 @@ const KeuanganView = () => {
                             color="red"
                             value={
                               keuangan.jenis === "Pengeluaran"
-                                ? keuangan.nominal.toLocaleString()
+                                ? keuangan.nominal.toLocaleString("id-ID")
                                 : "-"
                             }
                           />

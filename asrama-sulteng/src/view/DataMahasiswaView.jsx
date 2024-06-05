@@ -184,7 +184,13 @@ const DataMahasiswaView = () => {
       ];
       const dataRow = worksheet.addRow(rowData);
       dataRow.eachCell((cell) => {
-        cell.font = { name: "TimesNewRoman", size: 11 }; // Ubah font dan ukuran di sini
+        cell.font = { name: "TimesNewRoman", size: 11 };
+        cell.border = {
+          top: { style: "thin" },
+          left: { style: "thin" },
+          bottom: { style: "thin" },
+          right: { style: "thin" },
+        };
       });
     });
 
@@ -200,28 +206,6 @@ const DataMahasiswaView = () => {
       a.click();
     });
   };
-  // const exportToExcel = () => {
-  //   const data = filteredMahasiswa.map((mahasiswa, index) => ({
-  //     No: index + 1,
-  //     Nama: mahasiswa.nama,
-  //     "Jenis Kelamin": mahasiswa.jenis_kelamin,
-  //     "Tempat Lahir": mahasiswa.tempat_lahir,
-  //     "Tanggal Lahir": mahasiswa.tanggal_lahir,
-  //     Email: mahasiswa.email,
-  //     "No Hp": mahasiswa.no_hp,
-  //     "Alamat Asal": mahasiswa.alamat_asal,
-  //     Universitas: mahasiswa.universitas,
-  //     Jurusan: mahasiswa.jurusan,
-  //     Angkatan: mahasiswa.jurusan,
-  //     "Nomor Kamar": mahasiswa.kamar?.nomor_kamar || "",
-  //   }));
-
-  //   const ws = XLSX.utils.json_to_sheet(data);
-  //   const wb = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(wb, ws, "Mahasiswa");
-
-  //   XLSX.writeFile(wb, "mahasiswa.xlsx");
-  // };
 
   const handleDeleteMahasiswa = (id) => {
     Swal.fire({
