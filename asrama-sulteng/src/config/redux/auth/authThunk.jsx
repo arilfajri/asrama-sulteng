@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 // Register
 export const register = createAsyncThunk(
@@ -7,8 +8,16 @@ export const register = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const res = await axios.post("http://localhost:5000/users", userData);
+      Swal.fire({
+        icon: "success",
+        title: "Register berhasil, silahkan login!",
+      });
       return res.data;
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Email sudah terdaftar!",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -22,6 +31,10 @@ export const login = createAsyncThunk(
       const res = await axios.post("http://localhost:5000/login", userData);
       return res.data;
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Email atau password salah",
+      });
       return rejectWithValue(error.response.data);
     }
   }

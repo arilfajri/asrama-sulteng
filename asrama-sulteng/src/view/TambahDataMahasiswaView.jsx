@@ -25,6 +25,7 @@ const TambahDataMahasiswaView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [jenis_kelamin, setJenisKelamin] = useState();
+  const [jenjang, setJenjang] = useState();
   const [selectedKamar, setSelectedKamar] = useState();
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const TambahDataMahasiswaView = () => {
       universitas: "",
       jurusan: "",
       angkatan: "",
+      jenjang: "",
       ktp: "",
       kartu_keluarga: "",
       surat_ket_aktif_kuliah: "",
@@ -88,6 +90,7 @@ const TambahDataMahasiswaView = () => {
       const formData = new FormData();
       formData.append("nama", values.nama);
       formData.append("jenis_kelamin", jenis_kelamin || values.jenis_kelamin);
+      formData.append("jenjang", jenjang || values.jenjang);
       formData.append("tempat_lahir", values.tempat_lahir);
       formData.append("tanggal_lahir", values.tanggal_lahir);
       formData.append("email", values.email);
@@ -132,7 +135,7 @@ const TambahDataMahasiswaView = () => {
             console.error("Failed to create mahasiswa:", error);
           }
           Swal.fire(
-            "Saved!",
+            "Data Berhasil Ditambah!",
             "Kamu telah melakukan menambahkan data!",
             "success"
           );
@@ -219,6 +222,7 @@ const TambahDataMahasiswaView = () => {
                     value={formik.values.tanggal_lahir}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {formik.touched.tanggal_lahir &&
                     formik.errors.tanggal_lahir && (
@@ -348,6 +352,27 @@ const TambahDataMahasiswaView = () => {
                       {formik.errors.angkatan}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className="flex md:items-center flex-col md:flex-row items-start">
+                <Typography className="w-96">Jenjang</Typography>
+                <div className="w-full pt-3 md:pt-0">
+                  <Select
+                    id="jenjang"
+                    label="Jenjang"
+                    onChange={(val) => setJenjang(val)}
+                    // onChange={formik.handleChange}
+                    // value={formik.values.jenis_kelamin}
+                    onBlur={formik.handleBlur}
+                  >
+                    <Option value="S1">S1</Option>
+                    <Option value="S2">S2</Option>
+                    <Option value="S3">S3</Option>
+                    <Option value="D1">D1</Option>
+                    <Option value="D2">D2</Option>
+                    <Option value="D3">D3</Option>
+                    <Option value="D4">D4</Option>
+                  </Select>
                 </div>
               </div>
               <div className="flex md:items-center flex-col md:flex-row items-start">

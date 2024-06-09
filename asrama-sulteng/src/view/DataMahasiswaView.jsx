@@ -92,7 +92,7 @@ const DataMahasiswaView = () => {
     const titleRow = worksheet.addRow(["ASRAMA PELAJAR MAHASISWA TORA-TORA"]);
     titleRow.font = { name: "TimesNewRoman", size: 16, bold: true };
     titleRow.alignment = { vertical: "middle", horizontal: "center" };
-    worksheet.mergeCells("A1:L1"); // Merge cells for title
+    worksheet.mergeCells("A1:M1"); // Merge cells for title
     titleRow.fill = {
       type: "pattern",
       pattern: "solid",
@@ -110,7 +110,7 @@ const DataMahasiswaView = () => {
       row.font = { name: "TimesNewRoman" };
       row.alignment = { vertical: "middle", horizontal: "center" };
       worksheet.mergeCells(
-        `A${worksheet.lastRow.number}:L${worksheet.lastRow.number}`
+        `A${worksheet.lastRow.number}:M${worksheet.lastRow.number}`
       );
       row.fill = {
         type: "pattern",
@@ -134,11 +134,12 @@ const DataMahasiswaView = () => {
       "Universitas",
       "Jurusan",
       "Angkatan",
+      "Jenjang",
       "Nomor Kamar",
     ]);
 
     // Set column widths
-    const columnWidths = [10, 20, 20, 20, 20, 30, 30, 30, 30, 50, 20, 20];
+    const columnWidths = [10, 20, 20, 20, 20, 30, 30, 30, 30, 50, 20, 20, 20];
     columnWidths.forEach((width, index) => {
       worksheet.getColumn(index + 1).width = width;
     });
@@ -180,6 +181,7 @@ const DataMahasiswaView = () => {
         mahasiswa.universitas,
         mahasiswa.jurusan,
         mahasiswa.angkatan,
+        mahasiswa.jenjang,
         mahasiswa.kamar?.nomor_kamar || "",
       ];
       const dataRow = worksheet.addRow(rowData);

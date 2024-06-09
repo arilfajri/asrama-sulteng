@@ -79,6 +79,13 @@ const Mahasiswas = db.define(
         notEmpty: true,
       },
     },
+    jenjang: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     ktp: {
       type: DataTypes.STRING,
       allowNull: false,

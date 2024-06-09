@@ -104,6 +104,7 @@ const TambahKeuanganView = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     type="date"
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {formik.touched.tanggal && formik.errors.tanggal && (
                     <div className="text-red-700 m-0">

@@ -122,6 +122,7 @@ export const createMahasiswa = async (req, res) => {
     universitas,
     jurusan,
     angkatan,
+    jenjang,
   } = req.body;
   const { ktp, kartu_keluarga, surat_ket_aktif_kuliah } = req.files;
   if (
@@ -134,6 +135,7 @@ export const createMahasiswa = async (req, res) => {
     !alamat_asal ||
     !universitas ||
     !jurusan ||
+    !jenjang ||
     !angkatan
   ) {
     return res.status(400).json({ msg: "Semua data mahasiswa harus diisi" });
@@ -201,6 +203,7 @@ export const createMahasiswa = async (req, res) => {
       alamat_asal,
       universitas,
       jurusan,
+      jenjang,
       angkatan,
       ktp: savedFiles[0].url,
       kartu_keluarga: savedFiles[1].url,
@@ -245,6 +248,7 @@ export const updateMahasiswa = async (req, res) => {
       alamat_asal,
       universitas,
       jurusan,
+      jenjang,
       angkatan,
       status,
     } = req.body;
@@ -259,6 +263,7 @@ export const updateMahasiswa = async (req, res) => {
       !alamat_asal ||
       !universitas ||
       !jurusan ||
+      !jenjang ||
       !angkatan
     ) {
       return res.status(400).json({ msg: "Semua data mahasiswa harus diisi" });
@@ -292,6 +297,7 @@ export const updateMahasiswa = async (req, res) => {
       alamat_asal,
       universitas,
       jurusan,
+      jenjang,
       angkatan,
       status,
     };

@@ -96,6 +96,7 @@ const VerifikasiDetailView = () => {
               universitas: data.universitas,
               jurusan: data.jurusan,
               angkatan: data.angkatan,
+              jenjang: data.jenjang,
               status: "Diterima",
               ktp: data.ktp,
               kartu_keluarga: data.kartu_keluarga,
@@ -139,6 +140,7 @@ const VerifikasiDetailView = () => {
               universitas: data.universitas,
               jurusan: data.jurusan,
               angkatan: data.angkatan,
+              jenjang: data.jenjang,
               status: "Ditolak",
               ktp: data.ktp,
               kartu_keluarga: data.kartu_keluarga,
@@ -244,6 +246,16 @@ const VerifikasiDetailView = () => {
                   className="w-full"
                   value={data?.angkatan}
                   label="Angkatan"
+                />
+              </div>
+            </div>
+            <div className="flex md:items-center flex-col md:flex-row items-start">
+              <Typography className="w-96">Jenjang</Typography>
+              <div className="w-full pt-3 md:pt-0">
+                <Input
+                  className="w-full"
+                  value={data?.jenjang}
+                  label="Jenjang"
                 />
               </div>
             </div>

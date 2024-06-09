@@ -14,21 +14,19 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
   createMahasiswa,
-  deleteMahasiswa,
   getAllMahasiswa,
 } from "../config/redux/mahasiswa/mahasiswaThunk";
 import Swal from "sweetalert2";
 import { updateKamar } from "../config/redux/kamar/kamarThunk";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { daftar_jurusan, daftar_universitas } from "../config/data/listData";
-import { mahasiswaSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
 
 const BookingKamarView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [jenis_kelamin, setJenisKelamin] = useState();
+  const [jenjang, setJenjang] = useState();
   const data = location.state;
 
   useEffect(() => {
@@ -47,6 +45,7 @@ const BookingKamarView = () => {
       universitas: "",
       jurusan: "",
       angkatan: "",
+      jenjang: "",
       ktp: "",
       kartu_keluarga: "",
       surat_ket_aktif_kuliah: "",
@@ -85,6 +84,7 @@ const BookingKamarView = () => {
       const formData = new FormData();
       formData.append("nama", values.nama);
       formData.append("jenis_kelamin", jenis_kelamin || values.jenis_kelamin);
+      formData.append("jenjang", jenjang || values.jenjang);
       formData.append("tempat_lahir", values.tempat_lahir);
       formData.append("tanggal_lahir", values.tanggal_lahir);
       formData.append("email", values.email);
@@ -107,7 +107,6 @@ const BookingKamarView = () => {
         confirmButtonText: "Ya",
         denyButtonText: `Batalkan`,
       }).then(async (result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           try {
             await dispatch(createMahasiswa(formData));
@@ -209,6 +208,7 @@ const BookingKamarView = () => {
                     value={formik.values.tanggal_lahir}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {formik.touched.tanggal_lahir &&
                     formik.errors.tanggal_lahir && (
@@ -338,6 +338,27 @@ const BookingKamarView = () => {
                       {formik.errors.angkatan}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className="flex md:items-center flex-col md:flex-row items-start">
+                <Typography className="w-96">Jenjang</Typography>
+                <div className="w-full pt-3 md:pt-0">
+                  <Select
+                    id="jenjang"
+                    label="Jenjang"
+                    onChange={(val) => setJenjang(val)}
+                    // onChange={formik.handleChange}
+                    // value={formik.values.jenis_kelamin}
+                    onBlur={formik.handleBlur}
+                  >
+                    <Option value="S1">S1</Option>
+                    <Option value="S2">S2</Option>
+                    <Option value="S3">S3</Option>
+                    <Option value="D1">D1</Option>
+                    <Option value="D2">D2</Option>
+                    <Option value="D3">D3</Option>
+                    <Option value="D4">D4</Option>
+                  </Select>
                 </div>
               </div>
               <div className="flex md:items-center flex-col md:flex-row items-start">

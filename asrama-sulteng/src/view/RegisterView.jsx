@@ -6,11 +6,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { register } from "../config/redux/auth/authThunk";
-import { useNavigate } from "react-router-dom";
 
 const RegisterView = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -41,7 +39,6 @@ const RegisterView = () => {
         console.log("value", values);
         formik.resetForm();
         dispatch(register(values));
-        navigate("/login");
       } catch (error) {
         console.error("Login failed:", error.response.data.msg);
       }

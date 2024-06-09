@@ -28,6 +28,7 @@ import { useDispatch } from "react-redux";
 
 const UbahDataMahasiswaView = () => {
   const [jenisKelamin, setJenisKelamin] = useState();
+  const [jenjang, setJenjang] = useState();
   const location = useLocation();
   const data = location.state;
   const dispatch = useDispatch();
@@ -91,7 +92,8 @@ const UbahDataMahasiswaView = () => {
       no_hp: Yup.string()
         .required("Nomor HP diperlukan")
         .matches(/^\d+$/, "No hp harus berupa angka")
-        .max(12, "Nomor HP tidak boleh lebih dari 12 karakter"),
+        .max(12, "Nomor HP tidak boleh lebih dari 12 angka")
+        .min(11, "Nomor HP minimal 11 angka"),
       alamat_asal: Yup.string().required("Alamat asal diperlukan"),
       universitas: Yup.string().required("Universitas diperlukan"),
       jurusan: Yup.string().required("Jurusan diperlukan"),
@@ -114,6 +116,7 @@ const UbahDataMahasiswaView = () => {
           updateMahasiswa({
             ...values,
             jenis_kelamin: jenisKelamin || values.jenis_kelamin,
+            jenjang: jenjang || values.jenjang,
             ktp: values.ktp[0],
             kartuKeluarga: values.kartu_keluarga[0],
             surat_ket_aktif_kuliah: values.surat_ket_aktif_kuliah[0],
@@ -212,6 +215,7 @@ const UbahDataMahasiswaView = () => {
                     }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    max={new Date().toISOString().split("T")[0]}
                   />
                   {formik.touched.tanggal_lahir &&
                     formik.errors.tanggal_lahir && (
@@ -327,6 +331,27 @@ const UbahDataMahasiswaView = () => {
                       {formik.errors.angkatan}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className="flex md:items-center flex-col md:flex-row items-start">
+                <Typography className="w-96">Jenjang</Typography>
+                <div className="w-full pt-3 md:pt-0">
+                  <Select
+                    id="jenjang"
+                    label="Jenjang"
+                    onChange={(val) => setJenjang(val)}
+                    // onChange={formik.handleChange}
+                    value={formik.values.jenjang}
+                    onBlur={formik.handleBlur}
+                  >
+                    <Option value="S1">S1</Option>
+                    <Option value="S2">S2</Option>
+                    <Option value="S3">S3</Option>
+                    <Option value="D1">D1</Option>
+                    <Option value="D2">D2</Option>
+                    <Option value="D3">D3</Option>
+                    <Option value="D4">D4</Option>
+                  </Select>
                 </div>
               </div>
               <div className="flex md:items-center flex-col md:flex-row items-start">

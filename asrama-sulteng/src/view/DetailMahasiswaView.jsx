@@ -181,6 +181,17 @@ const DetailMahasiswaView = () => {
               </div>
             </div>
             <div className="flex md:items-center flex-col md:flex-row items-start">
+              <Typography className="w-96">Jenjang</Typography>
+              <div className="w-full pt-3 md:pt-0">
+                <Input
+                  className="w-full"
+                  value={data?.jenjang}
+                  label="Jenjang"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="flex md:items-center flex-col md:flex-row items-start">
               <Typography className="w-96">Nomor Kamar</Typography>
               <div className="w-full pt-3 md:pt-0">
                 <Input

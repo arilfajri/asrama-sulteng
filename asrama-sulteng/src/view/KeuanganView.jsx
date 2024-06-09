@@ -244,59 +244,6 @@ const KeuanganView = () => {
     });
   };
 
-  // const exportToExcel = () => {
-  //   // Hitung total pemasukkan dan pengeluaran
-  //   let totalPemasukkan = 0;
-  //   let totalPengeluaran = 0;
-  //   filteredTransaksi.forEach((transaksi) => {
-  //     if (transaksi.jenis.toLowerCase() === "pemasukkan") {
-  //       totalPemasukkan += transaksi.nominal;
-  //     } else {
-  //       totalPengeluaran += transaksi.nominal;
-  //     }
-  //   });
-
-  //   // Data transaksi
-  //   const data = filteredTransaksi.map((transaksi, index) => ({
-  //     No: index + 1,
-  //     Tanggal: transaksi.tanggal,
-  //     Keterangan: transaksi.keterangan,
-  //     Pemasukkan:
-  //       transaksi.jenis.toLowerCase() === "pemasukkan"
-  //         ? transaksi.nominal
-  //         : "-",
-  //     Pengeluaran:
-  //       transaksi.jenis.toLowerCase() === "pengeluaran"
-  //         ? transaksi.nominal
-  //         : "-",
-  //   }));
-
-  //   // Tambahkan baris untuk total pemasukkan dan pengeluaran
-  //   data.push(
-  //     {
-  //       No: "",
-  //       Tanggal: "",
-  //       Keterangan: "Total Pemasukkan:",
-  //       Pemasukkan: totalPemasukkan,
-  //       Pengeluaran: "",
-  //     },
-  //     {
-  //       No: "",
-  //       Tanggal: "",
-  //       Keterangan: "Total Pengeluaran:",
-  //       Pemasukkan: "",
-  //       Pengeluaran: totalPengeluaran,
-  //     }
-  //   );
-
-  //   // Buat file Excel
-  //   const ws = XLSX.utils.json_to_sheet(data);
-  //   const wb = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(wb, ws, "Laporan Keuangan");
-
-  //   XLSX.writeFile(wb, "laporan_keuangan.xlsx");
-  // };
-
   const TABLE_HEAD = [
     "No",
     "Tanggal",
@@ -397,6 +344,7 @@ const KeuanganView = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
+                max={new Date().toISOString().split("T")[0]}
               />
             </div>
             <div className="col-span-1">
@@ -405,6 +353,7 @@ const KeuanganView = () => {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
+                max={new Date().toISOString().split("T")[0]}
               />
             </div>
           </div>

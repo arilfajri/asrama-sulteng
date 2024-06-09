@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import Footer from "../component/Footer";
 import NavigationBar from "../component/NavigationBar";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { getMe, login, logout } from "../config/redux/auth/authThunk";
+import { useDispatch } from "react-redux";
+import { login } from "../config/redux/auth/authThunk";
 import { authRole } from "../config/redux/auth/authSelector";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,53 +13,10 @@ import Swal from "sweetalert2";
 const LoginView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const userRole = authRole();
   console.log("role", userRole);
-
-  useEffect(() => {
-    dispatch(getMe())
-      .then(() => {
-        if (userRole === "admin") {
-          navigate("/dashboard");
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Login berhasil",
-          });
-        } else if (userRole === "user") {
-          navigate("/kamar");
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            },
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Login berhasil",
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Gagal mendapatkan data pengguna:", error);
-      });
-  }, [dispatch, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -77,13 +34,54 @@ const LoginView = () => {
     onSubmit: async (values) => {
       try {
         await dispatch(login(values));
-        console.log("Dispatch berhasil menerima nilai:", values);
-        window.location.reload();
+        formik.resetForm();
+        setLoginSuccess(true);
       } catch (error) {
         console.error("Gagal melakukan dispatch:", error);
       }
     },
   });
+
+  useEffect(() => {
+    if (loginSuccess) {
+      if (userRole === "admin") {
+        navigate("/dashboard");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Login berhasil",
+        });
+      } else if (userRole === "user") {
+        navigate("/kamar");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Login berhasil",
+        });
+      }
+    }
+  }, [loginSuccess, userRole, navigate]);
+
   return (
     <div>
       <NavigationBar />

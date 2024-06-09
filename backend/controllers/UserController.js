@@ -28,12 +28,17 @@ export const getUserById = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { name, email, password, confPassword, role } = req.body;
-  if (password !== confPassword)
+  if (password !== confPassword) {
     return res
       .status(400)
       .json({ msg: "Password dan Confirm Password tidak cocok" });
-  const hashPassword = await argon2.hash(password);
+  }
   try {
+    const existingUser = await User.findOne({ where: { email: email } });
+    if (existingUser) {
+      return res.status(400).json({ msg: "Email sudah terdaftar" });
+    }
+    const hashPassword = await argon2.hash(password);
     await User.create({
       name: name,
       email: email,
@@ -42,7 +47,7 @@ export const createUser = async (req, res) => {
     });
     res.status(201).json({ msg: "Register Berhasil" });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    res.status(500).json({ msg: error.message });
   }
 };
 
