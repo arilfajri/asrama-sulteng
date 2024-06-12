@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import NavigationBar from "../component/NavigationBar";
 import Banner from "../component/Banner";
-import {
-  BanknotesIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/solid";
+import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/solid";
 import Footer from "../component/Footer";
 import { useDispatch } from "react-redux";
 import { getInformasi } from "../config/redux/informasi/informasiThunk";

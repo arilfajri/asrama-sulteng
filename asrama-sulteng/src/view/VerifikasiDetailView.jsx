@@ -40,8 +40,6 @@ const VerifikasiDetailView = () => {
   const [openSurat, setOpenSurat] = useState(false);
   const handleOpenSurat = () => setOpenSurat(!openSurat);
 
-  console.log(data);
-
   const formatDate = (dateString) => {
     // Create a new Date object from the dateString
     const date = new Date(dateString);

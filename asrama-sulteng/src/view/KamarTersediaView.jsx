@@ -49,8 +49,6 @@ const KamarTersediaView = () => {
 
   const kamarMahasiswa = mahasiswa?.kamar?.id;
 
-  console.log("mahasiswa", mahasiswa);
-  console.log("kamar", kamarMahasiswa);
   return (
     <div className="flex">
       <div className="hidden md:flex">

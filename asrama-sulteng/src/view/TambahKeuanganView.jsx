@@ -41,8 +41,6 @@ const TambahKeuanganView = () => {
       bukti_transaksi: Yup.string().required("Bukti transaksi diperlukan"),
     }),
     onSubmit: (values) => {
-      console.log(jenis);
-      console.log("Form values:", values.bukti_transaksi[0]);
       try {
         dispatch(
           createKeuangan({

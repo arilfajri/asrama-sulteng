@@ -22,7 +22,6 @@ const UbahKeuanganView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  console.log(data);
   const formik = useFormik({
     initialValues: data,
     validationSchema: Yup.object().shape({
@@ -38,8 +37,6 @@ const UbahKeuanganView = () => {
       bukti_transaksi: Yup.string().required("Bukti transaksi diperlukan"),
     }),
     onSubmit: (values) => {
-      console.log(values.jenis);
-      console.log("Form values:", values.bukti_transaksi[0]);
       try {
         dispatch(
           updateKeuangan({

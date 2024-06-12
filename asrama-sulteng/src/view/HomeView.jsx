@@ -16,7 +16,7 @@ const HomeView = () => {
     dispatch(getInformasi());
   }, [dispatch]);
   const informasi = informasiDataSelector();
-  console.log(informasi);
+
   return (
     <div>
       <NavigationBar />

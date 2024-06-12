@@ -37,7 +37,6 @@ const VerifikasiView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(mahasiswa);
   useEffect(() => {
     dispatch(getAllMahasiswa());
     dispatch(getAllKamar());

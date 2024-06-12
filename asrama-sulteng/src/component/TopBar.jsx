@@ -23,7 +23,6 @@ import { resetDataKamar } from "../config/redux/kamar/kamarSlice";
 import { authSelector } from "../config/redux/auth/authSelector";
 import Sidebar from "./Sidebar";
 import SidebarCalonPenghuni from "./SidebarCalonPenghuni";
-
 const TopBar = () => {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
@@ -37,9 +36,7 @@ const TopBar = () => {
     dispatch(resetDataKamar());
     navigate("/login");
   };
-
   const admin = authSelector();
-
   return (
     <div>
       <div className="bg-abuAbu shadow flex justify-between md:justify-end items-center">
@@ -82,5 +79,4 @@ const TopBar = () => {
     </div>
   );
 };
-
 export default TopBar;

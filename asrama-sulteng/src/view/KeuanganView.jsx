@@ -36,7 +36,6 @@ const KeuanganView = () => {
     dispatch(getAllKeuangan());
   }, [dispatch]);
   const keuangan = keuangandataSelector();
-  console.log(keuangan);
 
   // State untuk mengontrol apakah dialog terbuka untuk setiap item dalam daftar
   const [openDialogs, setOpenDialogs] = useState(

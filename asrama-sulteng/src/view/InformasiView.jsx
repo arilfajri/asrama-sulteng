@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
 import TopBar from "../component/TopBar";
 import { useDispatch } from "react-redux";
 import {
@@ -15,12 +14,10 @@ import Swal from "sweetalert2";
 
 const InformasiView = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getInformasi());
   }, [dispatch]);
   const informasi = informasiDataSelector();
-  console.log(informasi);
 
   const [prevImgBanner, setPrevImgBanner] = useState(informasi[0].banner);
   const [prevImgFotoDeskripsi, setPrevImgFotoDeskripsi] = useState(
@@ -95,8 +92,6 @@ const InformasiView = () => {
       biaya: Yup.string().required("Biaya diperlukan"),
     }),
     onSubmit: (values) => {
-      console.log("Form Values:", values);
-      console.log("Form Values:", values.misi);
       try {
         dispatch(
           updateInformasi({

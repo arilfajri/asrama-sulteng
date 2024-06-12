@@ -1,5 +1,4 @@
 import React from "react";
-import SidebarCalonPenghuni from "../component/SidebarCalonPenghuni";
 import TopBar from "../component/TopBar";
 import {
   Dialog,
@@ -21,7 +20,6 @@ const DetailKelolaKamarView = () => {
 
   const location = useLocation();
   const data = location.state;
-  console.log(data);
 
   return (
     <div className="flex">

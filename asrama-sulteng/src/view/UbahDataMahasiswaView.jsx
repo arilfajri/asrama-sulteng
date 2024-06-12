@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogBody,
   Input,
-  MenuItem,
   Option,
   Select,
   Tooltip,
@@ -61,8 +60,6 @@ const UbahDataMahasiswaView = () => {
     setOpenSurat(false);
   };
 
-  console.log(data);
-
   const newplugin = defaultLayoutPlugin();
 
   // ktp
@@ -108,9 +105,6 @@ const UbahDataMahasiswaView = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log("Form values:", { ...values, jenis_kelamin: jenisKelamin });
-      console.log(values.ktp[0]);
-
       try {
         dispatch(
           updateMahasiswa({

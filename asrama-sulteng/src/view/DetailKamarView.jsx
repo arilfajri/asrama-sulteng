@@ -20,7 +20,6 @@ const DetailKamarView = () => {
 
   const location = useLocation();
   const data = location.state;
-  console.log(data);
 
   return (
     <div className="flex">

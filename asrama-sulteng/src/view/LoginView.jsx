@@ -16,7 +16,6 @@ const LoginView = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const userRole = authRole();
-  console.log("role", userRole);
 
   const formik = useFormik({
     initialValues: {

@@ -52,8 +52,6 @@ const TambahDataKamarView = () => {
     }
   };
 
-  console.log(selectedFacilities);
-
   const formik = useFormik({
     initialValues: {
       gambar: "",
@@ -66,8 +64,6 @@ const TambahDataKamarView = () => {
       // fasilitas: Yup.string().required("Fasilitas diperlukan"),
     }),
     onSubmit: (values) => {
-      console.log("form value", { ...values, fasilitas: selectedFacilities });
-      console.log("Form Values:", values);
       values.fasilitas = selectedFacilities.join(", ");
       try {
         dispatch(

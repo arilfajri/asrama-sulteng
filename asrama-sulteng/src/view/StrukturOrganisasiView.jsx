@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import NavigationBar from "../component/NavigationBar";
 import Banner from "../component/Banner";
-import strukturOrganisasi from "../assets/strukturorganisasi.png";
 import Footer from "../component/Footer";
 import { useDispatch } from "react-redux";
 import { getInformasi } from "../config/redux/informasi/informasiThunk";

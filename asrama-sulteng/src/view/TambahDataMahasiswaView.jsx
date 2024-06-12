@@ -34,11 +34,9 @@ const TambahDataMahasiswaView = () => {
 
   const dataKamar = kamardataSelector();
   const nomor_kamar = dataKamar.filter((kamar) => kamar.mahasiswaId === null);
-  console.log(nomor_kamar);
   const selectedKamarData = dataKamar.find(
     (kamar) => kamar.id === selectedKamar
   );
-  // console.log(selectedKamarData.id);
 
   const formik = useFormik({
     initialValues: {
@@ -86,7 +84,6 @@ const TambahDataMahasiswaView = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log("Form values", values, kamar);
       const formData = new FormData();
       formData.append("nama", values.nama);
       formData.append("jenis_kelamin", jenis_kelamin || values.jenis_kelamin);
@@ -120,7 +117,6 @@ const TambahDataMahasiswaView = () => {
               createMahasiswa(formData)
             ).unwrap();
             const mahasiswaId = mahasiswaResponse.mahasiswa.id;
-            console.log("Mahasiswa ID:", mahasiswaId);
             await dispatch(
               updateKamarByAdmin({
                 id: selectedKamarData.id,

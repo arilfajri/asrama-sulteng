@@ -46,8 +46,6 @@ const DashboardView = () => {
   );
 
   const saldo = totalPemasukkan - totalPengeluaran;
-  console.log("Pemasukkan", totalPemasukkan);
-  console.log("Pengeluaran", totalPengeluaran);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);

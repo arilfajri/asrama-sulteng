@@ -14,7 +14,6 @@ import {
 import { useDispatch } from "react-redux";
 import { mahasiswaallSelector } from "../config/redux/mahasiswa/mahasiswaSelector";
 import { getMahasiswa } from "../config/redux/mahasiswa/mahasiswaThunk";
-import { getAllKamar } from "../config/redux/kamar/kamarThunk";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Footer from "../component/Footer";
 

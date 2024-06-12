@@ -23,7 +23,6 @@ const UbahDataKamarView = () => {
   const data = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(data);
   const initialFacilities = data.fasilitas;
   const initialFacilitiesArray = initialFacilities
     ? initialFacilities.split(", ")
@@ -32,7 +31,6 @@ const UbahDataKamarView = () => {
   const [selectedFacilities, setSelectedFacilities] = useState(
     initialFacilitiesArray
   );
-  console.log(initialFacilitiesArray);
 
   useEffect(() => {
     setSelectedFacilities(initialFacilitiesArray);
@@ -65,8 +63,6 @@ const UbahDataKamarView = () => {
     }
   };
 
-  console.log(selectedFacilities);
-
   const formik = useFormik({
     initialValues: data,
     validationSchema: Yup.object().shape({
@@ -75,7 +71,6 @@ const UbahDataKamarView = () => {
       // fasilitas: Yup.string().required("Fasilitas diperlukan"),
     }),
     onSubmit: (values) => {
-      console.log("Form Values:", values.gambar);
       values.fasilitas = selectedFacilities.join(", ");
       try {
         dispatch(

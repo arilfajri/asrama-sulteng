@@ -1,9 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Mahasiswas from "./MahasiswaModel.js";
-
 const { DataTypes } = Sequelize;
-
 const Kamar = db.define(
   "kamar",
   {
@@ -31,15 +29,13 @@ const Kamar = db.define(
     },
     mahasiswaId: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Jika setiap kamar hanya ditempati oleh satu mahasiswa, ubah menjadi false
+      allowNull: true,
     },
   },
   {
     freezeTableName: true,
   }
 );
-
 Mahasiswas.hasOne(Kamar, { foreignKey: "mahasiswaId" });
-Kamar.belongsTo(Mahasiswas, { foreignKey: "mahasiswaId" }); // Definisikan hubungan foreign key
-
+Kamar.belongsTo(Mahasiswas, { foreignKey: "mahasiswaId" });
 export default Kamar;

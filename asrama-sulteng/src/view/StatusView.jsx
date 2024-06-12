@@ -26,7 +26,6 @@ const StatusView = () => {
     dispatch(getAllMahasiswa());
   }, [dispatch]);
   const mahasiswa = mahasiswaSelector();
-  console.log(mahasiswa?.status);
   const handleBookingKembali = () => {
     Swal.fire({
       title: "Apakah anda yakin ingin melakukan booking kamar lagi?",

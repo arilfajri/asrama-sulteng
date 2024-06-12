@@ -78,9 +78,6 @@ const BookingKamarView = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log("Form values:", { ...values, jenis_kelamin: jenis_kelamin });
-      console.log("id", values.id);
-      console.log(values.ktp[0]);
       const formData = new FormData();
       formData.append("nama", values.nama);
       formData.append("jenis_kelamin", jenis_kelamin || values.jenis_kelamin);

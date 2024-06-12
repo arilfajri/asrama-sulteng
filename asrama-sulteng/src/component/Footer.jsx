@@ -10,7 +10,6 @@ const Footer = () => {
     dispatch(getInformasi());
   }, [dispatch]);
   const informasi = informasiDataSelector();
-  console.log(informasi);
   return (
     <div>
       <div className="bg-abuAbu px-14 py-10">
