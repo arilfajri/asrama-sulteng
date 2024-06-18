@@ -112,8 +112,7 @@ export const createInformasi = async (req, res) => {
       .status(201)
       .json({ msg: "Data informasi asrama tersimpan dengan sukses" });
   } catch (error) {
-    console.log(error);
-    console.error(error);
+    console.error(error.message);
     res.status(500).json({
       msg: "Terjadi kesalahan dalam menyimpan data informasi asrama",
     });
