@@ -73,7 +73,7 @@ export const createInformasi = async (req, res) => {
     const saveFileAndGetURL = async (file, type) => {
       const ext = path.extname(file.name);
       const fileName = `${type}_${Date.now()}${ext}`;
-      const folderPath = `./public/uploads/${type}`;
+      const folderPath = `./${process.env.BACKEND_URL}/uploads/${type}`;
       const filePath = path.join(folderPath, fileName);
 
       if (!fs.existsSync(folderPath)) {
@@ -150,7 +150,7 @@ export const updateInformasi = async (req, res) => {
     const saveFileAndGetURL = async (file, type) => {
       const ext = path.extname(file.name);
       const fileName = `${type}_${Date.now()}${ext}`;
-      const folderPath = `./public/uploads/${type}`;
+      const folderPath = `./${process.env.BACKEND_URL}/uploads/${type}`;
       const filePath = path.join(folderPath, fileName);
 
       if (!fs.existsSync(folderPath)) {
@@ -185,7 +185,7 @@ export const updateInformasi = async (req, res) => {
       // Hapus file banner lama
       if (informasi.banner) {
         const oldBannerPath = path.join(
-          "./public/uploads/banner",
+          `./${process.env.BACKEND_URL}/uploads/banner`,
           informasi.banner.split("/").pop()
         );
         if (fs.existsSync(oldBannerPath)) {
@@ -205,7 +205,7 @@ export const updateInformasi = async (req, res) => {
       // Hapus file foto deskripsi lama
       if (informasi.foto_deskripsi) {
         const oldFotoDeskripsiPath = path.join(
-          "./public/uploads/foto_deskripsi",
+          `./${process.env.BACKEND_URL}/uploads/foto_deskripsi`,
           informasi.foto_deskripsi.split("/").pop()
         );
         if (fs.existsSync(oldFotoDeskripsiPath)) {
@@ -225,7 +225,7 @@ export const updateInformasi = async (req, res) => {
       // Hapus file struktur organisasi lama
       if (informasi.struktur_organisasi) {
         const oldStrukturOrganisasiPath = path.join(
-          "./public/uploads/struktur_organisasi",
+          `./${process.env.BACKEND_URL}/uploads/struktur_organisasi`,
           informasi.struktur_organisasi.split("/").pop()
         );
         if (fs.existsSync(oldStrukturOrganisasiPath)) {
@@ -263,7 +263,7 @@ export const deleteInformasi = async (req, res) => {
     // Hapus file transaksi jika ada
     if (informasi.banner) {
       const transaksiPath = path.join(
-        "./public/uploads/banner",
+        `./${process.env.BACKEND_URL}/uploads/banner`,
         informasi.banner.split("/").pop()
       );
       if (fs.existsSync(transaksiPath)) {
@@ -273,7 +273,7 @@ export const deleteInformasi = async (req, res) => {
     // Hapus file transaksi jika ada
     if (informasi.foto_deskripsi) {
       const transaksiPath = path.join(
-        "./public/uploads/foto_deskripsi",
+        `./${process.env.BACKEND_URL}/uploads/foto_deskripsi`,
         informasi.foto_deskripsi.split("/").pop()
       );
       if (fs.existsSync(transaksiPath)) {
@@ -283,7 +283,7 @@ export const deleteInformasi = async (req, res) => {
     // Hapus file transaksi jika ada
     if (informasi.struktur_organisasi) {
       const transaksiPath = path.join(
-        "./public/uploads/struktur_organisasi",
+        `./${process.env.BACKEND_URL}/uploads/struktur_organisasi`,
         informasi.struktur_organisasi.split("/").pop()
       );
       if (fs.existsSync(transaksiPath)) {
