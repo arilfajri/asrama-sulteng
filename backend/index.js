@@ -13,6 +13,7 @@ import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import path from "path";
 
 dotenv.config();
 
