@@ -81,7 +81,9 @@ export const createInformasi = async (req, res) => {
       }
 
       await file.mv(filePath);
-      const url = `https://asrama-sulteng-p58j.vercel.app/uploads/${type}/${fileName}`;
+      const url = `${req.protocol}://${req.get(
+        "host"
+      )}/uploads/${type}/${fileName}`;
       return { fileName, url };
     };
 

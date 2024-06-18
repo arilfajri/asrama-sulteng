@@ -10,7 +10,7 @@ import AuthRoute from "./routes/AuthRoute.js";
 import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
 import KamarRoute from "./routes/KamarRoute.js";
-import fileUpload from "express-fileupload";
+import FileUpload from "express-fileupload";
 dotenv.config();
 
 const app = express();
@@ -46,7 +46,7 @@ app.use(
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
-app.use(fileUpload());
+app.use(FileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
 app.use(MahasiswaRoute);
