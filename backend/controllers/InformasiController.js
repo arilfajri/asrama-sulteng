@@ -81,9 +81,7 @@ export const createInformasi = async (req, res) => {
       }
 
       await file.mv(filePath);
-      const url = `${req.protocol}://${req.get(
-        "host"
-      )}/uploads/${type}/${fileName}`;
+      const url = `${req.protocol}://${process.env.BACKEND_URL}/uploads/${type}/${fileName}`;
       return { fileName, url };
     };
 
@@ -112,7 +110,7 @@ export const createInformasi = async (req, res) => {
       .status(201)
       .json({ msg: "Data informasi asrama tersimpan dengan sukses" });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     res.status(500).json({
       msg: "Terjadi kesalahan dalam menyimpan data informasi asrama",
     });
