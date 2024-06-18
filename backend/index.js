@@ -11,7 +11,6 @@ import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
 import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
-import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -22,9 +21,9 @@ const store = new sessionStore({
   db: db,
 });
 
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 app.use(
   session({
@@ -38,14 +37,13 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.REACT_URL);
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.REACT_URL,
+  })
+);
+
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
@@ -57,7 +55,7 @@ app.use(KeuanganRoute);
 app.use(InformasiRoute);
 app.use(KamarRoute);
 
-store.sync();
+// store.sync();
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running...");
