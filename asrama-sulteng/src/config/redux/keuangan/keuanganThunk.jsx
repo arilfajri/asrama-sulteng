@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// get all Keuangan
+// get all keuangan
 export const getAllKeuangan = createAsyncThunk(
   "keuangan/dataKeuangan",
   async (dataKeuangan, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/keuangan",
+        `${process.env.REACT_APP_API_BASE_URL}/keuangan`,
         dataKeuangan
       );
       return res.data;
@@ -17,16 +17,20 @@ export const getAllKeuangan = createAsyncThunk(
   }
 );
 
-// createKeuangan
+// create keuangan
 export const createKeuangan = createAsyncThunk(
   "keuangan/createKeuangan",
   async (keuangan, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/keuangan", keuangan, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set header untuk FormData
-        },
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/keuangan`,
+        keuangan,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set header untuk FormData
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -34,7 +38,7 @@ export const createKeuangan = createAsyncThunk(
   }
 );
 
-// Update Data by ID
+// update keuangan
 export const updateKeuangan = createAsyncThunk(
   "keuangan/updateKeuangan",
   async (
@@ -43,7 +47,7 @@ export const updateKeuangan = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/keuangan/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/keuangan/${id}`,
         {
           tanggal,
           keterangan,
@@ -64,12 +68,14 @@ export const updateKeuangan = createAsyncThunk(
   }
 );
 
-// Delete Data by ID
+// delete keuangan
 export const deleteKeuangan = createAsyncThunk(
   "keuangan/deleteKeuangan",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/keuangan/${id}`);
+      const res = await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/keuangan/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

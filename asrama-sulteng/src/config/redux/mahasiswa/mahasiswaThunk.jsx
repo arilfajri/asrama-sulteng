@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// create mahasiswa
 export const createMahasiswa = createAsyncThunk(
   "mahasiswa/createMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/mahasiswas",
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas`,
         mahasiswaData
       );
       return res.data;
@@ -22,7 +23,7 @@ export const getAllMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/mahasiswas",
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas`,
         mahasiswaData
       );
       return res.data;
@@ -38,7 +39,7 @@ export const getMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/mahasiswa",
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswa`,
         mahasiswaData
       );
       return res.data;
@@ -48,7 +49,7 @@ export const getMahasiswa = createAsyncThunk(
   }
 );
 
-// Update Data by ID
+// update data by id
 export const updateMahasiswa = createAsyncThunk(
   "mahasiswa/updateMahasiswa",
   async (
@@ -74,7 +75,7 @@ export const updateMahasiswa = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/mahasiswas/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`,
         {
           nama,
           jenis_kelamin,
@@ -86,8 +87,8 @@ export const updateMahasiswa = createAsyncThunk(
           universitas,
           jurusan,
           angkatan,
-          status,
           jenjang,
+          status,
           ktp,
           kartu_keluarga,
           surat_ket_aktif_kuliah,
@@ -105,12 +106,14 @@ export const updateMahasiswa = createAsyncThunk(
   }
 );
 
-// Delete Data by ID
+// delete data by id
 export const deleteMahasiswa = createAsyncThunk(
   "mahasiswa/deleteMahasiswa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/mahasiswas/${id}`);
+      const res = await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -118,12 +121,14 @@ export const deleteMahasiswa = createAsyncThunk(
   }
 );
 
-// getMahasiswaById
+// get mahasiswa by id
 export const getMahasiswaById = createAsyncThunk(
   "mahasiswa/getMahasiswaById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:5000/mahasiswas/${id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

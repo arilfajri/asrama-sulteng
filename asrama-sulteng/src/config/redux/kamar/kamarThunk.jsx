@@ -1,12 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// get all kamar
+// Get all kamar
 export const getAllKamar = createAsyncThunk(
   "kamar/kamardata",
   async (kamarData, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5000/kamar", kamarData);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/kamar`,
+        kamarData
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -19,11 +22,14 @@ export const updateKamar = createAsyncThunk(
   "kamar/updatekamar",
   async ({ id, nomor_kamar, fasilitas, mahasiswaId }, { rejectWithValue }) => {
     try {
-      const res = await axios.patch(`http://localhost:5000/kamar/${id}`, {
-        nomor_kamar,
-        fasilitas,
-        mahasiswaId,
-      });
+      const res = await axios.patch(
+        `${process.env.REACT_APP_API_BASE_URL}/kamar/${id}`,
+        {
+          nomor_kamar,
+          fasilitas,
+          mahasiswaId,
+        }
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -40,7 +46,7 @@ export const updateKamarByAdmin = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/kamar/admin/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/kamar/admin/${id}`,
         {
           nomor_kamar,
           fasilitas,
@@ -49,7 +55,7 @@ export const updateKamarByAdmin = createAsyncThunk(
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set header untuk FormData
+            "Content-Type": "multipart/form-data", // Set header for FormData
           },
         }
       );
@@ -60,16 +66,20 @@ export const updateKamarByAdmin = createAsyncThunk(
   }
 );
 
-// createKamar
+// Create Kamar
 export const createKamar = createAsyncThunk(
   "kamar/createKamar",
   async (kamar, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/kamar", kamar, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set header untuk FormData
-        },
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/kamar`,
+        kamar,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set header for FormData
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -82,7 +92,9 @@ export const deleteKamar = createAsyncThunk(
   "kamar/deleteKamar",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/kamar/${id}`);
+      const res = await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/kamar/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -90,12 +102,14 @@ export const deleteKamar = createAsyncThunk(
   }
 );
 
-// getKamarById
+// Get Kamar by ID
 export const getKamarById = createAsyncThunk(
   "kamar/getKamarById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:5000/kamar/${id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/kamar/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
