@@ -21,9 +21,9 @@ const store = new sessionStore({
   db: db,
 });
 
-// (async () => {
-//   await db.sync();
-// })();
+(async () => {
+  await db.sync();
+})();
 
 app.use(
   session({
@@ -56,7 +56,7 @@ app.use(KeuanganRoute);
 app.use(InformasiRoute);
 app.use(KamarRoute);
 
-// store.sync();
+store.sync();
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running...");
