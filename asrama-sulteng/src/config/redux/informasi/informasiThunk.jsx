@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-z;
+
 // get informasi
 export const getInformasi = createAsyncThunk(
   "informasi/informasidata",
