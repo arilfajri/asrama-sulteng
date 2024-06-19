@@ -1,15 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 // create mahasiswa
 export const createMahasiswa = createAsyncThunk(
   "mahasiswa/createMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas`,
-        mahasiswaData
-      );
+      const res = await axios.post(`${API_BASE_URL}/mahasiswas`, mahasiswaData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -22,10 +21,7 @@ export const getAllMahasiswa = createAsyncThunk(
   "mahasiswa/alldataMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas`,
-        mahasiswaData
-      );
+      const res = await axios.get(`${API_BASE_URL}/mahasiswas`, mahasiswaData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -38,10 +34,7 @@ export const getMahasiswa = createAsyncThunk(
   "mahasiswa/allMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswa`,
-        mahasiswaData
-      );
+      const res = await axios.get(`${API_BASE_URL}/mahasiswa`, mahasiswaData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -75,7 +68,7 @@ export const updateMahasiswa = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`,
+        `${API_BASE_URL}/mahasiswas/${id}`,
         {
           nama,
           jenis_kelamin,
@@ -111,9 +104,7 @@ export const deleteMahasiswa = createAsyncThunk(
   "mahasiswa/deleteMahasiswa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`
-      );
+      const res = await axios.delete(`${API_BASE_URL}/mahasiswas/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -126,9 +117,7 @@ export const getMahasiswaById = createAsyncThunk(
   "mahasiswa/getMahasiswaById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/mahasiswas/${id}`
-      );
+      const res = await axios.get(`${API_BASE_URL}/mahasiswas/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
