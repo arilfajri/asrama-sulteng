@@ -39,6 +39,7 @@ function App() {
   }, [dispatch]);
 
   const role = authSelector();
+  console.log(role);
 
   return (
     <div>
