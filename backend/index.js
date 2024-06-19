@@ -11,14 +11,7 @@ import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
 import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -61,10 +54,6 @@ app.use(AuthRoute);
 app.use(KeuanganRoute);
 app.use(InformasiRoute);
 app.use(KamarRoute);
-app.use(
-  "/uploads/gambar_kamar",
-  express.static(path.join(__dirname, "public/uploads/gambar_kamar"))
-);
 
 // store.sync();
 
