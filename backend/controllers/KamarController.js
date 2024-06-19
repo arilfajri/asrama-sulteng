@@ -73,9 +73,7 @@ export const createKamar = async (req, res) => {
       }
 
       await file.mv(filePath);
-      const url = `${req.protocol}://${req.get(
-        "host"
-      )}/uploads/gambar_kamar/${fileName}`;
+      const url = `https://asrama-sulteng-p58j.vercel.app/uploads/gambar_kamar/${fileName}`;
       return { fileName, url };
     };
 
