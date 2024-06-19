@@ -61,7 +61,10 @@ app.use(AuthRoute);
 app.use(KeuanganRoute);
 app.use(InformasiRoute);
 app.use(KamarRoute);
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use(
+  "/uploads/gambar_kamar",
+  express.static(path.join(__dirname, "public/uploads/gambar_kamar"))
+);
 
 // store.sync();
 
