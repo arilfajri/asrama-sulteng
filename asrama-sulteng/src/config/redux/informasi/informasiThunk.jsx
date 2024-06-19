@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// get informasi
+// Get informasi
 export const getInformasi = createAsyncThunk(
   "informasi/informasidata",
   async (informasiData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://asrama-sulteng-p58j.vercel.app/informasi",
+        `${process.env.REACT_APP_API_BASE_URL}/informasi`,
         informasiData
       );
       return res.data;
@@ -17,6 +17,7 @@ export const getInformasi = createAsyncThunk(
   }
 );
 
+// Update informasi
 export const updateInformasi = createAsyncThunk(
   "informasi/updateInformasi",
   async (
@@ -37,7 +38,7 @@ export const updateInformasi = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/informasi/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/informasi/${id}`,
         {
           deskripsi_singkat,
           visi,
@@ -52,7 +53,7 @@ export const updateInformasi = createAsyncThunk(
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set header untuk FormData
+            "Content-Type": "multipart/form-data", // Set header for FormData
           },
         }
       );
