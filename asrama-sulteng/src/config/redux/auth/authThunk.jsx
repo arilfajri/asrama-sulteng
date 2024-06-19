@@ -2,14 +2,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 // Register
 export const register = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/users`, userData);
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/users",
+        userData
+      );
       Swal.fire({
         icon: "success",
         title: "Register berhasil, silahkan login!",
@@ -30,7 +31,10 @@ export const login = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/login`, userData);
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/login",
+        userData
+      );
       return res.data;
     } catch (error) {
       Swal.fire({
@@ -47,7 +51,9 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`${API_BASE_URL}/logout`);
+      const res = await axios.delete(
+        "https://asrama-sulteng-p58j.vercel.app/logout"
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -60,7 +66,7 @@ export const getMe = createAsyncThunk(
   "auth/getMe",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/me`);
+      const res = await axios.get("https://asrama-sulteng-p58j.vercel.app/me");
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

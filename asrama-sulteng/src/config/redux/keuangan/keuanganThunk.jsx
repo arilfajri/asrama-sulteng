@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-// get all keuangan
+// get all Keuangan
 export const getAllKeuangan = createAsyncThunk(
   "keuangan/dataKeuangan",
   async (dataKeuangan, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/keuangan`, dataKeuangan);
+      const res = await axios.get(
+        "https://asrama-sulteng-p58j.vercel.app/keuangan",
+        dataKeuangan
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -16,16 +17,20 @@ export const getAllKeuangan = createAsyncThunk(
   }
 );
 
-// create keuangan
+// createKeuangan
 export const createKeuangan = createAsyncThunk(
   "keuangan/createKeuangan",
   async (keuangan, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/keuangan`, keuangan, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set header untuk FormData
-        },
-      });
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/keuangan",
+        keuangan,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set header untuk FormData
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -33,7 +38,7 @@ export const createKeuangan = createAsyncThunk(
   }
 );
 
-// update keuangan
+// Update Data by ID
 export const updateKeuangan = createAsyncThunk(
   "keuangan/updateKeuangan",
   async (
@@ -42,7 +47,7 @@ export const updateKeuangan = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `${API_BASE_URL}/keuangan/${id}`,
+        `https://asrama-sulteng-p58j.vercel.app/keuangan/${id}`,
         {
           tanggal,
           keterangan,
@@ -63,12 +68,14 @@ export const updateKeuangan = createAsyncThunk(
   }
 );
 
-// delete keuangan
+// Delete Data by ID
 export const deleteKeuangan = createAsyncThunk(
   "keuangan/deleteKeuangan",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`${API_BASE_URL}/keuangan/${id}`);
+      const res = await axios.delete(
+        `https://asrama-sulteng-p58j.vercel.app/keuangan/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

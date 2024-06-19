@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
+z;
 // get informasi
 export const getInformasi = createAsyncThunk(
   "informasi/informasidata",
   async (informasiData, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/informasi`, informasiData);
+      const res = await axios.get(
+        "https://asrama-sulteng-p58j.vercel.app/informasi",
+        informasiData
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -36,7 +37,7 @@ export const updateInformasi = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `${API_BASE_URL}/informasi/${id}`,
+        `https://asrama-sulteng-p58j.vercel.app/informasi/${id}`,
         {
           deskripsi_singkat,
           visi,

@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-// create mahasiswa
 export const createMahasiswa = createAsyncThunk(
   "mahasiswa/createMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/mahasiswas`, mahasiswaData);
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
+        mahasiswaData
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -21,7 +21,10 @@ export const getAllMahasiswa = createAsyncThunk(
   "mahasiswa/alldataMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/mahasiswas`, mahasiswaData);
+      const res = await axios.get(
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
+        mahasiswaData
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -34,7 +37,10 @@ export const getMahasiswa = createAsyncThunk(
   "mahasiswa/allMahasiswa",
   async (mahasiswaData, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/mahasiswa`, mahasiswaData);
+      const res = await axios.get(
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswa",
+        mahasiswaData
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -42,7 +48,7 @@ export const getMahasiswa = createAsyncThunk(
   }
 );
 
-// update data by id
+// Update Data by ID
 export const updateMahasiswa = createAsyncThunk(
   "mahasiswa/updateMahasiswa",
   async (
@@ -68,7 +74,7 @@ export const updateMahasiswa = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `${API_BASE_URL}/mahasiswas/${id}`,
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`,
         {
           nama,
           jenis_kelamin,
@@ -80,8 +86,8 @@ export const updateMahasiswa = createAsyncThunk(
           universitas,
           jurusan,
           angkatan,
-          jenjang,
           status,
+          jenjang,
           ktp,
           kartu_keluarga,
           surat_ket_aktif_kuliah,
@@ -99,12 +105,14 @@ export const updateMahasiswa = createAsyncThunk(
   }
 );
 
-// delete data by id
+// Delete Data by ID
 export const deleteMahasiswa = createAsyncThunk(
   "mahasiswa/deleteMahasiswa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`${API_BASE_URL}/mahasiswas/${id}`);
+      const res = await axios.delete(
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -112,12 +120,14 @@ export const deleteMahasiswa = createAsyncThunk(
   }
 );
 
-// get mahasiswa by id
+// getMahasiswaById
 export const getMahasiswaById = createAsyncThunk(
   "mahasiswa/getMahasiswaById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/mahasiswas/${id}`);
+      const res = await axios.get(
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
