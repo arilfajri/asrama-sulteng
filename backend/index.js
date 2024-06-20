@@ -34,7 +34,6 @@ app.use(
     store: store,
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : "auto",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Ensure cookies are sent cross-site
     },
   })
 );
@@ -50,7 +49,7 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
