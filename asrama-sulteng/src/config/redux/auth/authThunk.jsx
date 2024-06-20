@@ -33,7 +33,10 @@ export const login = createAsyncThunk(
     try {
       const res = await axios.post(
         "https://asrama-sulteng-p58j.vercel.app/login",
-        userData
+        userData,
+        {
+          withCredentials: true,
+        }
       );
       return res.data;
     } catch (error) {
@@ -66,7 +69,9 @@ export const getMe = createAsyncThunk(
   "auth/getMe",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("https://asrama-sulteng-p58j.vercel.app/me");
+      const res = await axios.get("https://asrama-sulteng-p58j.vercel.app/me", {
+        withCredentials: true,
+      });
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
