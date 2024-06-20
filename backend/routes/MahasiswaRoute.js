@@ -7,7 +7,7 @@ import {
   deleteMahasiswa,
   getAllMahasiswa,
 } from "../controllers/MahasiswaController.js";
-import { verifyUser } from "../middleware/AuthUser.js";
+import { verifyUser } from "../index.js";
 
 const router = express.Router();
 
