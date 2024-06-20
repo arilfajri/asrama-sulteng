@@ -11,6 +11,7 @@ import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
 import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -46,8 +47,9 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
