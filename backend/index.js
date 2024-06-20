@@ -26,6 +26,8 @@ const store = new sessionStore({
   await db.sync();
 })();
 
+app.use(cookieParser());
+
 app.use(
   session({
     secret: process.env.SESS_SECRET,
@@ -34,7 +36,7 @@ app.use(
     store: store,
     cookie: {
       secure: true,
-      sameSite: "none", // Ensure cookies are sent cross-site
+      sameSite: "none",
     },
   })
 );
@@ -46,7 +48,6 @@ app.use(
   })
 );
 
-app.use(cookieParser());
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
