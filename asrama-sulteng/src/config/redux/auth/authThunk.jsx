@@ -68,6 +68,7 @@ export const getMe = createAsyncThunk(
     try {
       const res = await axios.get("https://asrama-sulteng-p58j.vercel.app/me");
       return res.data;
+      withCredentials: true;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
