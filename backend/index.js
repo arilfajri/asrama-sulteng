@@ -11,6 +11,7 @@ import KeuanganRoute from "./routes/KeuanganRoute.js";
 import InformasiRoute from "./routes/InformasiRoute.js";
 import KamarRoute from "./routes/KamarRoute.js";
 import fileUpload from "express-fileupload";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -25,6 +26,8 @@ const store = new sessionStore({
   await db.sync();
 })();
 
+app.use(cookieParser());
+
 app.use(
   session({
     secret: process.env.SESS_SECRET,
@@ -32,7 +35,8 @@ app.use(
     saveUninitialized: true,
     store: store,
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production" ? true : "auto",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Ensure cookies are sent cross-site
     },
   })
 );
@@ -47,7 +51,7 @@ app.use(
 );
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
