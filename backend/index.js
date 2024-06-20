@@ -32,7 +32,7 @@ app.use(
     saveUninitialized: true,
     store: store,
     cookie: {
-      secure: true,
+      secure: "auto",
     },
   })
 );
@@ -47,7 +47,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
