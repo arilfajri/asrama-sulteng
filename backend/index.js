@@ -35,8 +35,8 @@ app.use(
     saveUninitialized: true,
     store: store,
     cookie: {
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production" ? true : "auto",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Ensure cookies are sent cross-site
     },
   })
 );
@@ -44,6 +44,8 @@ app.use(
 app.use(
   cors({
     origin: "https://asrama-sulteng.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
