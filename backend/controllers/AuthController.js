@@ -11,6 +11,7 @@ export const Login = async (req, res) => {
   const match = await argon2.verify(user.password, req.body.password);
   if (!match) return res.status(400).json({ msg: "Wrong Password" });
   req.session.userId = user.id;
+  console.log("User ID set in session:", req.session.userId);
   const id = user.id;
   const name = user.name;
   const email = user.email;
@@ -19,6 +20,7 @@ export const Login = async (req, res) => {
 };
 
 export const Me = async (req, res) => {
+  console.log("Session User ID:", req.session.userId);
   if (!req.session.userId) {
     return res.status(401).json({ msg: "Mohon login ke akun Anda!" });
   }
