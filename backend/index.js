@@ -47,7 +47,7 @@ app.use(
 );
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(express.static("public"));
 app.use(UserRoute);
