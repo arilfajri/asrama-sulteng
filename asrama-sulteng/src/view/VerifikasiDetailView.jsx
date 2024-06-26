@@ -119,35 +119,44 @@ const VerifikasiDetailView = () => {
       cancelButtonColor: "#d33",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Ditolak!",
-          text: "Mahasiswa di tolak",
-          icon: "error",
+        const { value: text } = await Swal.fire({
+          input: "textarea",
+          inputLabel: "Alasan ditolak!",
+          inputPlaceholder: "Masukkan alasan ditolak!",
+          showCancelButton: true,
         });
-        try {
-          dispatch(
-            updateMahasiswa({
-              id: data.id,
-              nama: data.nama,
-              jenis_kelamin: data.jenis_kelamin,
-              tempat_lahir: data.tempat_lahir,
-              tanggal_lahir: data.tanggal_lahir,
-              email: data.email,
-              no_hp: data.no_hp,
-              alamat_asal: data.alamat_asal,
-              universitas: data.universitas,
-              jurusan: data.jurusan,
-              angkatan: data.angkatan,
-              jenjang: data.jenjang,
-              status: "Ditolak",
-              ktp: data.ktp,
-              kartu_keluarga: data.kartu_keluarga,
-              surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
-            })
-          );
-          navigate(-1);
-        } catch (error) {
-          console.error("Failed to create mahasiswa:", error);
+        if (text) {
+          Swal.fire({
+            title: "Ditolak!",
+            text: "Mahasiswa di tolak",
+            icon: "error",
+          });
+          try {
+            dispatch(
+              updateMahasiswa({
+                id: data.id,
+                nama: data.nama,
+                jenis_kelamin: data.jenis_kelamin,
+                tempat_lahir: data.tempat_lahir,
+                tanggal_lahir: data.tanggal_lahir,
+                email: data.email,
+                no_hp: data.no_hp,
+                alamat_asal: data.alamat_asal,
+                universitas: data.universitas,
+                jurusan: data.jurusan,
+                angkatan: data.angkatan,
+                jenjang: data.jenjang,
+                status: "Ditolak",
+                ktp: data.ktp,
+                kartu_keluarga: data.kartu_keluarga,
+                surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
+                alasan: text,
+              })
+            );
+            navigate(-1);
+          } catch (error) {
+            console.error("Failed to create mahasiswa:", error);
+          }
         }
       }
     });

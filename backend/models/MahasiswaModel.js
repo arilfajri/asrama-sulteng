@@ -115,6 +115,13 @@ const Mahasiswas = db.define(
       },
     },
 
+    alasan: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
+
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

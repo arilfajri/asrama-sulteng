@@ -6,7 +6,7 @@ export const createMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
+        "http://localhost:5000/mahasiswas",
         mahasiswaData
       );
       return res.data;
@@ -22,7 +22,7 @@ export const getAllMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
+        "http://localhost:5000/mahasiswas",
         mahasiswaData
       );
       return res.data;
@@ -38,7 +38,7 @@ export const getMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://asrama-sulteng-p58j.vercel.app/mahasiswa",
+        "http://localhost:5000/mahasiswa",
         mahasiswaData
       );
       return res.data;
@@ -69,12 +69,13 @@ export const updateMahasiswa = createAsyncThunk(
       ktp,
       kartu_keluarga,
       surat_ket_aktif_kuliah,
+      alasan,
     },
     { rejectWithValue }
   ) => {
     try {
       const res = await axios.patch(
-        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`,
+        `http://localhost:5000/mahasiswas/${id}`,
         {
           nama,
           jenis_kelamin,
@@ -91,6 +92,7 @@ export const updateMahasiswa = createAsyncThunk(
           ktp,
           kartu_keluarga,
           surat_ket_aktif_kuliah,
+          alasan,
         },
         {
           headers: {
@@ -110,9 +112,7 @@ export const deleteMahasiswa = createAsyncThunk(
   "mahasiswa/deleteMahasiswa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(
-        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
-      );
+      const res = await axios.delete(`http://localhost:5000/mahasiswas/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -125,9 +125,7 @@ export const getMahasiswaById = createAsyncThunk(
   "mahasiswa/getMahasiswaById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
-      );
+      const res = await axios.get(`http://localhost:5000/mahasiswas/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

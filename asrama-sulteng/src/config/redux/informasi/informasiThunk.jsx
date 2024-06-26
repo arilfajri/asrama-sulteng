@@ -7,7 +7,7 @@ export const getInformasi = createAsyncThunk(
   async (informasiData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://asrama-sulteng-p58j.vercel.app/informasi",
+        "http://localhost:5000/informasi",
         informasiData
       );
       return res.data;
@@ -37,7 +37,7 @@ export const updateInformasi = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `https://asrama-sulteng-p58j.vercel.app/informasi/${id}`,
+        `http://localhost:5000/informasi/${id}`,
         {
           deskripsi_singkat,
           visi,

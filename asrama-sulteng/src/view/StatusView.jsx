@@ -7,6 +7,7 @@ import {
   Step,
   Spinner,
   Button,
+  Alert,
 } from "@material-tailwind/react";
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
@@ -144,15 +145,32 @@ const StatusView = () => {
                   )}
                 </Step>
               </Stepper>
-              {mahasiswa?.status === "Ditolak" && (
-                <Button
-                  className="text-white mt-16"
-                  color="red"
-                  onClick={handleBookingKembali}
-                >
-                  Silahkan booking kamar lagi
-                </Button>
-              )}
+              {mahasiswa?.status === "Ditolak" ? (
+                <div className=" flex flex-col h-96 justify-between mt-16">
+                  <Alert className=" bg-red-100 text-red-900">
+                    <Typography className=" font-semibold">
+                      {" "}
+                      Mohon maaf anda ditolak dengan alasan :
+                    </Typography>
+                    <Typography>{mahasiswa?.alasan}</Typography>
+                  </Alert>
+                  <Button
+                    className="text-white w-max"
+                    color="red"
+                    onClick={handleBookingKembali}
+                  >
+                    Silahkan booking kamar lagi
+                  </Button>
+                </div>
+              ) : mahasiswa?.status === "Diterima" ? (
+                <Alert className=" bg-green-100 text-green-900 mt-16">
+                  <Typography className=" font-semibold">
+                    {" "}
+                    Selamat anda telah diterima di Asrama Tora-Tora(Sulawesi
+                    Tengah) Di Bandung
+                  </Typography>
+                </Alert>
+              ) : null}
             </>
           )}
         </div>

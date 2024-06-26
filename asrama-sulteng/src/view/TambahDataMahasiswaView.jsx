@@ -515,7 +515,7 @@ const TambahDataMahasiswaView = () => {
           </div>
           <div className="p-5 flex gap-3">
             <Button className="bg-blue-900" type="submit">
-              Booking
+              Tambah Data
             </Button>
           </div>
         </form>

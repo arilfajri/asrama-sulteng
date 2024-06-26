@@ -211,6 +211,7 @@ export const createMahasiswa = async (req, res) => {
       userId: req.userId,
       id: user_id,
       status: user_status,
+      alasan: null,
     });
 
     const savedMahasiswa = await mahasiswa.save();
@@ -251,6 +252,7 @@ export const updateMahasiswa = async (req, res) => {
       jenjang,
       angkatan,
       status,
+      alasan,
     } = req.body;
 
     if (
@@ -300,6 +302,7 @@ export const updateMahasiswa = async (req, res) => {
       jenjang,
       angkatan,
       status,
+      alasan,
     };
 
     // Update file ktp jika diunggah

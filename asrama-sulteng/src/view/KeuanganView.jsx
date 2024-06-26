@@ -443,11 +443,12 @@ const KeuanganView = () => {
                           <Chip
                             size="sm"
                             variant="ghost"
-                            className=" w-max"
+                            className=" w-max normal-case"
                             color="green"
                             value={
                               keuangan.jenis === "Pemasukkan"
-                                ? keuangan.nominal.toLocaleString("id-ID")
+                                ? "Rp. " +
+                                  keuangan.nominal.toLocaleString("id-ID")
                                 : "-"
                             }
                           />
@@ -463,11 +464,12 @@ const KeuanganView = () => {
                           <Chip
                             size="sm"
                             variant="ghost"
-                            className=" w-max"
+                            className=" w-max normal-case"
                             color="red"
                             value={
                               keuangan.jenis === "Pengeluaran"
-                                ? keuangan.nominal.toLocaleString("id-ID")
+                                ? "Rp. " +
+                                  keuangan.nominal.toLocaleString("id-ID")
                                 : "-"
                             }
                           />

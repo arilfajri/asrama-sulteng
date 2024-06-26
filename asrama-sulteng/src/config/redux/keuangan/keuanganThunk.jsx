@@ -7,7 +7,7 @@ export const getAllKeuangan = createAsyncThunk(
   async (dataKeuangan, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://asrama-sulteng-p58j.vercel.app/keuangan",
+        "http://localhost:5000/keuangan",
         dataKeuangan
       );
       return res.data;
@@ -22,15 +22,11 @@ export const createKeuangan = createAsyncThunk(
   "keuangan/createKeuangan",
   async (keuangan, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        "https://asrama-sulteng-p58j.vercel.app/keuangan",
-        keuangan,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // Set header untuk FormData
-          },
-        }
-      );
+      const res = await axios.post("http://localhost:5000/keuangan", keuangan, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Set header untuk FormData
+        },
+      });
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -47,7 +43,7 @@ export const updateKeuangan = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `https://asrama-sulteng-p58j.vercel.app/keuangan/${id}`,
+        `http://localhost:5000/keuangan/${id}`,
         {
           tanggal,
           keterangan,
@@ -73,9 +69,7 @@ export const deleteKeuangan = createAsyncThunk(
   "keuangan/deleteKeuangan",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(
-        `https://asrama-sulteng-p58j.vercel.app/keuangan/${id}`
-      );
+      const res = await axios.delete(`http://localhost:5000/keuangan/${id}`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

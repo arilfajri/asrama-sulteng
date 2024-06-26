@@ -19,12 +19,12 @@ const InformasiView = () => {
   }, [dispatch]);
   const informasi = informasiDataSelector();
 
-  const [prevImgBanner, setPrevImgBanner] = useState(informasi[0].banner);
+  const [prevImgBanner, setPrevImgBanner] = useState(informasi[0]?.banner);
   const [prevImgFotoDeskripsi, setPrevImgFotoDeskripsi] = useState(
-    informasi[0].foto_deskripsi
+    informasi[0]?.foto_deskripsi
   );
   const [prevImgStukturOrganisasi, setPrevImgStukturOrganisasi] = useState(
-    informasi[0].struktur_organisasi
+    informasi[0]?.struktur_organisasi
   );
 
   const handleFotoDeskripsiChange = (e) => {
@@ -163,7 +163,7 @@ const InformasiView = () => {
                   <Textarea
                     id="deskripsi_singkat"
                     label="Deskripsi Singkat"
-                    value={formik.values.deskripsi_singkat}
+                    value={formik.values?.deskripsi_singkat}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -214,7 +214,7 @@ const InformasiView = () => {
                   <Textarea
                     id="visi"
                     label="Visi"
-                    value={formik.values.visi}
+                    value={formik.values?.visi}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -229,7 +229,7 @@ const InformasiView = () => {
                   <Textarea
                     id="misi"
                     label="Misi"
-                    value={formik.values.misi}
+                    value={formik.values?.misi}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -245,7 +245,7 @@ const InformasiView = () => {
                     id="alamat"
                     className="w-full"
                     label="Alamat"
-                    value={formik.values.alamat}
+                    value={formik.values?.alamat}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -264,7 +264,7 @@ const InformasiView = () => {
                       id="email"
                       className="w-full"
                       label="Email"
-                      value={formik.values.email}
+                      value={formik.values?.email}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
@@ -279,7 +279,7 @@ const InformasiView = () => {
                       id="no_hp"
                       className="w-full"
                       label="No.Hp"
-                      value={formik.values.no_hp}
+                      value={formik.values?.no_hp}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                     />
@@ -331,7 +331,7 @@ const InformasiView = () => {
                     id="biaya"
                     className="w-full"
                     label="Biaya"
-                    value={formik.values.biaya}
+                    value={formik.values?.biaya}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
