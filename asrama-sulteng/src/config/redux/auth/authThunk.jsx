@@ -7,7 +7,10 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/users", userData);
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/users",
+        userData
+      );
       Swal.fire({
         icon: "success",
         title: "Register berhasil, silahkan login!",
@@ -28,7 +31,10 @@ export const login = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/login", userData);
+      const res = await axios.post(
+        "https://asrama-sulteng-p58j.vercel.app/login",
+        userData
+      );
       return res.data;
     } catch (error) {
       Swal.fire({
@@ -45,7 +51,9 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.delete("http://localhost:5000/logout");
+      const res = await axios.delete(
+        "https://asrama-sulteng-p58j.vercel.app/logout"
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -58,7 +66,7 @@ export const getMe = createAsyncThunk(
   "auth/getMe",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5000/me");
+      const res = await axios.get("https://asrama-sulteng-p58j.vercel.app/me");
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

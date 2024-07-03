@@ -6,7 +6,7 @@ export const createMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/mahasiswas",
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
         mahasiswaData
       );
       return res.data;
@@ -22,7 +22,7 @@ export const getAllMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/mahasiswas",
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswas",
         mahasiswaData
       );
       return res.data;
@@ -38,7 +38,7 @@ export const getMahasiswa = createAsyncThunk(
   async (mahasiswaData, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/mahasiswa",
+        "https://asrama-sulteng-p58j.vercel.app/mahasiswa",
         mahasiswaData
       );
       return res.data;
@@ -75,7 +75,7 @@ export const updateMahasiswa = createAsyncThunk(
   ) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/mahasiswas/${id}`,
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`,
         {
           nama,
           jenis_kelamin,
@@ -112,7 +112,9 @@ export const deleteMahasiswa = createAsyncThunk(
   "mahasiswa/deleteMahasiswa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/mahasiswas/${id}`);
+      const res = await axios.delete(
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -125,7 +127,9 @@ export const getMahasiswaById = createAsyncThunk(
   "mahasiswa/getMahasiswaById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:5000/mahasiswas/${id}`);
+      const res = await axios.get(
+        `https://asrama-sulteng-p58j.vercel.app/mahasiswas/${id}`
+      );
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
