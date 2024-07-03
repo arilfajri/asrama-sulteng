@@ -35,8 +35,7 @@ app.use(
     saveUninitialized: true,
     store: store,
     cookie: {
-      secure: process.env.NODE_ENV === "production" ? true : "auto",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: "auto",
     },
   })
 );
