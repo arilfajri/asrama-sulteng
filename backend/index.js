@@ -26,7 +26,7 @@ const store = new sessionStore({
   await db.sync();
 })();
 
-app.use(cookieParser());
+// app.use(cookieParser());
 //
 app.use(
   session({
