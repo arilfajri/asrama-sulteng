@@ -420,6 +420,9 @@ const TambahDataMahasiswaView = () => {
                     multiple={false}
                     accept="application/pdf"
                   />
+                  <div className="text-blue-900 m-0 text-sm">
+                    *.pdf(maxSize: 5MB)
+                  </div>
                   {formik.touched.ktp && formik.errors.ktp && (
                     <div className="text-red-700 m-0">{formik.errors.ktp}</div>
                   )}
@@ -459,6 +462,9 @@ const TambahDataMahasiswaView = () => {
                     multiple={false}
                     accept="application/pdf"
                   />
+                  <div className="text-blue-900 m-0 text-sm">
+                    *.pdf(maxSize: 5MB)
+                  </div>
                   {formik.touched.kartu_keluarga &&
                     formik.errors.kartu_keluarga && (
                       <div className="text-red-700 m-0">
@@ -503,6 +509,9 @@ const TambahDataMahasiswaView = () => {
                     multiple={false}
                     accept="application/pdf"
                   />
+                  <div className="text-blue-900 m-0 text-sm">
+                    *.pdf(maxSize: 5MB)
+                  </div>
                   {formik.touched.surat_ket_aktif_kuliah &&
                     formik.errors.surat_ket_aktif_kuliah && (
                       <div className="text-red-700 m-0">

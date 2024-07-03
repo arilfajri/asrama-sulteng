@@ -201,6 +201,9 @@ const TambahKeuanganView = () => {
                     onBlur={formik.handleBlur}
                     multiple={false}
                   />
+                  <div className="text-blue-900 m-0 text-sm">
+                    *.jpg, *.JPG, *.png, *.PNG, *.jpeg, *.JPEG(maxSize: 5MB)
+                  </div>
                   {formik.touched.bukti_transaksi &&
                     formik.errors.bukti_transaksi && (
                       <div className="text-red-700 m-0">

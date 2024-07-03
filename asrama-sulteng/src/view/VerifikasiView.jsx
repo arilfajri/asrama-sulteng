@@ -227,7 +227,8 @@ const VerifikasiView = () => {
                             : "p-4 border-b border-blue-gray-50"
                         }
                       >
-                        {mahasiswa.status === "Diterima" ? (
+                        {mahasiswa.status === "Diterima" ||
+                        mahasiswa.status === "Ditolak" ? (
                           <EyeIcon
                             color="blue"
                             className="h-5 w-5 opacity-50"

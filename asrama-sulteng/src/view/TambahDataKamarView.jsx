@@ -133,6 +133,9 @@ const TambahDataKamarView = () => {
                     onBlur={formik.handleBlur}
                     multiple={false}
                   />
+                  <div className="text-blue-900 m-0 text-sm">
+                    *.jpg, *.JPG, *.png, *.PNG, *.jpeg, *.JPEG(maxSize: 5MB)
+                  </div>
                   {formik.touched.gambar && formik.errors.gambar && (
                     <div className="text-red-700 m-0">
                       {formik.errors.gambar}

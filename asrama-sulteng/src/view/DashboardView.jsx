@@ -111,7 +111,7 @@ const DashboardView = () => {
         <div className="p-5 md:flex gap-5">
           <Card className="h-full md:w-2/3 shadow-none w-full">
             <Typography className=" py-2">
-              Daftar Calon Penghuni Yang Belum Di Verifikasi
+              Daftar Calon Penghuni Yang Belum DiVerifikasi
             </Typography>
             <table className="table-auto text-left w-full">
               <thead>

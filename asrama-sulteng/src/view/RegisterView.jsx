@@ -1,13 +1,16 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import Footer from "../component/Footer";
-import React from "react";
+import React, { useState } from "react";
 import NavigationBar from "../component/NavigationBar";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { register } from "../config/redux/auth/authThunk";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const RegisterView = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfPassword, setShowConfPassword] = useState(false);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -107,19 +110,31 @@ const RegisterView = () => {
                 Password
               </Typography>
               <div>
-                <Input
-                  id="password"
-                  type="password"
-                  size="lg"
-                  placeholder="Masukkan password!"
-                  className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    size="lg"
+                    placeholder="Masukkan password!"
+                    className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    )}
+                  </div>
+                </div>
                 {formik.touched.password && formik.errors.password && (
                   <div className="text-red-700 m-0">
                     {formik.errors.password}
@@ -130,19 +145,31 @@ const RegisterView = () => {
                 Confirm Password
               </Typography>
               <div>
-                <Input
-                  id="confPassword"
-                  type="password"
-                  size="lg"
-                  placeholder="Masukkan konfirmasi password!"
-                  className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  value={formik.values.confPassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="relative">
+                  <Input
+                    id="confPassword"
+                    type={showConfPassword ? "text" : "password"}
+                    size="lg"
+                    placeholder="Masukkan konfirmasi password!"
+                    className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    value={formik.values.confPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                    onClick={() => setShowConfPassword(!showConfPassword)}
+                  >
+                    {showConfPassword ? (
+                      <EyeIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    )}
+                  </div>
+                </div>
                 {formik.touched.confPassword && formik.errors.confPassword && (
                   <div className="text-red-700 m-0">
                     {formik.errors.confPassword}

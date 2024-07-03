@@ -23,6 +23,7 @@ import {
   getAllMahasiswa,
   updateMahasiswa,
 } from "../config/redux/mahasiswa/mahasiswaThunk";
+import { updateKamarByAdmin } from "../config/redux/kamar/kamarThunk";
 
 const VerifikasiDetailView = () => {
   const location = useLocation();
@@ -133,7 +134,7 @@ const VerifikasiDetailView = () => {
           });
           try {
             dispatch(
-              updateMahasiswa({
+              await updateMahasiswa({
                 id: data.id,
                 nama: data.nama,
                 jenis_kelamin: data.jenis_kelamin,
@@ -151,6 +152,15 @@ const VerifikasiDetailView = () => {
                 kartu_keluarga: data.kartu_keluarga,
                 surat_ket_aktif_kuliah: data.surat_ket_aktif_kuliah,
                 alasan: text,
+              })
+            );
+            await dispatch(
+              updateKamarByAdmin({
+                id: data.kamar.id,
+                nomor_kamar: data.kamar.nomor_kamar,
+                fasilitas: data.kamar.fasilitas,
+                gambar: data.kamar.gambar,
+                mahasiswaId: null,
               })
             );
             navigate(-1);

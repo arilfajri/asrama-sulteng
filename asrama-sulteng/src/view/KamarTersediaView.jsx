@@ -87,7 +87,7 @@ const KamarTersediaView = () => {
                   </Typography>
                 </CardBody>
                 <CardFooter className="pt-0">
-                  {kamarMahasiswa ? (
+                  {kamarMahasiswa || mahasiswa?.status === "Ditolak" ? (
                     kamarItem.id === kamarMahasiswa ? (
                       <Button className="bg-blue-900" disabled>
                         Anda Telah Membooking Kamar Ini

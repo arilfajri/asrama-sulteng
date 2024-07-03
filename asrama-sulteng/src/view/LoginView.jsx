@@ -9,11 +9,12 @@ import { login } from "../config/redux/auth/authThunk";
 import { authRole } from "../config/redux/auth/authSelector";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const LoginView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const userRole = authRole();
 
@@ -34,7 +35,6 @@ const LoginView = () => {
       try {
         await dispatch(login(values));
         formik.resetForm();
-        setLoginSuccess(true);
       } catch (error) {
         console.error("Gagal melakukan dispatch:", error);
       }
@@ -42,44 +42,42 @@ const LoginView = () => {
   });
 
   useEffect(() => {
-    if (loginSuccess) {
-      if (userRole === "admin") {
-        navigate("/dashboard");
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Login berhasil",
-        });
-      } else if (userRole === "user") {
-        navigate("/kamar");
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Login berhasil",
-        });
-      }
+    if (userRole === "admin") {
+      navigate("/dashboard");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Login berhasil",
+      });
+    } else if (userRole === "user") {
+      navigate("/kamar");
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Login berhasil",
+      });
     }
-  }, [loginSuccess, userRole, navigate]);
+  }, [userRole, navigate]);
 
   return (
     <div>
@@ -123,19 +121,31 @@ const LoginView = () => {
                 Password
               </Typography>
               <div>
-                <Input
-                  id="password"
-                  type="password"
-                  size="lg"
-                  placeholder="Masukkan password!"
-                  className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    size="lg"
+                    placeholder="Masukkan password!"
+                    className=" !border-t-blue-gray-200 focus:!border-orangeAsrama2"
+                    labelProps={{
+                      className: "before:content-none after:content-none",
+                    }}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    )}
+                  </div>
+                </div>
                 {formik.touched.password && formik.errors.password && (
                   <div className="text-red-700 m-0">
                     {formik.errors.password}

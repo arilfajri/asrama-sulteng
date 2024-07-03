@@ -18,7 +18,7 @@ const Footer = () => {
           <div className="md:w-1/2">
             <div className="flex gap-2 mt-3">
               <MapPinIcon className="h-5 w-5" />
-              <p className="text-sm">J{informasi[0]?.alamat}</p>
+              <p className="text-sm">{informasi[0]?.alamat}</p>
             </div>
             <div className="flex gap-2 mt-3">
               <PhoneIcon className="h-5 w-5" />

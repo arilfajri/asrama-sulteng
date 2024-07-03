@@ -17,7 +17,6 @@ export const getMahasiswa = async (req, res) => {
           },
           {
             model: Kamar,
-            attributes: ["nomor_kamar"],
           },
         ],
       });
