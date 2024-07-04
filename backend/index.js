@@ -52,7 +52,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.options("*", cors());
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
