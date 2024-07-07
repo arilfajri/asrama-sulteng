@@ -220,6 +220,7 @@ export const createMahasiswa = async (req, res) => {
     console.error(error);
     res.status(500).json({
       msg: "Terjadi kesalahan dalam menyimpan data mahasiswa dan dokumen",
+      error: error.message,
     });
   }
 };
