@@ -4,11 +4,6 @@ import Users from "../models/UserModel.js";
 import fs from "fs";
 import { Op } from "sequelize";
 import Kamar from "../models/KamarModel.js";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const getMahasiswa = async (req, res) => {
   try {
@@ -169,7 +164,7 @@ export const createMahasiswa = async (req, res) => {
     const saveFileAndGetURL = async (file, type) => {
       const ext = path.extname(file.name);
       const fileName = `${type}_${nama}_${Date.now()}${ext}`;
-      const folderPath = path.join(__dirname, "public", "uploads", type);
+      const folderPath = path.join(__dirname, "..", "public", "uploads", type);
       const filePath = path.join(folderPath, fileName);
 
       if (!fs.existsSync(folderPath)) {
