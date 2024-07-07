@@ -164,7 +164,7 @@ export const createMahasiswa = async (req, res) => {
     const saveFileAndGetURL = async (file, type) => {
       const ext = path.extname(file.name);
       const fileName = `${type}_${nama}_${Date.now()}${ext}`;
-      const folderPath = path.resolve(__dirname, `../public/uploads/${type}`);
+      const folderPath = `../public/uploads/${type}`;
       const filePath = path.join(folderPath, fileName);
 
       if (!fs.existsSync(folderPath)) {
@@ -172,7 +172,9 @@ export const createMahasiswa = async (req, res) => {
       }
 
       await file.mv(filePath);
-      const url = `https://asrama-sulteng-p58j.vercel.app/uploads/${type}/${fileName}`;
+      const url = `${req.protocol}://${req.get(
+        "host"
+      )}/uploads/${type}/${fileName}`;
       return { fileName, url };
     };
 
