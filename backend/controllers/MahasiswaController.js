@@ -164,7 +164,7 @@ export const createMahasiswa = async (req, res) => {
     const saveFileAndGetURL = async (file, type) => {
       const ext = path.extname(file.name);
       const fileName = `${type}_${nama}_${Date.now()}${ext}`;
-      const folderPath = `../public/uploads/${type}`;
+      const folderPath = path.join(__dirname, "./public/uploads", type);
       const filePath = path.join(folderPath, fileName);
 
       if (!fs.existsSync(folderPath)) {
